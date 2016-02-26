@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Service.Mockup;
 
 namespace JAGLibrary.Controllers
 {
@@ -11,6 +12,8 @@ namespace JAGLibrary.Controllers
     {
         //
         // GET: /Admin/
+        Mockup mup = new Mockup();
+
         public ActionResult Admin()
         {
             return View();
@@ -80,6 +83,24 @@ namespace JAGLibrary.Controllers
         public ActionResult ListBooks()
         {
             return View("ListBooks", "_StandardLayout");
+        }
+
+        //[HttpGet]
+        public ActionResult AddAuthorForm(Common.Models.Author m)
+        {
+            //Skicka in authormodellen till databasen
+            mup.authorList.Add(m);
+
+            return View("AddAuthor", "_StandardLayout", m);
+        }
+
+        //[HttpGet]
+        public ActionResult EditAuthorForm(Common.Models.Author m)
+        {
+            //Skicka in ny authormodellen till databasen
+            mup.authorList.Add(m);
+
+            return View("AddAuthor", "_StandardLayout", m);
         }
     }
 }

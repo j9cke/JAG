@@ -7,7 +7,7 @@
     <a href="Admin">Back</a>
     <h4>Admin Section</h4>
     <h5><b>Edit Author</b></h5>
-    @using (Html.BeginForm("", "Admin"))
+    @using (Html.BeginForm("EditAuthorForm", "Admin"))
     {
         <div style="float: left; margin-top: 10px; width: 100%;">
             <p>First Name:</p> @Html.TextBoxFor(m => m._firstname, new { @class = "inpadmin" })
