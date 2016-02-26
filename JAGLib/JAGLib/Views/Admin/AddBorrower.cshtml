@@ -1,0 +1,36 @@
+﻿@model Common.Models.Borrower
+@{
+    ViewBag.Title = "Add Borrower";
+}
+
+<div id="admin">
+    <a href="Admin">Back</a>
+    <h4>Admin Section</h4>
+    <h5><b>Add Borrower</b></h5>
+
+    @using (Html.BeginForm("", "Admin"))
+    {
+        <div style="float: left; margin-top: 10px; width: 100%;">
+            <p>Personal ID:</p> @Html.TextBoxFor(m => m._pid, new { @class = "inpadmin" })
+        </div>
+        <div style="float: left; margin-top: 10px; width: 100%;">
+            <p>Password:</p> @Html.PasswordFor(m => m._password, new { @class = "inpadmin" })
+        </div>
+        <div style="float: left; width: 100%;">
+            <p>First Name:</p> @Html.TextBoxFor(m => m._firstname, new { @class = "inpadmin" })
+        </div>
+        <div style="float: left; width: 100%;">
+            <p>Last Name:</p> @Html.TextBoxFor(m => m._lastname, new { @class = "inpadmin" })
+        </div>
+        <div style="float: left; width: 100%;">
+            <p>Address:</p> @Html.TextBoxFor(m => m._address, new { @class = "inpadmin" })
+        </div>
+        <div style="float: left; width: 100%;">
+            <p>Phone number:</p> @Html.TextBoxFor(m => m._phoneno, new { @class = "inpadmin" })
+        </div>
+        <div style="float: left; width: 100%;">
+            <p>Category:</p> @Html.TextBoxFor(m => m._catId, new { @class = "inpadmin" })
+        </div>
+        <input class="submlogin" type="submit" value="Add" />
+    }
+</div>

@@ -1,0 +1,96 @@
+﻿@model Common.Models.Browse
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Probably The Best Library In The World</title>
+    <link href="~/Content/stylesheet.css" rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/theme-min.css" rel="stylesheet" />
+    <link href="~/Content/simple-sidebar.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Home/Index">.Lib</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/Home/Index">Search</a></li>
+                    <li><a href="/Home/Browse">Browse<span class="sr-only">(current)</span></a></li>
+                </ul>
+                @using (Html.BeginForm("SearchFunc", "Home", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
+                {
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m._search._searchData._searchString, new { @class = "form-control" })
+                    </div>
+                    <input class="btn btn-default" type="submit" value="Search" />
+                }
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/Home/Login">Sign In</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <span style="color: #fff;">Browse by</span>
+                </li>
+                <li>
+                    <a href="/Home/BrowseBy?b=Author">Author</a>
+                </li>
+                <li>
+                    <a href="/Home/BrowseBy?b=Title">Title</a>
+                </li>
+                <li>
+                    <a href="/Home/BrowseBy?b=Genre">Genre</a>
+                </li>
+                <li>
+                    <a href="/Home/BrowseBy?b=Year">Year</a>
+                </li>
+
+                @{
+                    if (true)
+                    {
+                        <li class="sidebar-brand">
+                            <span style="color: #fff;">Tom Hancock</span>
+                        </li>
+                        <li>
+                            <a href="#">Borrowed books</a>
+                        </li>
+                        <li>
+                            <a href="#">User information</a>
+                        </li>
+                        <li>
+                            <a href="#">Sign out</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

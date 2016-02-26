@@ -1,0 +1,23 @@
+﻿@model Common.Models.Author
+@{
+    ViewBag.Title = "Edit Author";
+}
+
+<div id="admin">
+    <a href="Admin">Back</a>
+    <h4>Admin Section</h4>
+    <h5><b>Edit Author</b></h5>
+    @using (Html.BeginForm("", "Admin"))
+    {
+        <div style="float: left; margin-top: 10px; width: 100%;">
+            <p>First Name:</p> @Html.TextBoxFor(m => m._firstname, new { @class = "inpadmin" })
+        </div>
+        <div style="float: left; width: 100%;">
+            <p>Last Name:</p> @Html.TextBoxFor(m => m._lastname, new { @class = "inpadmin" })
+        </div>
+        <div style="float: left; width: 100%;">
+            <p>Birth Year:</p> @Html.TextBoxFor(m => m._birthyear, new { @class = "inpadmin" })
+        </div>
+        <input class="submlogin" type="submit" value="Save" />
+    }
+</div>

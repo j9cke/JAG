@@ -1,0 +1,12 @@
+﻿@model Common.Models.Search
+@{
+    ViewBag.Title = "Search";
+}
+
+<div id="form">
+    @using (Html.BeginForm("SearchFunc", "Home"))
+    {
+        @Html.TextBoxFor(m => m._searchData._searchString, new { @class = "inp" })
+        <input class="subm" type="submit" value="Search" />
+    }
+</div>

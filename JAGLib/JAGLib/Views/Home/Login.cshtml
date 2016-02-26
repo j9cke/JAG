@@ -1,0 +1,16 @@
+﻿@model Common.Models.LoginData
+@{
+    ViewBag.Title = "Login";
+}
+
+<div id="form">
+    @using (Html.BeginForm("LoginFunc", "Home"))
+    {
+        <label class="signinlbl">Username:</label>
+        @Html.TextBoxFor(m => m._username, new { @class = "inplogin" })
+        <label class="signinlbl">Password:</label>
+        @Html.PasswordFor(m => m._password, new { @class = "inplogin" })
+        <input class="submlogin" type="submit" value="Login" />
+    }
+    <a href="#">Register</a>
+</div>

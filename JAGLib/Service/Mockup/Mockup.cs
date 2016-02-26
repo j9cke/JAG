@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Common.Models;
+
+namespace Service.Mockup
+{
+    public class Mockup
+    {
+        public List<Book> bookList = new List<Book>
+        {
+            new Book { _isbn = 9789137144238, _title = "Bli vän med din pms", _signId = 1, _publicationYear = 2015, _publicationInfo = "Varför är det så svårt att prata om pms? Medan man med lätthet talar om laktosintolerans, migrän och nageltrång kan det kännas pinsamt att berätta om sina premenstruella besvär och även att söka hjälp. Det vill Lisa Eriksson råda bot på.", _pages = 232 },
+            new Book { _isbn = 9780091949013, _title = "How to Build a Girl", _signId = 2, _publicationYear = 2015, _publicationInfo = "My name's Johanna Morrigan. I'm fourteen, and I've just decided to kill myself. I don't really want to die, of course! I just need to kill Johanna, and build a new girl. Dolly Wilde will be everything I want to be, and more! But as with all the best coming-of-age stories, it doesn't exactly go to plan... This is the brilliant Number One bestselling novel from Caitlin Moran, the award-winning and Sunday Times bestselling author of How to Be a Woman.", _pages = 343 },
+            new Book { _isbn = 9780691158051, _title = "The Church of Scientology", _signId = 3, _publicationYear = 2013, _publicationInfo = "Scientology is one of the wealthiest and most powerful new religions to emerge in the past century. To its detractors, L. Ron Hubbard's space-age mysticism is a moneymaking scam and sinister brainwashing cult. But to its adherents, it is humanity's brightest hope. Few religious movements have been subject to public scrutiny like Scientology, yet much of what is written about the church is sensationalist and inaccurate. Here for the first time is the story of Scientology's protracted and turbulent journey to recognition as a religion in the postwar American landscape", _pages = 280 },
+            new Book { _isbn = 9781461332701, _title = "Sex Education in the Eighties", _signId = 4, _publicationYear = 2015, _publicationInfo = "The odd reader may be interested in how a book comes about. Members of the SIECUS Board of Directors were planning a Festschrift and dinner for Mary Calderone on the occasion of her 75th birthday. One planning idea was to have a booklet, filled with brief essays from prominent sex educators, distributed between the roast beef and the ice cream. My reaction was that such find their burial place in the same dusty drawer as the program from the high school prom and ticket stubs from South Pacific.", _pages = 69 },
+            new Book { _isbn = 9789113043210, _title = "Tobleroneaffären : Varför Sverige inte fick sin första kvinnliga statsminister.", _signId = 5, _publicationYear = 2012, _publicationInfo = "Mona fimpar cigarretten. På med läppstift. Samma ritual som vanligt. Reser sig ur favoritfåtöljen. Samlar ihop sina handskrivna nedklottrade papper. Det är bara minuter kvar till presskonferensen. Till timeout. Sju våningar ner i Rosenbads pressrum väntar Sveriges hela journalistkår.", _pages = 268 },
+            new Book { _isbn = 9781494876791, _title = "The Art of Being a Motherfucker", _signId = 6, _publicationYear = 2014, _publicationInfo = "The story of an amoral asshole who slept with all of your women, illegally advertised himself all over the city of Cincinnati, danced with 30,000 crazy motherfuckers, questioned the roles of race, sex, disability & freedom of speech in society and made some folks smile along the way... ALL WHILE TRYING TO CURE CANCER. FUCK. YOU", _pages = 176 },
+            new Book { _isbn = 9789152633359, _title = "Bibel för barn", _signId = 7, _publicationYear = 2016, _publicationInfo = "Bibel för barn är den första helsvenska barnbibeln och den har sålt i flera hundra tusen exemplar seda den första kom ut 1995. Den är trogen den ursprungliga bibeltexten och författarna har lång erfarenhet av arbete med barn och bibeln", _pages = 271 }
+            
+        };
+
+        public List<LoginData> userList = new List<LoginData>
+        {
+            new LoginData{_username = "mrGrey", _password = "123", _level="2", _hash="1436862325", _salt="apansson", _personId="1"},
+            new LoginData{_username = "JockeBoi", _password = "123", _level="1", _hash="-1623739142", _salt="svanslos", _personId="2"},
+            new LoginData{_username = "Gurrkaan", _password = "123", _level="1", _hash="-1623739142", _salt="honolulu", _personId="3"},
+            new LoginData{_username = "Simple", _password = "123", _level="2", _hash="-1623739142", _salt="trivialt", _personId="4"},
+        };
+
+        public List<Borrower> borrowerList = new List<Borrower>
+        {
+            new Borrower { _pid = 7504166548, _catId = 1, _firstname = "Evert", _lastname = "Taube", _address = "Sockeln 12", _phoneno = "0728295003" },
+            new Borrower { _pid = 9001016969, _catId = 2, _firstname = "Adam", _lastname = "Tollin", _address = "Studentbyggnad bredvid Joc 21", _phoneno = "0762154825" },
+            new Borrower { _pid = 9912310125, _catId = 3, _firstname = "Evelina", _lastname = "Von Rósen", _address = "Östermalmsgatan 3", _phoneno = "0739415230" },
+            new Borrower { _pid = 6910252222, _catId = 2, _firstname = "Ahmed", _lastname = "Muhammed", _address = "Kenya 2B", _phoneno = "0706415978" }
+        };
+    }
+}
