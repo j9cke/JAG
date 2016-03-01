@@ -12,7 +12,10 @@ namespace JAGLib.Controllers
         // GET: /Borrower/
         public ActionResult Borrower()
         {
-            return View();
+            if (Session["pid"] == null)
+                return Redirect("/Home/Login/");
+            else
+                return View();
         }
 	}
 }

@@ -29,21 +29,31 @@
                     <li><a href="/Home/Browse">Browse</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/Home/Login">Sign In</a></li>
+                    @{
+                        if (@Session["pId"] == null)
+                        {
+                            <li><a href="/Home/Login">Sign In</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="/Home/Login">Sign Off</a></li>
+                        }
+                    }
+
                 </ul>
             </div>
         </div>
     </nav>
 
     @{
-        if (true) // if (inloggad) funktionen finns inte ännu
+        if (@Session["pId"] != null) // if (inloggad) funktionen finns inte ännu
         {
             <div id="wrapper">
                 <!-- Sidebar -->
                 <div id="sidebar-wrapper">
                     <ul class="sidebar-nav">
                         <li class="sidebar-brand">
-                            <span style="color: #fff;">Tom Hancock</span>
+                            <span style="color: #fff;">@Session["pId"]</span>
                         </li>
                         <li>
                             <a href="#">Borrowed books</a>

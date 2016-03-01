@@ -35,7 +35,7 @@ namespace Service.Mockup
         public List<LoginData> userList = new List<LoginData>
         {
             new LoginData{_username = "mrGrey", _password = "123", _level="2", _hash="1436862325", _salt="apansson", _personId="1"},
-            new LoginData{_username = "JockeBoi", _password = "123", _level="1", _hash="-1623739142", _salt="svanslos", _personId="2"},
+            new LoginData{_username = "JockeBoi", _password = "123", _level="1", _hash="454455760", _salt="svanslos", _personId="2"},
             new LoginData{_username = "Gurrkaan", _password = "123", _level="1", _hash="-1623739142", _salt="honolulu", _personId="3"},
             new LoginData{_username = "Simple", _password = "123", _level="2", _hash="-1623739142", _salt="trivialt", _personId="4"},
         };

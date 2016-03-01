@@ -17,7 +17,16 @@ namespace JAGLibrary.Controllers
 
         public ActionResult Admin()
         {
-            return View();
+            if (Session["pId"] == null)
+                    return Redirect("/Home/Login/");
+            else 
+            {
+                if (Session["level"] == null)
+                    return Redirect("/Borrower/Borrower/");
+                else
+                    return View();
+            }
+            
         }
 
         public ActionResult AddAuthor()
