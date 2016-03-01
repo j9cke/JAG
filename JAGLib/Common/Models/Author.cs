@@ -11,5 +11,9 @@ namespace Common.Models
         public string _firstname { get; set; }
         public string _lastname { get; set; }
         public int _birthyear { get; set; }
+
+        public Author()
+        {
+        }
     }
 }

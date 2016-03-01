@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Models\BookDetails.cs" />
     <Compile Include="Models\Borrow.cs" />
+    <Compile Include="Models\BrowseResult.cs" />
     <Compile Include="Models\Classification.cs" />
     <Compile Include="Models\Copy.cs" />
     <Compile Include="Models\SearchResult.cs" />
