@@ -7,9 +7,9 @@ namespace Common.Models
 {
     public class Author
     {
-        public int _id;
-        public string _firstname;
-        public string _lastname;
-        public int _birthyear;
+        public int _id { get; set; }
+        public string _firstname { get; set; }
+        public string _lastname { get; set; }
+        public int _birthyear { get; set; }
     }
 }

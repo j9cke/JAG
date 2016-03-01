@@ -8,6 +8,8 @@ namespace Service.Mockup
 {
     public class Mockup
     {
+        public List<Author> authorList = new List<Author>();
+
         public List<Book> bookList = new List<Book>
         {
             new Book { _isbn = 9789137144238, _title = "Bli vän med din pms", _signId = 1, _publicationYear = 2015, _publicationInfo = "Varför är det så svårt att prata om pms? Medan man med lätthet talar om laktosintolerans, migrän och nageltrång kan det kännas pinsamt att berätta om sina premenstruella besvär och även att söka hjälp. Det vill Lisa Eriksson råda bot på.", _pages = 232 },
