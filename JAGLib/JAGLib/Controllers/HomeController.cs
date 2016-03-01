@@ -129,6 +129,19 @@ namespace JAGLibrary.Controllers
             return View("Login", "_StandardLayout", model);
         }
 
+        public ActionResult Logout() 
+        {
+            Session.Clear();
+            var model = new LoginData();
+            return View("Login", "_StandardLayout", model);
+        
+        }
+
+
+
+
+
+
         //[HttpGet]
         public ActionResult SearchFunc(Common.Models.Search m)
         {
