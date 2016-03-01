@@ -4,15 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace JAGLibrary.Controllers
+namespace JAGLib.Controllers
 {
     public class BorrowerController : Controller
     {
         //
         // GET: /Borrower/
-        public ActionResult Index()
+        public ActionResult Borrower()
         {
             return View();
         }
-    }
+	}
 }
