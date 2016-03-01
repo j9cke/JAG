@@ -96,13 +96,16 @@ namespace JAGLibrary.Controllers
                     switch (mockup.userList.Find(x => x._username == m._username)._level)
                     {
                         case "1":
-                            Session["level"]="Borrower";
+                            //Session["level"]="Borrower";
                             Session["pId"] = m._username;
-                            return View("index", "_StandardLayout");
+                            return Redirect("/Borrower/Borrower/");
         
                         case "2":
                             Session["level"] = "Admin";
-                            return View("../Admin/Admin", "_StandardLayout");
+                            Session["pId"] = "Admin";
+                            //return View("../Admin/Admin", "_StandardLayout");
+                            return Redirect("/Admin/Admin/");
+
                             
                         default:
                             break;
