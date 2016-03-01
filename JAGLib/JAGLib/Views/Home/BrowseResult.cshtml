@@ -33,3 +33,28 @@
     <a href="BrowseLetterBy?s=Y&by=@Model._browse._browseBy">Y</a>
     <a href="BrowseLetterBy?s=Z&by=@Model._browse._browseBy">Z</a>
 </div>
+
+<div id="searchres">
+    <h5><b>Browsed @Model._browse._browseBy on letter @Model._letter</b></h5>
+    <div id="listbox">
+        <ul>
+            @{
+                if (@Model._browse._browseBy == "Author")
+                {
+                    for (int i = 0; i < @Model._aList.Count(); i++)
+                    {
+                        <li>@Model._aList[i]._firstname @Model._aList[i]._lastname</li>
+                    }
+                }
+                
+                if (@Model._browse._browseBy == "Book")
+                {
+                    for (int i = 0; i < @Model._bList.Count(); i++)
+                    {
+                        <li>@Model._bList[i]._title</li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+</div>

@@ -8,7 +8,32 @@ namespace Service.Mockup
 {
     public class Mockup
     {
-        public List<Author> authorList = new List<Author>();
+        public List<Author> authorList = new List<Author> { 
+            new Author { _id=0, _firstname="Lena", _lastname="AmenShitVasnygg", _birthyear=1942 },
+            new Author { _id=0, _firstname="Lena", _lastname="Abdullah", _birthyear=1942 },
+            new Author { _id=0, _firstname="Lena", _lastname="Nilsson", _birthyear=1942 },
+            new Author { _id=0, _firstname="Lena", _lastname="Lol", _birthyear=1942 },
+            new Author { _id=0, _firstname="Åsna", _lastname="Kuk", _birthyear=1942 },
+            new Author { _id=0, _firstname="Fitt", _lastname="Bög", _birthyear=1942 },
+            new Author { _id=0, _firstname="Hhahah", _lastname="Hitler", _birthyear=1942 },
+            new Author { _id=0, _firstname="Lena", _lastname="Harald", _birthyear=1942 },
+            new Author { _id=0, _firstname="Luder", _lastname="Nilsson", _birthyear=1942 },
+            new Author { _id=0, _firstname="Nisse", _lastname="Allah", _birthyear=1942 }
+        };
+
+        public List<BookDetails> bookDetailsList = new List<BookDetails> { 
+            new BookDetails { 
+                _book = new Book { _isbn = 9789137144238, _title = "Bli vän med din pms", _signId = 1, _publicationYear = 2015, _publicationInfo = "Bonnier, Sverige", _pages = 232 },
+                _author = new Author { _id = 0, _firstname = "Astrid", _lastname = "von Lindgrenovica", _birthyear = 1934 },
+                _classification = new Classification { _description = "Bonnier", _signId = 1, _signum = "Skräck" }
+            },
+
+            new BookDetails { 
+                _book = new Book { _isbn = 9789152633359, _title = "Bibel för barn", _signId = 7, _publicationYear = 2016, _publicationInfo = "Bonnier, Sverige", _pages = 271 },
+                _author = new Author { _id = 0, _firstname = "Astrid", _lastname = "von Lindgrenovica", _birthyear = 1934 },
+                _classification = new Classification { _description = "Bonnier", _signId = 1, _signum = "Skräck" }
+            }
+        };
 
         public List<Book> bookList = new List<Book>
         {

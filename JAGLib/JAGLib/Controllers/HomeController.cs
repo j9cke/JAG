@@ -6,11 +6,12 @@ using System.Web;
 using System.Web.Mvc;
 using Service.Mockup;
 
-
 namespace JAGLibrary.Controllers
 {
     public class HomeController : Controller
     {
+        Mockup mup = new Mockup();
+
         public ActionResult Index()
         {
             var model = new Search();
@@ -20,21 +21,72 @@ namespace JAGLibrary.Controllers
 
         public ActionResult Browse()
         {
-            var model = new Browse();
+            var br = new Browse();
             var s = new Search();
-            model._search = s;
+            br._search = s;
+            var model = new BrowseResult();
+            model._browse = br;
 
             return View("Browse", "_BrowseLayout", model);
         }
 
         public ActionResult BrowseBy(string b)
         {
-            var model = new Browse();
+            var br = new Browse();
             var s = new Search();
-            model._search = s;
-            model._browseBy = b;
+            br._search = s;
+            br._browseBy = b;
+            var model = new BrowseResult();
+            model._browse = br;
 
             return View("Browse", "_BrowseLayout", model);
+        }
+
+        public ActionResult BrowseLetterBy(string s, string by)
+        {
+            if (by == "Author")
+            {
+                var model = new BrowseResult();
+                var b = new Browse();
+                b._browseBy = by;
+                model._browse = b;
+                model._letter = s;
+
+                //Hämta alla Authors som börjar på string s
+                foreach (Author a in mup.authorList)
+                {
+                    if (a._lastname.StartsWith(s))
+                    {
+                        //lägg till i ny model 
+                        model._aList.Add(a);
+                    }
+                }
+
+                return View("BrowseResult", "_BrowseLayout", model);
+            }
+
+            else if (by == "Book")
+            {
+                var model = new BrowseResult();
+                var b = new Browse();
+                b._browseBy = by;
+                model._browse = b;
+                model._letter = s;
+
+                //Hämta alla Authors som börjar på string s
+                foreach (Book bk in mup.bookList)
+                {
+                    if (bk._title.StartsWith(s))
+                    {
+                        //lägg till i ny model 
+                        model._bList.Add(bk);
+                    }
+                }
+
+                return View("BrowseResult", "_BrowseLayout", model);
+            }
+
+            return View();
         }
 
         public ActionResult Book()
