@@ -94,15 +94,28 @@ namespace JAGLibrary.Controllers
             var book = new Book();
             var classification = new Classification();
             var author = new Author();
-            book._isbn = 19465811884;
+            var copy = new Copy();
+            var mockup = new Mockup();
+
+            for (int i = 0; i < mockup.copyList.Count(); i++)
+            {
+                if (mockup.copyList.Exists(x => x._status == true && x._isbn == 9789137144238))
+                {
+                    copy._available++;
+                }
+            }
+
+            book._isbn = 9789137144238;
+            book._pages = 200;
             book._publicationYear = 2016;
             book._title = "En shoppaholis mardröm";
+            book._publicationInfo = "Bonnier";
             author._firstname = "Evert";
             author._lastname = "Taube";
-            book._publicationInfo = "Bonnier";
             classification._description = "En bok om en shoppaholic vid namn Adam Tollin.";
 
             var model = new BookDetails();
+            model._copy = copy;
             model._book = book;
             model._classification = classification;
             model._author = author;

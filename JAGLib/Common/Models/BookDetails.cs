@@ -10,6 +10,7 @@ namespace Common.Models
         public Book _book { get; set; }
         public Classification _classification { get; set; }
         public Author _author { get; set; }
+        public Copy _copy { get; set; }
 
         public BookDetails()
         {

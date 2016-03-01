@@ -12,5 +12,6 @@ namespace Common.Models
         public string _location { get; set; }
         public long _isbn { get; set; }
         public string _library { get; set; }
+        public int _available { get; set; }
     }
 }
