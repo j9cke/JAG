@@ -1,12 +1,12 @@
-﻿@{
+﻿@model Common.Models.BookDetails
+@{
     ViewBag.Title = "Book";
 }
 
 <div id="book">
-    <a href="#">Back</a>
-    <h4>Book title</h4>
-    <h5>Author, Year</h5>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget vulputate lorem, a rhoncus nunc. Proin elementum cursus nisl quis consectetur. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
-    <p>Lroin elementum cursus nisl quis consectetur. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+    <a href="#">Back</a>    
+    <h4>@Model._book._title</h4>
+    <h5>@Model._author._firstname @Model._author._lastname, @Model._book._publicationYear</h5>
+    <p>@Model._classification._description</p>
     <button style="margin-top:30px;" class="submlogin">Borrow this book</button>
 </div>

@@ -38,7 +38,21 @@ namespace JAGLibrary.Controllers
 
         public ActionResult Book()
         {
-            return View("Book", "_BrowseLayout");
+            var book = new Book();
+            var classification = new Classification();
+            var author = new Author();
+            book._isbn = 19465811884;
+            book._publicationYear = 2016;
+            book._title = "En shoppaholis mardröm";
+            author._firstname = "Evert";
+            author._lastname = "Taube";
+            classification._description = "En bok om en shoppaholic vid namn Adam Tollin.";
+
+            var model = new BookDetails();
+            model._book = book;
+            model._classification = classification;
+            model._author = author;
+            return View("Book", "_StandardLayout", model);
         }
 
         public ActionResult Login()
