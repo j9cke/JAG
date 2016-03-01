@@ -24,7 +24,10 @@ namespace JAGLibrary.Controllers
                 if (Session["level"] == null)
                     return Redirect("/Borrower/Borrower/");
                 else
+                {
+                    Session["name"] = "Admin";
                     return View();
+                }
             }
             
         }
@@ -73,7 +76,7 @@ namespace JAGLibrary.Controllers
 
             ld._salt = getSalt(saltLenght);
             ld._password = m._password;
-            ld._username = m._pid.ToString();
+            ld._username = m._pid;
             ld._level = "1";
             ld._hash = getHash(m._password, ld._salt);
             ld._personId = "5";
@@ -94,7 +97,7 @@ namespace JAGLibrary.Controllers
         public ActionResult EditBorrower()
         {
             var model = new Borrower();
-            model._pid = 9312097711;
+            model._pid = "9312097711";
             model._firstname = "Adam";
             model._lastname = "Eriksson";
             model._address = "Stockholmsvägen 3";

@@ -59,18 +59,18 @@ namespace Service.Mockup
 
         public List<LoginData> userList = new List<LoginData>
         {
-            new LoginData{_username = "mrGrey", _password = "123", _level="2", _hash="1436862325", _salt="apansson", _personId="1"},
-            new LoginData{_username = "JockeBoi", _password = "123", _level="1", _hash="454455760", _salt="svanslos", _personId="2"},
-            new LoginData{_username = "Gurrkaan", _password = "123", _level="1", _hash="-1623739142", _salt="honolulu", _personId="3"},
-            new LoginData{_username = "Simple", _password = "123", _level="2", _hash="-1623739142", _salt="trivialt", _personId="4"},
+            new LoginData{_username = "010101", _password = "123", _level="2", _hash="1436862325", _salt="apansson", _personId="1"},
+            new LoginData{_username = "020202", _password = "123", _level="1", _hash="454455760", _salt="svanslos", _personId="2"},
+            new LoginData{_username = "030303", _password = "123", _level="1", _hash="-1623739142", _salt="honolulu", _personId="3"},
+            new LoginData{_username = "040404", _password = "123", _level="2", _hash="-1623739142", _salt="trivialt", _personId="4"},
         };
 
         public List<Borrower> borrowerList = new List<Borrower>
         {
-            new Borrower { _pid = 7504166548, _catId = 1, _firstname = "Evert", _lastname = "Taube", _address = "Sockeln 12", _phoneno = "0728295003" },
-            new Borrower { _pid = 9001016969, _catId = 2, _firstname = "Adam", _lastname = "Tollin", _address = "Studentbyggnad bredvid Joc 21", _phoneno = "0762154825" },
-            new Borrower { _pid = 9912310125, _catId = 3, _firstname = "Evelina", _lastname = "Von Rósen", _address = "Östermalmsgatan 3", _phoneno = "0739415230" },
-            new Borrower { _pid = 6910252222, _catId = 2, _firstname = "Ahmed", _lastname = "Muhammed", _address = "Kenya 2B", _phoneno = "0706415978" }
+            new Borrower { _pid = "010101", _catId = 1, _firstname = "Evert", _lastname = "Taube", _address = "Sockeln 12", _phoneno = "0728295003" },
+            new Borrower { _pid = "020202", _catId = 2, _firstname = "Adam", _lastname = "Tollin", _address = "Studentbyggnad bredvid Joc 21", _phoneno = "0762154825" },
+            new Borrower { _pid = "030303", _catId = 3, _firstname = "Evelina", _lastname = "Von Rósen", _address = "Östermalmsgatan 3", _phoneno = "0739415230" },
+            new Borrower { _pid = "040404", _catId = 2, _firstname = "Ahmed", _lastname = "Muhammed", _address = "Kenya 2B", _phoneno = "0706415978" }
         };
 
         public List<Copy> copyList = new List<Copy>
