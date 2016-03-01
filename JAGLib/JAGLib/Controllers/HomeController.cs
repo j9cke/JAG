@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Service.Mockup;
 
+
 namespace JAGLibrary.Controllers
 {
     public class HomeController : Controller
@@ -58,33 +59,36 @@ namespace JAGLibrary.Controllers
             return View("SearchResult", "_StandardLayout", m);
         }
 
-        public int getHash(string str)
+        public string getHash(string str, string salt)
         {
-            return str.GetHashCode();
+            string hash = str + salt;
+            return hash.GetHashCode().ToString(); ;
         }
 
         //[HttpGet]
+   
         public ActionResult LoginFunc(Common.Models.LoginData m)
         {
-            m._hash = getHash(m._password).ToString();
+            
             Mockup mockup = new Mockup();
             
             if (mockup.userList.Exists(x => x._username == m._username))
             {
-                m._hash = getHash(123 + mockup.userList.Find(x => x._username == m._username)._salt).ToString();
+                m._hash = getHash("123",  mockup.userList.Find(x => x._username == m._username)._salt);
                 
-                if (mockup.userList.Find(x => x._username == m._username)._hash == getHash(m._password + mockup.userList.Find(x => x._username == m._username)._salt).ToString())
+                if (mockup.userList.Find(x => x._username == m._username)._hash == getHash(m._password, mockup.userList.Find(x => x._username == m._username)._salt))
                 {
                     switch (mockup.userList.Find(x => x._username == m._username)._level)
                     {
                         case "1":
-                            //här ska sidan till borrower va..
-                            break;
-
+                            Session["level"]="Borrower";
+                            Session["pId"] = m._username;
+                            return View("index", "_StandardLayout");
+        
                         case "2":
-                            //här ska sidan till admin va!
-                            break;
-
+                            Session["level"] = "Admin";
+                            return View("../Admin/Admin", "_StandardLayout");
+                            
                         default:
                             break;
                     }
