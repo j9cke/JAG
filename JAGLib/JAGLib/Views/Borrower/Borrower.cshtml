@@ -1,10 +1,10 @@
-﻿
+﻿@model Common.Models.Borrower
 @{
     ViewBag.Title = "Borrower";
 }
 
 <div id="Borrower">   
-    <h2>Gustav Carlsson</h2>
+    <h3>@Model._firstname @Model._lastname</h3>
     <div id="borrowedBooks">
         <h4 style="float:left;">Borrowed Books</h4>   <h4 style="float:right;">Renew</h4>       
     </div>

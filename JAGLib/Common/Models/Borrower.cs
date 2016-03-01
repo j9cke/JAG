@@ -7,7 +7,7 @@ namespace Common.Models
 {
     public class Borrower
     {
-        public long _pid;
+        public string _pid;
         public string _password;
         public string _firstname;
         public string _lastname;
