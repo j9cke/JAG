@@ -46,6 +46,7 @@ namespace JAGLibrary.Controllers
             book._title = "En shoppaholis mardröm";
             author._firstname = "Evert";
             author._lastname = "Taube";
+            book._publicationInfo = "Bonnier";
             classification._description = "En bok om en shoppaholic vid namn Adam Tollin.";
 
             var model = new BookDetails();
