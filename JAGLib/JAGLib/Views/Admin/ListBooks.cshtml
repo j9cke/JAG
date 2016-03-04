@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Common.Models.ListBook
+@{
     ViewBag.Title = "List Books";
 }
 
@@ -8,26 +9,16 @@
     <h5><b>Books</b></h5>
     <div id="listbox">
         <ul>
-            <li>
-                <p>Gustav Carlsson</p>
-                <a href="#">Edit</a>
-                <a href="#">Remove</a>
-            </li>
-            <li>
-                <p>Johanna Carlsson</p>
-                <a href="#">Edit</a>
-                <a href="#">Remove</a>
-            </li>
-            <li>
-                <p>Erik Carlsson</p>
-                <a href="#">Edit</a>
-                <a href="#">Remove</a>
-            </li>
-            <li>
-                <a href="#">Edit</a>
-                <a href="#">Remove</a>
-                <p>Lena Carlsson</p>
-            </li>
+            @{
+                for (int i = 0; i < @Model._bookList.Count(); i++)
+                {
+                    <li>
+                        <p>@Model._bookList[i]._title</p>
+                        <a href="#">Edit</a>
+                        <a href="#">Remove</a>
+                    </li>
+                }
+            }
         </ul>
     </div>
 </div>

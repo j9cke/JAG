@@ -10,82 +10,66 @@ namespace Repository.Repositories
 {
     public class AuthorRepository
     {
-        static public author dbGetEmployee(int id)
+        static private List<author> dbGetAuthorList(string query)
         {
-            author _empObj = null;
-            string _connectionString = DataSource.getConnectionString("projectmanager");
-            SqlConnection con = new SqlConnection(_connectionString);
-            SqlCommand cmd = new SqlCommand("SELECT * FROM author WHERE aid = " + Convert.ToString(id) + ";", con);
-            try
-            {
-                con.Open();
-                SqlDataReader dar = cmd.ExecuteReader();
-                if (dar.Read())
-                {
-                    _empObj = new author();
-                    _empObj._id = (int)dar["Aid"];
-                    _empObj._firstname = dar["FirstName"] as string;
-                    _empObj._lastname = dar["LastName"] as string;
-                    _empObj._birthyear = dar["BirthYear"] as string;
-                }
-            }
-            catch (Exception eObj)
-            {
-                throw eObj;
-            }
-            finally
-            {
-                if (con != null)
-                    con.Close();
-            }
-            return _empObj;
-        }
-
-        static private List<author> dbGetEmployeeList(string query)
-        {
-            List<author> _empList = null;
+            List<author> _authorList = null;
             string _connectionString = DataSource.getConnectionString("projectmanager");
             SqlConnection con = new SqlConnection(_connectionString);
             SqlCommand cmd = new SqlCommand(query, con);
+            
             try
             {
                 con.Open();
                 SqlDataReader dar = cmd.ExecuteReader();
                 if (dar != null)
                 {
-                    _empList = new List<author>();
+                    _authorList = new List<author>();
                     while (dar.Read())
                     {
-                        author empObj = new author();
-                        empObj._id = (int)dar["Aid"];
-                        empObj._firstname = dar["FirstName"] as string;
-                        empObj._lastname = dar["LastName"] as string;
-                        empObj._birthyear = dar["BirthYear"] as string;
-                        _empList.Add(empObj);
+                        author authObj = new author();
+                        authObj._id = (int)dar["Aid"];
+                        authObj._firstname = dar["FirstName"] as string;
+                        authObj._lastname = dar["LastName"] as string;
+                        authObj._birthyear = dar["BirthYear"] as string;
+                        _authorList.Add(authObj);
                     }
                 }
             }
-            catch (Exception eObj)
-            {
-                throw eObj;
-            }
-            finally
-            {
-                if (con != null)
-                    con.Close();
-            }
-            return _empList;
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+            
+            return _authorList;
         }
 
-        static public List<author> dbGetAllEmployeeList()
+        static private void dbInsert(string query) 
         {
-            return dbGetEmployeeList("SELECT * FROM author;");
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
         }
 
-        static public List<author> dbGetDepartmentEmployeeList(int depId)
+        static public List<author> dbGetAllAuthorList()
         {
-            return dbGetEmployeeList("SELECT * FROM author WHERE aid = " + Convert.ToString(depId) + ";");
+            return dbGetAuthorList("SELECT * FROM author;");
         }
 
+        static public List<author> dbGetAuthorListFromFirstletter(string c)
+        {
+            return dbGetAuthorList("SELECT * FROM author WHERE LastName LIKE '" + c + "%';");
+        }
+
+        static public void dbAddAuthor(author a) 
+        {
+            dbInsert("INSERT INTO AUTHOR (FirstName, LastName, BirthYear) VALUES ('" + a._firstname + "', '" + a._lastname + "', '" + a._birthyear + "');");
+        }
     }
 }

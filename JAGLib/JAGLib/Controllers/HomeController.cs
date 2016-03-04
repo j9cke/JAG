@@ -14,7 +14,6 @@ namespace JAGLibrary.Controllers
 
         public ActionResult Index()
         {
-            List<Author> fdfdf = Service.Services.AuthorServices.getEmployeeList();
             var model = new Search();
 
             return View("Index", "_StandardLayout", model);
@@ -52,16 +51,7 @@ namespace JAGLibrary.Controllers
                 b._browseBy = by;
                 model._browse = b;
                 model._letter = s;
-
-                //Hämta alla Authors som börjar på string s
-                foreach (Author a in mup.authorList)
-                {
-                    if (a._lastname.StartsWith(s))
-                    {
-                        //lägg till i ny model 
-                        model._aList.Add(a);
-                    }
-                }
+                model._aList = Service.Services.AuthorServices.getAuthorListFromFirstLetter(s);
 
                 return View("BrowseResult", "_BrowseLayout", model);
             }
@@ -74,15 +64,7 @@ namespace JAGLibrary.Controllers
                 model._browse = b;
                 model._letter = s;
 
-                //Hämta alla Authors som börjar på string s
-                foreach (Book bk in mup.bookList)
-                {
-                    if (bk._title.StartsWith(s))
-                    {
-                        //lägg till i ny model 
-                        model._bList.Add(bk);
-                    }
-                }
+                model._bList = Service.Services.BookServices.getBookListOnFirstLetter(s);
 
                 return View("BrowseResult", "_BrowseLayout", model);
             }
@@ -106,9 +88,9 @@ namespace JAGLibrary.Controllers
                 }
             }
 
-            book._isbn = 9789137144238;
+            book._isbn = "9789137144238";
             book._pages = 200;
-            book._publicationYear = 2016;
+            book._publicationYear = "2016";
             book._title = "En shoppaholis mardröm";
             book._publicationInfo = "Bonnier";
             author._firstname = "Evert";

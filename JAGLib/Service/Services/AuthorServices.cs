@@ -11,43 +11,53 @@ namespace Service.Services
 {
     public class AuthorServices
     {
-        static private List<Author> _employeeList = null;
+        static private List<Author> _authorList = null;
 
-        static public List<Author> getEmployeeList()
+        // Hämtar alla Authors
+        static public List<Author> getAuthorList()
         {
-            if (_employeeList == null)
-            {
-                _employeeList = new List<Author>();
-                List<author> empList = AuthorRepository.dbGetAllEmployeeList();
-                foreach (author empObj in empList)
-                {
-                    _employeeList.Add(MapEmployee(empObj));
-                }
-            }
-            return _employeeList;
+            _authorList = new List<Author>();
+            List<author> authList = AuthorRepository.dbGetAllAuthorList();
+            foreach (author authObj in authList)
+                _authorList.Add(MapAuthor(authObj));
+
+            return _authorList;
         }
 
-        static public List<Author> getEmployeeList(int id)
+        // Hämtar alla Authors som börjar på angiven bokstav
+        static public List<Author> getAuthorListFromFirstLetter(string c)
         {
-            if (_employeeList == null)
-            {
-                _employeeList = new List<Author>();
-                List<author> empList = AuthorRepository.dbGetDepartmentEmployeeList(id);
-                foreach (author empObj in empList)
-                {
-                    _employeeList.Add(MapEmployee(empObj));
-                }
-            }
-            return _employeeList;
+            _authorList = new List<Author>();
+            List<author> authList = AuthorRepository.dbGetAuthorListFromFirstletter(c);
+            foreach (author authObj in authList)
+                _authorList.Add(MapAuthor(authObj));
+
+            return _authorList;
         }
 
-        static private Author MapEmployee(author empObj)
+        // Lägger till angiven Author till databasen
+        static public void addAuthorToDb(Author m)
+        {
+            AuthorRepository.dbAddAuthor(deMapAuthor(m));  
+        } 
+
+        static private Author MapAuthor(author authObj)
         {
             Author theAuthor = new Author();
-            theAuthor._id = empObj._id;
-            theAuthor._firstname = empObj._firstname;
-            theAuthor._lastname = empObj._lastname;
-            theAuthor._birthyear = empObj._birthyear;
+            theAuthor._id = authObj._id;
+            theAuthor._firstname = authObj._firstname;
+            theAuthor._lastname = authObj._lastname;
+            theAuthor._birthyear = authObj._birthyear;
+            return theAuthor;
+        }
+
+        static private author deMapAuthor(Author authObj)
+        {
+            author theAuthor = new author();
+            theAuthor._id = authObj._id;
+            theAuthor._firstname = authObj._firstname;
+            theAuthor._lastname = authObj._lastname;
+            theAuthor._birthyear = authObj._birthyear;
             return theAuthor;
         }
     }
