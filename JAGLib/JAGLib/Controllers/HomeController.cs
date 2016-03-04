@@ -14,6 +14,7 @@ namespace JAGLibrary.Controllers
 
         public ActionResult Index()
         {
+            List<Author> fdfdf = Service.Services.AuthorServices.getEmployeeList();
             var model = new Search();
 
             return View("Index", "_StandardLayout", model);
