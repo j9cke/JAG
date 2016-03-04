@@ -63,6 +63,7 @@
     <Compile Include="Mockup\Mockup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthorServices.cs" />
+    <Compile Include="Services\BorrowerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Web.Debug.config">

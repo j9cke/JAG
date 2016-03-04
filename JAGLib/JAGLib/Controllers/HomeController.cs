@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Service.Mockup;
+using Service;
+
 
 namespace JAGLibrary.Controllers
 {
@@ -15,7 +17,10 @@ namespace JAGLibrary.Controllers
         public ActionResult Index()
         {
             List<Author> fdfdf = Service.Services.AuthorServices.getEmployeeList();
+            List<Borrower> adam = Service.Services.BorrowerService.getBorrowerList();
+
             var model = new Search();
+
 
             return View("Index", "_StandardLayout", model);
         }
