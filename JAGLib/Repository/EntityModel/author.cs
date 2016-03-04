@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Common.Models
+namespace Repository.EntityModel
 {
-    public class Author
+    public class author
     {
         public int _id { get; set; }
         public string _firstname { get; set; }
         public string _lastname { get; set; }
         public string _birthyear { get; set; }
-
-        public Author()
-        {
-        }
     }
 }

@@ -47,7 +47,7 @@ namespace JAGLibrary.Controllers
             var model = new Author();
             model._firstname = "Jonas";
             model._lastname = "Hitler";
-            model._birthyear = 1932;
+            model._birthyear = "1932";
 
             return View("EditAuthor", "_StandardLayout", model);
         }
