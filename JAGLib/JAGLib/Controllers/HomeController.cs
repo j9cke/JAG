@@ -74,34 +74,26 @@ namespace JAGLibrary.Controllers
 
         public ActionResult Book()
         {
-            var book = new Book();
-            var classification = new Classification();
-            var author = new Author();
-            var copy = new Copy();
-            var mockup = new Mockup();
+            List<BookDetails> bdList = Service.Services.BookServices.getBookDetailsFromIsbn("0137696396");
+            var model = new BookDetails();
 
-            for (int i = 0; i < mockup.copyList.Count(); i++)
-            {
-                if (mockup.copyList.Exists(x => x._status == true && x._isbn == 9789137144238))
-                {
-                    copy._available++;
+            bool fixString = false;
+            foreach (BookDetails bd in bdList) {
+                if (fixString)
+                    model.authorstring = model.authorstring + ", " + bd.author_firstname + " " + bd.author_lastname;
+                else {
+                    model.authorstring = bd.author_firstname + " " + bd.author_lastname;
+                    fixString = true;
                 }
             }
 
-            book._isbn = "9789137144238";
-            book._pages = 200;
-            book._publicationYear = "2016";
-            book._title = "En shoppaholis mardröm";
-            book._publicationInfo = "Bonnier";
-            author._firstname = "Evert";
-            author._lastname = "Taube";
-            classification._description = "En bok om en shoppaholic vid namn Adam Tollin.";
-
-            var model = new BookDetails();
-            model._copy = copy;
-            model._book = book;
-            model._classification = classification;
-            model._author = author;
+            model.book_isbn = bdList[0].book_isbn;
+            model.book_title = bdList[0].book_title;
+            model.book_signId = bdList[0].book_signId;
+            model.book_publicationYear = bdList[0].book_publicationYear;
+            model.book_publicationInfo = bdList[0].book_publicationInfo;
+            model.book_pages = bdList[0].book_pages;
+            
             return View("Book", "_StandardLayout", model);
         }
 

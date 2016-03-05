@@ -11,6 +11,7 @@ namespace Repository.Repositories
 {
     public class BookRepository
     {
+        // Används om vi bara vill ha böcker
         static private List<book> dbGetBookList(string query)
         {
             List<book> _bookList = null;
@@ -43,6 +44,58 @@ namespace Repository.Repositories
             return _bookList;
         }
 
+        // Om vi vill ha en bok tillsammans med author & annan info
+        static private List<bookdetails> dbGetBookDetails(string query)
+        {
+            List<bookdetails> _bdetailsList = null;
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+            try
+            {
+                con.Open();
+                SqlDataReader dar = cmd.ExecuteReader();
+                if (dar != null)
+                {
+                    _bdetailsList = new List<bookdetails>();
+                    while (dar.Read())
+                    {
+                        bookdetails bkdtObj = new bookdetails();
+                        bkdtObj.book_isbn = dar["ISBN"] as string;
+                        bkdtObj.book_title = dar["Title"] as string;
+                        bkdtObj.book_signId = (int)dar["SignId"];
+                        bkdtObj.book_publicationYear = dar["PublicationYear"] as string;
+                        bkdtObj.book_publicationInfo = dar["publicationinfo"] as string;
+                        bkdtObj.book_pages = (Int16)dar["pages"];
+                        bkdtObj.author_firstname = dar["FirstName"] as string;
+                        bkdtObj.author_lastname = dar["LastName"] as string;
+                        _bdetailsList.Add(bkdtObj);
+                    }
+                }
+            }
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+
+            return _bdetailsList;
+        }
+
+        // Används för att skicka in saker i databasen
+        static private void dbInsert(string query)
+        {
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+        }
+
         static public List<book> dbGetAllBookList()
         {
             return dbGetBookList("SELECT * FROM BOOK;");
@@ -51,6 +104,16 @@ namespace Repository.Repositories
         static public List<book> dbGetBookListOnFirstLetter(string c)
         {
             return dbGetBookList("SELECT * FROM BOOK WHERE Title LIKE '" + c + "%';");
+        }
+
+        static public List<bookdetails> dbGetDetailsOfBook(string isbn)
+        {
+            return dbGetBookDetails("SELECT BOOK.ISBN, BOOK.Title, BOOK.SignId, BOOK.PublicationYear, BOOK.publicationinfo, BOOK.pages, AUTHOR.FirstName, AUTHOR.LastName FROM DBLibrary.dbo.BOOK INNER JOIN BOOK_AUTHOR ON BOOK.ISBN = BOOK_AUTHOR.ISBN INNER JOIN AUTHOR ON BOOK_AUTHOR.Aid = AUTHOR.Aid WHERE BOOK.ISBN LIKE '" + isbn + "' ;");
+        }
+
+        static public void dbAddBook(book b)
+        {
+            dbInsert("INSERT INTO BOOK (ISBN, Title, SignId, PublicationYear, publicationinfo, pages) VALUES ('" + b._isbn + "', '" + b._title + "', '" + b._signId + "', '" + b._publicationYear + "', '" + b._publicationInfo + "', '" + b._pages + "');");
         }
     }
 }

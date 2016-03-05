@@ -157,5 +157,14 @@ namespace JAGLibrary.Controllers
 
             return View("AddAuthor", "_StandardLayout", m);
         }
+
+        //[HttpGet]
+        public ActionResult AddBookForm(Common.Models.Book m)
+        {
+            //GÖR VERIFIERING FÖRST
+            Service.Services.BookServices.addBookToDb(m);
+
+            return View("AddBook", "_StandardLayout", m);
+        }
     }
 }

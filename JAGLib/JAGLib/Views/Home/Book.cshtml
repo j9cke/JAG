@@ -5,16 +5,15 @@
 
 <div id="book">
     <a href="#">Back</a>
-    <h4>@Model._book._title</h4>
-    <h5>@Model._author._firstname @Model._author._lastname</h5>
-    <p>@Model._classification._description</p>
+    <h4>@Model.book_title</h4>
+    <h5>@Model.authorstring</h5>
+    <p></p>
     <div id="listbox">
-        <p style="width: 100%;">Publisher: @Model._book._publicationInfo</p>
-        <p style="width: 100%;">Year: @Model._book._publicationYear</p>
-        <p style="width: 100%;">Pages: @Model._book._pages</p>
-        <p style="width: 100%;">ISBN: @Model._book._isbn</p>
+        <p style="width: 100%;">Publisher: @Model.book_publicationInfo</p>
+        <p style="width: 100%;">Year: @Model.book_publicationYear</p>
+        <p style="width: 100%;">Pages: @Model.book_pages</p>
+        <p style="width: 100%;">ISBN: @Model.book_isbn</p>
     </div>
     <button style="margin: 0 0 0 15px" class="submlogin">Borrow this book</button>
-    <h5 style="float:right; margin-top: 21px; margin-right: 20px;">Copies available to borrow: @Model._copy._available</h5>
-
+    @*<h5 style="float:right; margin-top: 21px; margin-right: 20px;">Copies available to borrow: @Model._copy._available</h5>*@
 </div>
