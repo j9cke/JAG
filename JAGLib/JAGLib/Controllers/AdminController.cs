@@ -75,6 +75,13 @@ namespace JAGLibrary.Controllers
 
         public ActionResult AddBorrower(Common.Models.Borrower m)
         {
+            List<SelectListItem> categoryId = new List<SelectListItem>();
+            categoryId.Add(new SelectListItem { Text = "Extern", Value = "1" });
+            categoryId.Add(new SelectListItem { Text = "Staff", Value = "2" });
+            categoryId.Add(new SelectListItem { Text = "Student", Value = "3" });
+            categoryId.Add(new SelectListItem { Text = "Child", Value = "4" });
+            ViewData["Select Category"] = categoryId;
+
             int saltLenght = 32;
             LoginData ld = new LoginData();
 

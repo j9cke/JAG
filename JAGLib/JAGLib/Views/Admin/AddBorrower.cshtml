@@ -28,8 +28,10 @@
         <div style="float: left; width: 100%;">
             <p>Phone number:</p> @Html.TextBoxFor(m => m._phoneno, new { @class = "inpadmin" })
         </div>
-        <div style="float: left; width: 100%;">
-            <p>Category:</p> @Html.TextBoxFor(m => m._catId, new { @class = "inpadmin" })
+        <div style="float: left; width: 100%;">         
+           @Html.DropDownListFor(m => m._catId, ViewData["Select Category"] as List<SelectListItem>)
+            
+           <!-- <p>Category:</p> @Html.TextBoxFor(m => m._catId, new { @class = "inpadmin" })-->
         </div>
         <input class="submlogin" type="submit" value="Add" />
     }
