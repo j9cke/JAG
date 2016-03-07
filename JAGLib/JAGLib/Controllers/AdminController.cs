@@ -17,17 +17,19 @@ namespace JAGLibrary.Controllers
 
         public ActionResult Admin()
         {
-            if (Session["pId"] == null)
+            if (Session["user"] == null)
                     return Redirect("/Home/Login/");
             else 
             {
-                if (Session["level"] == null)
+                LoginData user = (LoginData)Session["user"];
+                if (user._level == "1")
                     return Redirect("/Borrower/Borrower/");
-                else
+                else if (user._level == "2")
                 {
                     Session["name"] = "Admin";
                     return View();
                 }
+                else return Redirect("/Home/Login/");
             }
         }
 

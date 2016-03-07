@@ -41,7 +41,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @{
-                        if (@Session["pId"] == null)
+                        if (@Session["user"] == null)
                         {
                             <li><a href="/Home/Login">Sign In</a></li>
                         }
@@ -57,7 +57,7 @@
     </nav>
 
     @{
-        if (@Session["pId"] != null) // if (inloggad) funktionen finns inte ännu
+        if (@Session["user"] != null) // if (inloggad) funktionen finns inte ännu
         {
             <div id="wrapper">
                 <!-- Sidebar -->

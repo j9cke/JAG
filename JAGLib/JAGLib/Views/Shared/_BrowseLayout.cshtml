@@ -50,7 +50,7 @@
                 }
                 <ul class="nav navbar-nav navbar-right">
                     @{
-                        if(@Session["pId"]== null)
+                        if(@Session["user"]== null)
                         { 
                             <li><a href="/Home/Login">Sign In</a></li>
                         } 
@@ -83,7 +83,7 @@
                 </li>
 
                 @{
-                    if (@Session["pId"] != null)
+                    if (@Session["user"] != null)
                     {
                         <li class="sidebar-brand">
                             <span style="color: #fff;">@Session["name"]</span>
