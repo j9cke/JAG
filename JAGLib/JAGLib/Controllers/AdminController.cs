@@ -121,15 +121,9 @@ namespace JAGLibrary.Controllers
             return View("AddBook", "_StandardLayout");
         }
 
-        public ActionResult EditBook()
+        public ActionResult EditBook(string s)
         {
-            var model = new Book();
-            model._isbn = "9789137144238"; 
-            model._title = "Bli vän med din pms"; 
-            model._signId = 1;
-            model._publicationYear = "2015"; 
-            model._publicationInfo = "Varför är det så svårt att prata om pms? Medan man med lätthet talar om laktosintolerans, migrän och nageltrång kan det kännas pinsamt att berätta om sina premenstruella besvär och även att söka hjälp. Det vill Lisa Eriksson råda bot på.";
-            model._pages = 232;
+            var model = Service.Services.BookServices.getBookFromISBN(s);
 
             return View("EditBook", "_StandardLayout", model);
         }

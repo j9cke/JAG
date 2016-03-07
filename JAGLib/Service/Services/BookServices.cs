@@ -49,6 +49,13 @@ namespace Service.Services
             return _bkdtList;
         }
 
+        static public Book getBookFromISBN(string isbn)
+        {
+            book bookObj = BookRepository.dbGetBookFromISBN(isbn);
+
+            return MapBook(bookObj);
+        }
+
         // Lägger till angiven Author till databasen
         static public void addBookToDb(Book m)
         {
