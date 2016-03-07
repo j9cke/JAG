@@ -19,6 +19,13 @@ namespace JAGLibrary.Controllers
             return View("Index", "_StandardLayout", model);
         }
 
+        public ActionResult Author(int aid)
+        {
+            var model = Service.Services.AuthorServices.getBooksFromAuthor(aid);
+
+            return View("Author", "_StandardLayout", model);
+        }
+
         public ActionResult Browse()
         {
             var br = new Browse();
@@ -72,9 +79,9 @@ namespace JAGLibrary.Controllers
             return View();
         }
 
-        public ActionResult Book()
+        public ActionResult Book(string isbn)
         {
-            List<BookDetails> bdList = Service.Services.BookServices.getBookDetailsFromIsbn("0137696396");
+            List<BookDetails> bdList = Service.Services.BookServices.getBookDetailsFromIsbn(isbn);
             var model = new BookDetails();
 
             bool fixString = false;

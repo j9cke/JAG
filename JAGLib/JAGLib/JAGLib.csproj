@@ -145,6 +145,7 @@
     <Content Include="Views\Admin\ListBooks.cshtml" />
     <Content Include="Views\Borrower\Borrower.cshtml" />
     <Content Include="Views\Home\BrowseResult.cshtml" />
+    <Content Include="Views\Home\Author.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
