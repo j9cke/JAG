@@ -12,22 +12,32 @@
     {
         <div style="float: left; margin-top: 10px; width: 100%;">
             <p>ISBN:</p> @Html.TextBoxFor(m => m._isbn, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._isbn)
         </div>
         <div style="float: left; width: 100%;">
             <p>Title:</p> @Html.TextBoxFor(m => m._title, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._title)
         </div>
         <div style="float: left; width: 100%;">
             <p>Sign Id:</p> @Html.TextBoxFor(m => m._signId, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._signId)
         </div>
         <div style="float: left; width: 100%;">
             <p>Publication year:</p> @Html.TextBoxFor(m => m._publicationYear, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._publicationYear)
         </div>
         <div style="float: left; width: 100%;">
             <p>Publication Info:</p> @Html.TextBoxFor(m => m._publicationInfo, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._publicationInfo)
         </div>
         <div style="float: left; width: 100%;">
             <p>Pages:</p> @Html.TextBoxFor(m => m._pages, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._pages)
         </div>
         <input class="submlogin" type="submit" value="Add" />
     }
 </div>
+
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

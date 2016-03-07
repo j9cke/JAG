@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntityModel\author.cs" />
+    <Compile Include="EntityModel\authordetails.cs" />
     <Compile Include="EntityModel\bookdetails.cs" />
     <Compile Include="EntityModel\book.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
