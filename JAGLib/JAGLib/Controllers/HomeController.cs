@@ -18,7 +18,7 @@ namespace JAGLibrary.Controllers
         {
             List<Author> fdfdf = Service.Services.AuthorServices.getEmployeeList();
             List<Borrower> adam = Service.Services.BorrowerService.getBorrowerList();
-
+            List<LoginData> Niklas = Service.Services.LoginService.getUserList();
             var model = new Search();
 
 
@@ -159,28 +159,28 @@ namespace JAGLibrary.Controllers
         }
 
         //[HttpGet]
-   
         public ActionResult LoginFunc(Common.Models.LoginData m)
         {
+            if (m._username == "admin")
+                m._username = "00000000-0000";
+         
+            List<LoginData> userList = Service.Services.LoginService.getUserList();
             
-            Mockup mockup = new Mockup();
-            
-            if (mockup.userList.Exists(x => x._username == m._username))
+            if (userList.Exists(x => x._username == m._username))
             {
-                m._hash = getHash("123",  mockup.userList.Find(x => x._username == m._username)._salt);
                 
-                if (mockup.userList.Find(x => x._username == m._username)._hash == getHash(m._password, mockup.userList.Find(x => x._username == m._username)._salt))
+                if (userList.Find(x => x._username == m._username)._password == getHash(m._password, userList.Find(x => x._username == m._username)._salt))
                 {
-                    switch (mockup.userList.Find(x => x._username == m._username)._level)
+                    switch (userList.Find(x => x._username == m._username)._level)
                     {
                         case "1":
-                            //Session["level"]="Borrower";
-                            Session["pId"] = m._username;
+                            Session["user"] = userList.Find(x => x._username == m._username);
                             return Redirect("/Borrower/Borrower/");
         
                         case "2":
-                            Session["level"] = "Admin";
-                            Session["pId"] = "Admin";
+                            //Session["level"] = "Admin";
+                            //Session["pId"] = "Admin";
+                            Session["user"] = userList.Find(x => x._username == m._username);
                             //return View("../Admin/Admin", "_StandardLayout");
                             return Redirect("/Admin/Admin/");
 

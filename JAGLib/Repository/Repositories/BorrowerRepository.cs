@@ -15,7 +15,7 @@ namespace Repository.Repositories
             borrower _brwObj = null;
             string _connectionString = DataSource.getConnectionString("projectmanager");
             SqlConnection con = new SqlConnection(_connectionString);
-            SqlCommand cmd = new SqlCommand("SELECT * FROM borrower WHERE PersonId = " + id + ";", con);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM borrower WHERE PersonId = '" + id + "';", con);
             try
             {
                 con.Open();
@@ -64,7 +64,11 @@ namespace Repository.Repositories
                         _brwObj._lastname = dar["LastName"] as string;
                         _brwObj._address = dar["Address"] as string;
                         _brwObj._phoneno = dar["Telno"] as string;
-                        _brwObj._catId = (int)dar["CategoryId"];
+                        string cat = dar["CategoryId"] as string;
+                        if (cat == null)
+                            _brwObj._catId = 0;
+                        else
+                            _brwObj._catId = Convert.ToInt32(cat);
                         _brwList.Add(_brwObj);
                     }
                 }

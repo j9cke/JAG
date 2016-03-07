@@ -28,6 +28,11 @@ namespace Service.Services
             }
             return _borrowerList;
         }
+       
+        static public Borrower getBorrower(string id)
+        {
+            return MapBorrower(BorrowerRepository.dbGetBorrower(id));
+        }
 
 
         static private Borrower MapBorrower(borrower brwObj)
