@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Common.Models
+namespace Repository.EntityModel
 {
-    public class Book
+    public class book
     {
         public string _isbn { get; set; }
         public string _title { get; set; }

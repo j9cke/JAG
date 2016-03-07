@@ -65,6 +65,8 @@
     <Compile Include="Models\BrowseResult.cs" />
     <Compile Include="Models\Classification.cs" />
     <Compile Include="Models\Copy.cs" />
+    <Compile Include="Models\ListBook.cs" />
+    <Compile Include="Models\ListAuthor.cs" />
     <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Models\SearchData.cs" />
     <Compile Include="Models\Search.cs" />

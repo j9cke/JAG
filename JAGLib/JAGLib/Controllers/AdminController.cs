@@ -29,7 +29,6 @@ namespace JAGLibrary.Controllers
                     return View();
                 }
             }
-            
         }
 
         public ActionResult AddAuthor()
@@ -39,7 +38,10 @@ namespace JAGLibrary.Controllers
 
         public ActionResult ListAuthors()
         {
-            return View("ListAuthors", "_StandardLayout");
+            var model = new ListAuthor();
+            model._authList = Service.Services.AuthorServices.getAuthorList();
+
+            return View("ListAuthors", "_StandardLayout", model);
         }
 
         public ActionResult EditAuthor()
@@ -120,10 +122,10 @@ namespace JAGLibrary.Controllers
         public ActionResult EditBook()
         {
             var model = new Book();
-            model._isbn = 9789137144238; 
+            model._isbn = "9789137144238"; 
             model._title = "Bli vän med din pms"; 
             model._signId = 1;
-            model._publicationYear = 2015; 
+            model._publicationYear = "2015"; 
             model._publicationInfo = "Varför är det så svårt att prata om pms? Medan man med lätthet talar om laktosintolerans, migrän och nageltrång kan det kännas pinsamt att berätta om sina premenstruella besvär och även att söka hjälp. Det vill Lisa Eriksson råda bot på.";
             model._pages = 232;
 
@@ -132,14 +134,17 @@ namespace JAGLibrary.Controllers
 
         public ActionResult ListBooks()
         {
-            return View("ListBooks", "_StandardLayout");
+            var model = new ListBook();
+            model._bookList = Service.Services.BookServices.getBookList();
+
+            return View("ListBooks", "_StandardLayout", model);
         }
 
         //[HttpGet]
         public ActionResult AddAuthorForm(Common.Models.Author m)
-        {
-            //Skicka in authormodellen till databasen
-            mup.authorList.Add(m);
+        {            
+            //GÖR VERIFIERING FÖRST
+            Service.Services.AuthorServices.addAuthorToDb(m);
 
             return View("AddAuthor", "_StandardLayout", m);
         }
@@ -151,6 +156,15 @@ namespace JAGLibrary.Controllers
             mup.authorList.Add(m);
 
             return View("AddAuthor", "_StandardLayout", m);
+        }
+
+        //[HttpGet]
+        public ActionResult AddBookForm(Common.Models.Book m)
+        {
+            //GÖR VERIFIERING FÖRST
+            Service.Services.BookServices.addBookToDb(m);
+
+            return View("AddBook", "_StandardLayout", m);
         }
     }
 }

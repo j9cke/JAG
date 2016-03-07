@@ -21,30 +21,30 @@ namespace Service.Mockup
             new Author { _id=0, _firstname="Nisse", _lastname="Allah", _birthyear="1942" }
         };
 
-        public List<BookDetails> bookDetailsList = new List<BookDetails> { 
-            new BookDetails { 
-                _book = new Book { _isbn = 9789137144238, _title = "Bli vän med din pms", _signId = 1, _publicationYear = 2015, _publicationInfo = "Bonnier, Sverige", _pages = 232 },
-                _author = new Author { _id = 0, _firstname = "Astrid", _lastname = "von Lindgrenovica", _birthyear = "1934" },
-                _classification = new Classification { _description = "Bonnier", _signId = 1, _signum = "Skräck" }
-            },
+        //public List<BookDetails> bookDetailsList = new List<BookDetails> { 
+        //    new BookDetails { 
+        //        _book = new Book { _isbn = 9789137144238, _title = "Bli vän med din pms", _signId = 1, _publicationYear = 2015, _publicationInfo = "Bonnier, Sverige", _pages = 232 },
+        //        _author = new Author { _id = 0, _firstname = "Astrid", _lastname = "von Lindgrenovica", _birthyear = "1934" },
+        //        _classification = new Classification { _description = "Bonnier", _signId = 1, _signum = "Skräck" }
+        //    },
 
-            new BookDetails { 
-                _book = new Book { _isbn = 9789152633359, _title = "Bibel för barn", _signId = 7, _publicationYear = 2016, _publicationInfo = "Bonnier, Sverige", _pages = 271 },
-                _author = new Author { _id = 0, _firstname = "Astrid", _lastname = "von Lindgrenovica", _birthyear = "1934" },
-                _classification = new Classification { _description = "Bonnier", _signId = 1, _signum = "Skräck" }
-            }
-        };
+        //    new BookDetails { 
+        //        _book = new Book { _isbn = 9789152633359, _title = "Bibel för barn", _signId = 7, _publicationYear = 2016, _publicationInfo = "Bonnier, Sverige", _pages = 271 },
+        //        _author = new Author { _id = 0, _firstname = "Astrid", _lastname = "von Lindgrenovica", _birthyear = "1934" },
+        //        _classification = new Classification { _description = "Bonnier", _signId = 1, _signum = "Skräck" }
+        //    }
+        //};
 
-        public List<Book> bookList = new List<Book>
-        {
-            new Book { _isbn = 9789137144238, _title = "Bli vän med din pms", _signId = 1, _publicationYear = 2015, _publicationInfo = "Bonnier, Sverige", _pages = 232 },
-            new Book { _isbn = 9780091949013, _title = "How to Build a Girl", _signId = 2, _publicationYear = 2015, _publicationInfo = "Bill Cosby DrinkGallóre, USA ", _pages = 343 },
-            new Book { _isbn = 9780691158051, _title = "The Church of Scientology", _signId = 3, _publicationYear = 2013, _publicationInfo = "Tom Cruise PublishInternational, USA", _pages = 280 },
-            new Book { _isbn = 9781461332701, _title = "Sex Education in the Eighties", _signId = 4, _publicationYear = 2015, _publicationInfo = "Löfven HandelsBolag, Sverige", _pages = 69 },
-            new Book { _isbn = 9789113043210, _title = "Tobleroneaffären : Varför Sverige inte fick sin första kvinnliga statsminister.", _signId = 5, _publicationYear = 2012, _publicationInfo = "Bonnier, Sverige", _pages = 268 },
-            new Book { _isbn = 9781494876791, _title = "The Art of Being a Motherfucker", _signId = 6, _publicationYear = 2014, _publicationInfo = "Florén AB, Sverige", _pages = 176 },
-            new Book { _isbn = 9789152633359, _title = "Bibel för barn", _signId = 7, _publicationYear = 2016, _publicationInfo = "Bonnier, Sverige", _pages = 271 }          
-        };
+        //public List<Book> bookList = new List<Book>
+        //{
+        //    new Book { _isbn = 9789137144238, _title = "Bli vän med din pms", _signId = 1, _publicationYear = 2015, _publicationInfo = "Bonnier, Sverige", _pages = 232 },
+        //    new Book { _isbn = 9780091949013, _title = "How to Build a Girl", _signId = 2, _publicationYear = 2015, _publicationInfo = "Bill Cosby DrinkGallóre, USA ", _pages = 343 },
+        //    new Book { _isbn = 9780691158051, _title = "The Church of Scientology", _signId = 3, _publicationYear = 2013, _publicationInfo = "Tom Cruise PublishInternational, USA", _pages = 280 },
+        //    new Book { _isbn = 9781461332701, _title = "Sex Education in the Eighties", _signId = 4, _publicationYear = 2015, _publicationInfo = "Löfven HandelsBolag, Sverige", _pages = 69 },
+        //    new Book { _isbn = 9789113043210, _title = "Tobleroneaffären : Varför Sverige inte fick sin första kvinnliga statsminister.", _signId = 5, _publicationYear = 2012, _publicationInfo = "Bonnier, Sverige", _pages = 268 },
+        //    new Book { _isbn = 9781494876791, _title = "The Art of Being a Motherfucker", _signId = 6, _publicationYear = 2014, _publicationInfo = "Florén AB, Sverige", _pages = 176 },
+        //    new Book { _isbn = 9789152633359, _title = "Bibel för barn", _signId = 7, _publicationYear = 2016, _publicationInfo = "Bonnier, Sverige", _pages = 271 }          
+        //};
 
         public List<Classification> bookDescription = new List<Classification>
         {
