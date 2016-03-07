@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Repository.EntityModel;
 using System.Data.SqlClient;
 
-
 namespace Repository.Repositories
 {
     public class BookRepository
