@@ -14,8 +14,8 @@
                 {
                     <li>
                         <p>@Model._authList[i]._firstname @Model._authList[i]._lastname</p>
-                        <a href="#">Edit</a>
-                        <a href="#">Remove</a>
+                        <a href="EditAuthor?aid=@Model._authList[i]._id">Edit</a>
+                        <a href="Remove?aid=@Model._authList[i]._id&isbn=0&bid=0">Remove</a>
                     </li>
                 }
             }

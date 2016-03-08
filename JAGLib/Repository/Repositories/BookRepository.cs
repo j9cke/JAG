@@ -127,6 +127,22 @@ namespace Repository.Repositories
             finally { if (con != null) con.Close(); }
         }
 
+        static private void dbRemove(string query)
+        {
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+        }
+
         static public List<book> dbGetAllBookList()
         {
             return dbGetBookList("SELECT * FROM BOOK;");
@@ -150,6 +166,16 @@ namespace Repository.Repositories
         static public void dbAddBook(book b)
         {
             dbInsert("INSERT INTO BOOK (ISBN, Title, SignId, PublicationYear, publicationinfo, pages) VALUES ('" + b._isbn + "', '" + b._title + "', '" + b._signId + "', '" + b._publicationYear + "', '" + b._publicationInfo + "', '" + b._pages + "');");
+        }
+
+        static public void dbRemoveBook(string isbn)
+        {
+            dbRemove("DELETE FROM BOOK WHERE ISBN LIKE '" + isbn + "';");
+        }
+
+        static public void dbRemoveCopies(string isbn)
+        {
+            dbRemove("DELETE FROM COPY WHERE ISBN LIKE '" + isbn + "';");
         }
     }
 }

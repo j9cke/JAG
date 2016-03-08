@@ -1,0 +1,28 @@
+﻿@model Common.Models.Remove
+@{
+    ViewBag.Title = "Remove";
+}
+
+<div id="admin">
+    <a href="Admin">Back</a>
+    @{
+        if (@Model._cat == 1)
+        {
+            <p>Are you sure you want to remove the author: <b>@Model._author._firstname @Model._author._lastname</b>?</p>
+            <a href="RemoveThis?cat=1&aid=@Model._author._id&isbn=0&bid=0">Yes</a>
+        }
+
+        else if (@Model._cat == 2)
+        {
+            <p>Are you sure you want to remove the book: <b>@Model._book._title</b>?</p>
+            <a href="RemoveThis?cat=2&aid=0&isbn=@Model._book._isbn&bid=0">Yes</a>
+        }
+
+        else
+        {
+            <p>Are you sure you want to remove the borrower: <b>@Model._borrower._firstname @Model._borrower._lastname</b>?</p>
+            <a href="RemoveThis?cat=3&aid=0&isbn=0&bid=@Model._borrower._pid">Yes</a>
+        }
+    }
+</div>
+

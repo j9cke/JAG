@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Security.Cryptography;
-using Service.Mockup;
 
 namespace JAGLibrary.Controllers
 {
@@ -13,7 +12,6 @@ namespace JAGLibrary.Controllers
     {
         //
         // GET: /Admin/
-        Mockup mup = new Mockup();
 
         public ActionResult Admin()
         {
@@ -46,12 +44,9 @@ namespace JAGLibrary.Controllers
             return View("ListAuthors", "_StandardLayout", model);
         }
 
-        public ActionResult EditAuthor()
+        public ActionResult EditAuthor(int aid)
         {
-            var model = new Author();
-            model._firstname = "Jonas";
-            model._lastname = "Hitler";
-            model._birthyear = "1932";
+            var model = Service.Services.AuthorServices.getAuthorFromAid(aid);
 
             return View("EditAuthor", "_StandardLayout", model);
         }
@@ -122,24 +117,19 @@ namespace JAGLibrary.Controllers
             return Redirect("AddBorrower");
         }
 
-
-
-        public ActionResult EditBorrower()
+        public ActionResult EditBorrower(string bid)
         {
-            var model = new Borrower();
-            model._pid = "9312097711";
-            model._firstname = "Adam";
-            model._lastname = "Eriksson";
-            model._address = "Stockholmsvägen 3";
-            model._phoneno = "0762393349";
-            model._catId = 1;
+            var model = Service.Services.BorrowerService.getBorrower(bid);
 
             return View("EditBorrower", "_StandardLayout", model);
         }
 
         public ActionResult ListBorrowers()
         {
-            return View("ListBorrowers", "_StandardLayout");
+            var model = new ListBorrower();
+            model._borrList = Service.Services.BorrowerService.getBorrowerList();
+
+            return View("ListBorrowers", "_StandardLayout", model);
         }
 
         public ActionResult AddBook()
@@ -162,10 +152,27 @@ namespace JAGLibrary.Controllers
             return View("ListBooks", "_StandardLayout", model);
         }
 
+        public ActionResult Remove(int aid, string isbn, string bid)
+        {
+            var model = new Remove();
+            if (aid != 0) {
+                model._cat = 1;
+                model._author = Service.Services.AuthorServices.getAuthorFromAid(aid);
+                return View("Remove", "_StandardLayout", model);
+            } else if (isbn != "0") {
+                model._cat = 2;
+                model._book = Service.Services.BookServices.getBookFromISBN(isbn);
+                return View("Remove", "_StandardLayout", model);
+            } else {
+                model._cat = 3;
+                model._borrower = Service.Services.BorrowerService.getBorrower(bid);
+                return View("Remove", "_StandardLayout", model);
+            } 
+        }
+
         //[HttpGet]
         public ActionResult AddAuthorForm(Common.Models.Author m)
         {            
-            //GÖR VERIFIERING FÖRST
             Service.Services.AuthorServices.addAuthorToDb(m);
 
             return View("AddAuthor", "_StandardLayout", m);
@@ -174,19 +181,28 @@ namespace JAGLibrary.Controllers
         //[HttpGet]
         public ActionResult EditAuthorForm(Common.Models.Author m)
         {
-            //Skicka in ny authormodellen till databasen
-            mup.authorList.Add(m);
-
             return View("AddAuthor", "_StandardLayout", m);
         }
 
         //[HttpGet]
         public ActionResult AddBookForm(Common.Models.Book m)
         {
-            //GÖR VERIFIERING FÖRST
             Service.Services.BookServices.addBookToDb(m);
 
             return View("AddBook", "_StandardLayout", m);
+        }
+
+        public ActionResult RemoveThis(int cat, int aid, string isbn, string bid)
+        {
+            if (cat == 1) {
+                Service.Services.AuthorServices.Remove(aid);
+            } else if (cat == 2) {
+                
+            } else {
+                
+            }
+
+            return View("Admin", "_StandardLayout");
         }
     }
 }
