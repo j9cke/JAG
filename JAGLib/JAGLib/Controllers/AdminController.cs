@@ -102,6 +102,13 @@ namespace JAGLibrary.Controllers
         
         public ActionResult AddBorrower()
         {
+            List<SelectListItem> categoryId = new List<SelectListItem>();
+            categoryId.Add(new SelectListItem { Text = "Extern", Value = "1" });
+            categoryId.Add(new SelectListItem { Text = "Staff", Value = "2" });
+            categoryId.Add(new SelectListItem { Text = "Student", Value = "3" });
+            categoryId.Add(new SelectListItem { Text = "Child", Value = "4" });
+            ViewData["Select Category"] = categoryId;
+
             var model = new Borrower();
             return View("AddBorrower", "_StandardLayout", model);
         }
@@ -112,7 +119,7 @@ namespace JAGLibrary.Controllers
         {
             saveBorrower(m);
 
-            return View("AddBorrower", "_StandardLayout");
+            return Redirect("AddBorrower");
         }
 
 
@@ -125,7 +132,7 @@ namespace JAGLibrary.Controllers
             model._lastname = "Eriksson";
             model._address = "Stockholmsvägen 3";
             model._phoneno = "0762393349";
-            model._catId = "1";
+            model._catId = 1;
 
             return View("EditBorrower", "_StandardLayout", model);
         }

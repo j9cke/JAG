@@ -8,7 +8,6 @@ namespace Common.Models
 {
     public class Borrower
     {
-        
         [Required(ErrorMessage = "A swedish 'Personnummer' is required")]
         [RegularExpression(@"\d{8}-\d{4}", ErrorMessage = "Must be on the form yyyymmdd-xxx")]
         public string _pid { get; set; }
@@ -30,8 +29,6 @@ namespace Common.Models
         [RegularExpression(@"^[0]{1}[0-9]{6,15}", ErrorMessage = "Must start on a 0")]
         public string _phoneno { get; set; }
 
-        [Required(ErrorMessage = "A category id is required.")]
-        [RegularExpression(@"^[1-4]{1}", ErrorMessage = "Must be a number between 1 and 4")]
-        public string _catId { get; set; }
+        public int _catId { get; set; }
     }
 }

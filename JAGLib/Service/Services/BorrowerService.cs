@@ -43,7 +43,7 @@ namespace Service.Services
             theBorrower._lastname = brwObj._lastname;
             theBorrower._address = brwObj._address;
             theBorrower._phoneno = brwObj._phoneno;
-            theBorrower._catId = brwObj._catId.ToString();
+            theBorrower._catId = brwObj._catId;
             theBorrower._password = "";
             return theBorrower;
         }

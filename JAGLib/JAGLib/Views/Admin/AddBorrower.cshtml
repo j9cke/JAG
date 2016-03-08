@@ -34,10 +34,8 @@
             <p>Phone number:</p> @Html.TextBoxFor(m => m._phoneno, new { @class = "inpadmin" })
             @Html.ValidationMessageFor(m => m._phoneno)
         </div>
-        <div style="float: left; width: 100%;">
-            <p>Category:</p> @Html.TextBoxFor(m => m._catId, new { @class = "inpadmin" })
-            @Html.ValidationMessageFor(m => m._catId)
-
+        <div style="float: left; width: 100%;">         
+           <p>Category:</p> @Html.DropDownListFor(m => m._catId, ViewData["Select Category"] as List<SelectListItem>)
         </div>
         <input class="submlogin" type="submit" value="Add" />
     }
