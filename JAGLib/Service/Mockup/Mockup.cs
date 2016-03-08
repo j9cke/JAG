@@ -81,12 +81,12 @@ namespace Service.Mockup
            new Copy { _isbn = 9789137144238, _status = true, _barcode = "1004", _library = ".Lib", _location = "13" }
         };
 
-        public List<Borrow> borrowList = new List<Borrow>
-        {
-            new Borrow { _pid = 7504166548, _barcode = "1001", _borrowDate = "Maj", _returnDate = "Juni", _toBeReturnedDate = null },
-            new Borrow { _pid = 9001016969, _barcode = "1002", _borrowDate = "Januari", _returnDate = "Mars", _toBeReturnedDate = null },
-            new Borrow { _pid = 9912310125, _barcode = "1003", _borrowDate = "April", _returnDate = "Augusti", _toBeReturnedDate = null },
-            new Borrow { _pid = 6910252222, _barcode = "1004", _borrowDate = "Februari", _returnDate = "December", _toBeReturnedDate = null }
-        };
+        //public List<Borrow> borrowList = new List<Borrow>
+        //{
+        //    new Borrow { _pid = "7504166548", _barcode = "1001", _borrowDate = "Maj", _returnDate = "Juni", _toBeReturnedDate = null },
+        //    new Borrow { _pid = 9001016969, _barcode = "1002", _borrowDate = "Januari", _returnDate = "Mars", _toBeReturnedDate = null },
+        //    new Borrow { _pid = 9912310125, _barcode = "1003", _borrowDate = "April", _returnDate = "Augusti", _toBeReturnedDate = null },
+        //    new Borrow { _pid = 6910252222, _barcode = "1004", _borrowDate = "Februari", _returnDate = "December", _toBeReturnedDate = null }
+        //};
     }
 }

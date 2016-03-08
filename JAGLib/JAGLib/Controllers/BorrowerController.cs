@@ -21,9 +21,13 @@ namespace JAGLib.Controllers
                 
                 LoginData user = (LoginData)Session["user"];
                 string pId = user._username;
-                Borrower model = Service.Services.BorrowerService.getBorrower(pId);
-                Session["name"] = model._firstname + " " + model._lastname; 
-             
+                Borrower b = Service.Services.BorrowerService.getBorrower(pId);
+                Session["name"] = b._firstname + " " + b._lastname;
+
+                //List<Borrow> borrow = Service.Services.BorrowerService.getPersonsBorrowList(model);
+                BorrowerDetails model = Service.Services.BorrowerService.getBorrowerDetails(pId);
+
+
                     
                 return View("Borrower", "_StandardLayout", model);
             }

@@ -103,7 +103,7 @@ namespace Repository.Repositories
 
 
 
-
+        
 
 
 
@@ -123,5 +123,122 @@ namespace Repository.Repositories
         {
             dbInsert("INSERT INTO BORROWER VALUES ('" + b._pid + "', '" + b._firstname + "', '" + b._lastname + "', '" + b._address + "', '" + b._phoneno + "', '" + b._catId + "');");
         }
-    }
+
+
+
+        /***************  GET BORROW FOR A BORROWER  ******************/
+        static private List<borrow> dbGetBorrowListForPerson(string query)
+        {
+            List<borrow> _brwList = null;
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+            try
+            {
+                con.Open();
+                SqlDataReader dar = cmd.ExecuteReader();
+                if (dar != null)
+                {
+                    _brwList = new List<borrow>();
+                    while (dar.Read())
+                    {
+                        //borrow _brwObj = new borrow();
+                        //_brwObj.pid = dar["PersonId"] as string;
+                        //_brwObj.barcode = dar["Barcode"] as string;
+                        //_brwObj.returnDate = dar["ReturnDate"] as string;
+                        //_brwObj.borrowDate = dar["BorrowDate"] as string;
+                        //_brwObj.toBeReturnedDate = dar["ToBeReturnedDate"] as string;
+                       
+                        //_brwList.Add(_brwObj);
+                    }
+                }
+            }
+            catch (Exception eObj)
+            {
+                throw eObj;
+            }
+            finally
+            {
+                if (con != null)
+                    con.Close();
+            }
+            return _brwList;
+        }
+        static public List<borrow> dbGetAllBorrowList(string pId)
+        {
+            return dbGetBorrowListForPerson("SELECT * FROM borrower WHERE PersonId = '" + pId + "';");
+        }
+
+
+
+        static private borrowerdetails dbGetBorrowerDetailsforpid(string query)
+        {
+            borrowerdetails brwd = new borrowerdetails();;
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+            try
+            {
+                con.Open();
+                SqlDataReader dar = cmd.ExecuteReader();
+                if (dar != null)
+                {
+                    while (dar.Read())
+                    {
+                        brwd._pid = dar["PersonId"] as string;
+                        brwd._firstname = dar["FirstName"] as string;
+                        brwd._lastname = dar["LastName"] as string;
+                        brwd._address = dar["Address"] as string;
+                        brwd._phoneno = dar["Telno"] as string;
+                        brwd._catId = (int)dar["CategoryId"];
+                        
+                        borrow _brwObj = new borrow();
+                        _brwObj.barcode = dar["Barcode"] as string;
+
+                        DateTime temp;
+                        if (DateTime.TryParse(dar["ReturnDate"].ToString(), out temp))
+                            _brwObj.returnDate = temp;
+                        if (DateTime.TryParse(dar["BorrowDate"].ToString(), out temp))
+                            _brwObj.borrowDate = temp;
+                        if (DateTime.TryParse(dar["ToBeReturnedDate"].ToString(), out temp))
+                            _brwObj.toBeReturnedDate = temp;
+
+                        //_brwObj.returnDate =  dar["ReturnDate"].ToString;
+                        //_brwObj.borrowDate = dar["BorrowDate"] as string;
+                        //_brwObj.toBeReturnedDate = dar["ToBeReturnedDate"] as string;
+                        //_brwObj.pid = dar["PersonId"] as string;
+
+                        _brwObj.book = new book();
+                        _brwObj.book._isbn = dar["ISBN"] as string;
+                        _brwObj.book._title = dar["Title"] as string;
+                        _brwObj.book._signId = (int)dar["SignId"];
+                        _brwObj.book._publicationYear = dar["PublicationYear"] as string;
+                        _brwObj.book._publicationInfo = dar["publicationinfo"] as string;
+                        _brwObj.book._pages = (Int16)dar["pages"];
+
+                        
+                        brwd._borrowlist.Add(_brwObj);
+                    }
+                }
+            }
+            catch (Exception eObj)
+            {
+                throw eObj;
+            }
+            finally
+            {
+                if (con != null)
+                    con.Close();
+            }
+            return brwd;
+        }
+
+
+        static public borrowerdetails dbGetBorrowerDetails(string pid)
+        {
+            return dbGetBorrowerDetailsforpid("SELECT * FROM BORROW INNER JOIN BORROWER ON BORROW.PersonId = BORROWER.PersonId INNER JOIN COPY ON BORROW.Barcode = COPY.Barcode INNER JOIN BOOK ON COPY.ISBN = BOOK.ISBN WHERE BORROWER.PersonId LIKE '" + pid + "';");
+
+        }
+
+   }
 }

@@ -66,5 +66,61 @@ namespace Service.Services
         {
             BorrowerRepository.dbAddBorrower(deMapBorrower(m));
         } 
+
+
+        /************************* GET BORROW FOR A PERSON   ***********************/
+        static private Borrow MapBorrow(borrow brwObj)
+        {
+            Borrow theBorrow = new Borrow();
+            theBorrow._barcode = brwObj.barcode;
+            theBorrow._pid = brwObj.pid;
+            theBorrow._borrowDate = brwObj.borrowDate;
+            theBorrow._returnDate = brwObj.returnDate;
+            theBorrow._toBeReturnedDate = brwObj.toBeReturnedDate;
+            theBorrow._book = Service.Services.BookServices.MapBookPublic(brwObj.book);
+            return theBorrow;
+        }
+
+
+        static public List<Borrow> getPersonsBorrowList(Borrower borrower)
+        {
+           List<Borrow> borrowList = new List<Borrow>();
+            
+           List<borrow> brwList = BorrowerRepository.dbGetAllBorrowList(borrower._pid);
+           foreach (borrow brwObj in brwList)
+           {
+               borrowList.Add(MapBorrow(brwObj));
+           }
+            
+           return borrowList;
+        }
+
+
+        static private BorrowerDetails MapBorrowerDetails(borrowerdetails brwObj)
+        {
+            BorrowerDetails theBD = new BorrowerDetails();
+            theBD._pid = brwObj._pid;
+            theBD._firstname = brwObj._firstname;
+            theBD._lastname = brwObj._lastname;
+            theBD._address = brwObj._address;
+            theBD._phoneno = brwObj._phoneno;
+            theBD._catId = brwObj._catId;
+            foreach(borrow borrow in brwObj._borrowlist)
+            {
+                theBD._borrowlist.Add(MapBorrow(borrow));
+            }
+           
+            return theBD;
+        }
+
+
+        static public BorrowerDetails getBorrowerDetails(string pid)
+        {
+            return MapBorrowerDetails(BorrowerRepository.dbGetBorrowerDetails(pid));
+        }
+
+
+
+
     }
 }
