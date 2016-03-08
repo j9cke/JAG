@@ -38,12 +38,17 @@ namespace Service.Services
         // Hämtar alla böcker som en Author har skrivit
         static public AuthorDetails getBooksFromAuthor(int aid) 
         {
-            AuthorDetails a = new AuthorDetails();
             authordetails authObj = AuthorRepository.dbBooksFromAuthor(aid);
 
-            a = MapAuthorDetails(authObj);
+            return MapAuthorDetails(authObj);
+        }
 
-            return a; 
+        // Hämtar en author på Aid
+        static public Author getAuthorFromAid(int aid)
+        {
+            author authObj = AuthorRepository.dbGetAuthorFromAid(aid);
+
+            return MapAuthor(authObj);
         }
 
         // Lägger till angiven Author till databasen
@@ -51,6 +56,39 @@ namespace Service.Services
         {
             AuthorRepository.dbAddAuthor(deMapAuthor(m));  
         } 
+
+        // Tar bort en author på Aid & eventuellt hans böcker
+        static public void Remove(int aid)
+        {
+            List<string> removeThisBooks = BooksThatShallBeRemoves(aid);
+
+            AuthorRepository.dbRemoveBookAuthor(aid);       // Ta bort author ur book_author
+            AuthorRepository.dbRemoveAuthor(aid);           // Ta bort authorn
+
+            if (removeThisBooks.Count() > 0) 
+                foreach (string isbn in removeThisBooks)
+                {
+                    BookRepository.dbRemoveCopies(isbn);
+                    BookRepository.dbRemoveBook(isbn);    // Ta bort böcker som skrivits av endast hen
+                }
+        }
+
+        // Listar de böcker som skall tas bort, alltså de böcker som skrivits endast av author 
+        static private List<string> BooksThatShallBeRemoves(int aid)
+        {
+            List<string> bookIsbnsToRemove = new List<string>();
+            
+            List<bookauthor> baList = AuthorRepository.dbGetBookIsbnFromAuthor(aid); //alla Authors böcker
+            foreach (bookauthor b in baList)
+            {
+                int noOfAuthors = AuthorRepository.dbCountAuthorsForBook(b._isbn);
+
+                if (noOfAuthors == 1)
+                    bookIsbnsToRemove.Add(b._isbn);
+            }
+
+            return bookIsbnsToRemove;
+        }
 
         static private Author MapAuthor(author authObj)
         {

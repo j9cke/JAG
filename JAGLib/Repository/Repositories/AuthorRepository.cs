@@ -74,7 +74,104 @@ namespace Repository.Repositories
             return _author;
         }
 
+        static private author dbOneAuthorFromAid(string query)
+        {
+            author _author = new author();
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+
+            try
+            {
+                con.Open();
+                SqlDataReader dar = cmd.ExecuteReader();
+                if (dar != null)
+                {
+                    while (dar.Read())
+                    {
+                        _author._id = (int)dar["Aid"];
+                        _author._firstname = dar["FirstName"] as string;
+                        _author._lastname = dar["LastName"] as string;
+                        _author._birthyear = dar["BirthYear"] as string;
+                    }
+                }
+            }
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+
+            return _author;
+        }
+
+        static private List<bookauthor> dbGetAllIsbnFromAuthor(string query)
+        {
+            List<bookauthor> _baList = new List<bookauthor>();
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+            
+            try
+            {
+                con.Open();
+                SqlDataReader dar = cmd.ExecuteReader();
+                if (dar != null)
+                {
+                    while (dar.Read())
+                    {
+                        bookauthor boObj = new bookauthor();
+                        boObj._aid = (int)dar["Aid"];
+                        boObj._isbn = dar["ISBN"] as string;
+                        _baList.Add(boObj);
+                    }
+                }
+            }
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+            
+            return _baList;
+        }
+
+        static private int dbCountAuthorsOnIsbn(string query)
+        {
+            int c = 0;
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+
+            try
+            {
+                con.Open();
+                SqlDataReader dar = cmd.ExecuteReader();
+                if (dar != null)
+                {
+                    while (dar.Read())
+                    {
+                        c = (int)dar["NoOf"];
+                    }
+                }
+            }
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+
+            return c;
+        }
+
         static private void dbInsert(string query) 
+        {
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+        }
+
+        static private void dbRemove(string query)
         {
             string _connectionString = DataSource.getConnectionString("projectmanager");
             SqlConnection con = new SqlConnection(_connectionString);
@@ -105,9 +202,34 @@ namespace Repository.Repositories
             return dbGetBooksFromAuthor("SELECT BOOK.ISBN, BOOK.Title, AUTHOR.FirstName, AUTHOR.LastName, AUTHOR.BirthYear, BOOK_AUTHOR.Aid FROM BOOK_AUTHOR INNER JOIN BOOK ON BOOK_AUTHOR.ISBN = dbo.BOOK.ISBN INNER JOIN AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid WHERE BOOK_AUTHOR.Aid LIKE + '" + aid + "';");
         }
 
+        static public author dbGetAuthorFromAid(int aid)
+        {
+            return dbOneAuthorFromAid("SELECT * FROM AUTHOR WHERE Aid LIKE '" + aid + "';");
+        }
+
+        static public List<bookauthor> dbGetBookIsbnFromAuthor(int aid)
+        {
+            return dbGetAllIsbnFromAuthor("SELECT * FROM BOOK_AUTHOR WHERE Aid LIKE'" + aid + "';");
+        }
+
+        static public int dbCountAuthorsForBook(string isbn)
+        {
+            return dbCountAuthorsOnIsbn("SELECT COUNT(*) AS NoOf FROM BOOK_AUTHOR WHERE ISBN LIKE '" + isbn + "';");
+        }
+
         static public void dbAddAuthor(author a) 
         {
             dbInsert("INSERT INTO AUTHOR (FirstName, LastName, BirthYear) VALUES ('" + a._firstname + "', '" + a._lastname + "', '" + a._birthyear + "');");
+        }
+
+        static public void dbRemoveAuthor(int aid)
+        {
+            dbRemove("DELETE FROM AUTHOR WHERE Aid LIKE '" + aid + "';");
+        }
+
+        static public void dbRemoveBookAuthor(int aid)
+        {
+            dbRemove("DELETE FROM BOOK_AUTHOR WHERE Aid LIKE '" + aid + "';");
         }
     }
 }
