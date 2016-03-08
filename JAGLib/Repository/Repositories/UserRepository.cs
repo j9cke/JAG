@@ -77,11 +77,35 @@ namespace Repository.Repositories
             return _userList;
         }
 
+        static private void dbInsert(string query)
+        {
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+        }
+
+
         static public List<logindata> dbGetAllUserList()
         {
             return dbGetUserList("SELECT * FROM login;");
         }
 
+
+        
+
+        static public void dbAddUser(logindata b)
+        {
+            dbInsert("INSERT INTO LOGIN (PersonId, Password, Salt, Level) VALUES ('" + b._username + "', '" + b._password+ "', '" + b._salt + "', '" + b._level + "');");
+        }
         //static public List<logindata> dbGetDepartmentEmployeeList(int catId)
         //{
         //    return dbGetUserList("SELECT * FROM login WHERE id = " + Convert.ToString(catId) + ";");

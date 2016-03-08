@@ -73,20 +73,21 @@ namespace JAGLibrary.Controllers
             return hash.GetHashCode().ToString(); ;
         }
 
-        public ActionResult AddBorrower(Common.Models.Borrower m)
+
+        private void saveBorrower(Common.Models.Borrower m)
         {
             int saltLenght = 32;
             LoginData ld = new LoginData();
 
             ld._salt = getSalt(saltLenght);
-            ld._password = m._password;
+            ld._password = getHash(m._password, ld._salt); ;
             ld._username = m._pid;
             ld._level = "1";
-            ld._hash = getHash(m._password, ld._salt);
-            ld._personId = "5";
-            
+            //ld._hash = getHash(m._password, ld._salt);
+
             //Add to database.
             Borrower person = new Borrower();
+            person._pid = m._pid;
             person._firstname = m._firstname;
             person._lastname = m._lastname;
             person._address = m._address;
@@ -94,9 +95,27 @@ namespace JAGLibrary.Controllers
             person._catId = m._catId;
 
             //add person to database
+            Service.Services.BorrowerService.addBorrowerToDb(person);
+            Service.Services.LoginService.addUserToDb(ld);
+        } 
+
+        
+        public ActionResult AddBorrower()
+        {
+            var model = new Borrower();
+            return View("AddBorrower", "_StandardLayout", model);
+        }
+
+
+        //[HttpGet]
+        public ActionResult AddBorrowerForm(Common.Models.Borrower m) 
+        {
+            saveBorrower(m);
 
             return View("AddBorrower", "_StandardLayout");
         }
+
+
 
         public ActionResult EditBorrower()
         {
@@ -106,7 +125,7 @@ namespace JAGLibrary.Controllers
             model._lastname = "Eriksson";
             model._address = "Stockholmsvägen 3";
             model._phoneno = "0762393349";
-            model._catId = 1;
+            model._catId = "1";
 
             return View("EditBorrower", "_StandardLayout", model);
         }

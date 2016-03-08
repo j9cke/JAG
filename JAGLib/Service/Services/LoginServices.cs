@@ -39,5 +39,20 @@ namespace Service.Services
             theUser._level = userObj._level;
             return theUser;
         }
+
+        static private logindata deMapUser(LoginData userObj)
+        {
+            logindata theUser = new logindata();
+            theUser._username = userObj._username;
+            theUser._password = userObj._password;
+            theUser._salt = userObj._salt;
+            theUser._level = userObj._level;
+            return theUser;
+        }
+
+        static public void addUserToDb(LoginData m)
+        {
+            UserRepository.dbAddUser(deMapUser(m));
+        } 
     }
 }

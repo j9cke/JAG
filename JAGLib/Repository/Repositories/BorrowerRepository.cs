@@ -85,6 +85,29 @@ namespace Repository.Repositories
             return _brwList;
         }
 
+        static private void dbInsert(string query)
+        {
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+        }
+
+
+
+
+
+
+
+
         static public List<borrower> dbGetAllBorrowerList()
         {
             return dbGetBorrowerList("SELECT * FROM borrower;");
@@ -95,5 +118,10 @@ namespace Repository.Repositories
             return dbGetBorrowerList("SELECT * FROM borrower WHERE aid = " + Convert.ToString(catId) + ";");
         }
 
+
+        static public void dbAddBorrower(borrower b)
+        {
+            dbInsert("INSERT INTO BORROWER VALUES ('" + b._pid + "', '" + b._firstname + "', '" + b._lastname + "', '" + b._address + "', '" + b._phoneno + "', '" + b._catId + "');");
+        }
     }
 }
