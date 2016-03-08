@@ -74,6 +74,12 @@ namespace Service.Services
             return theBook;
         }
 
+
+        static public Book MapBookPublic(book book)
+        {
+            return MapBook(book);
+        }
+
         static private book deMapBook(Book bookObj)
         {
             book theBook = new book();
