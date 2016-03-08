@@ -43,9 +43,28 @@ namespace Service.Services
             theBorrower._lastname = brwObj._lastname;
             theBorrower._address = brwObj._address;
             theBorrower._phoneno = brwObj._phoneno;
-            theBorrower._catId = brwObj._catId;
+            theBorrower._catId = brwObj._catId.ToString();
             theBorrower._password = "";
             return theBorrower;
         }
+
+        static private borrower deMapBorrower(Borrower brwObj)
+        {
+            borrower theBorrower = new borrower();
+            theBorrower._pid = brwObj._pid;
+            theBorrower._firstname = brwObj._firstname;
+            theBorrower._lastname = brwObj._lastname;
+            theBorrower._address = brwObj._address;
+            theBorrower._phoneno = brwObj._phoneno;
+            theBorrower._catId = Convert.ToInt32(brwObj._catId);
+            return theBorrower;
+        }
+
+
+
+        static public void addBorrowerToDb(Borrower m)
+        {
+            BorrowerRepository.dbAddBorrower(deMapBorrower(m));
+        } 
     }
 }
