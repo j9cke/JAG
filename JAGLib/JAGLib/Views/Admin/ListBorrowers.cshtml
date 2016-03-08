@@ -14,7 +14,7 @@
                 {
                     <li>
                         <p>@Model._borrList[i]._firstname @Model._borrList[i]._lastname</p>
-                        <a href="#">Edit</a>
+                        <a href="EditBorrower?bid=@Model._borrList[i]._pid">Edit</a>
                         <a href="Remove?aid=0&isbn=0&bid=@Model._borrList[i]._pid">Remove</a>
                     </li>
                 }
