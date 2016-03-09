@@ -110,7 +110,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_StandardLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -146,6 +148,8 @@
     <Content Include="Views\Borrower\Borrower.cshtml" />
     <Content Include="Views\Home\BrowseResult.cshtml" />
     <Content Include="Views\Home\Author.cshtml" />
+    <Content Include="Views\Admin\ConfirmationAdmin.cshtml" />
+    <Content Include="Views\Borrower\ConfirmationBorrower.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

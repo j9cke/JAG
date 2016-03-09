@@ -8,7 +8,7 @@
     <h4>Admin Section</h4>
     <h5><b>Add Author</b></h5>
 
-    @using (Html.BeginForm("AddAuthorForm", "Admin"))
+    @using (Html.BeginForm("AddAuthor", "Admin/ConfirmationAdmin"))
     {
         <div style="float: left; margin-top: 10px; width: 100%;">
             <p>First Name:</p> @Html.TextBoxFor(m => m._firstname, new { @class = "inpadmin" })

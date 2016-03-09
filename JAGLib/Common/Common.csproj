@@ -65,6 +65,8 @@
     <Compile Include="Models\Borrow.cs" />
     <Compile Include="Models\BrowseResult.cs" />
     <Compile Include="Models\Classification.cs" />
+    <Compile Include="Models\ConfirmationAdmin.cs" />
+    <Compile Include="Models\ConfirmationBorrower.cs" />
     <Compile Include="Models\Copy.cs" />
     <Compile Include="Models\ListBook.cs" />
     <Compile Include="Models\ListAuthor.cs" />

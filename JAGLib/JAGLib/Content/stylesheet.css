@@ -316,3 +316,11 @@ h2 {
     margin-bottom: 0;
     padding: 0;
 }
+
+#confirmation {
+	width: 100%;
+	float: left;
+	min-height: 10px;
+	background-color: #eee;
+	padding: 3%;
+}

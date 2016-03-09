@@ -1,0 +1,22 @@
+﻿@model Common.Models.ConfirmationAdmin
+@{
+    Layout = "ConfirmationAdmin";
+    
+}
+
+<div id="confirmation">
+
+    @if (@Model._firstName != null)
+    { 
+    <h2>Succesfully added author:</h2>
+    <h2>@Model._firstName  @Model._lastName</h2>
+    }
+    
+    @if (@Model._title != null)
+    {
+    <h2>Succesfully added book:</h2>
+    <h2>@Model._title</h2>    
+    }
+        
+    <a href="/Admin/Admin" style="margin: 0 0 0 15px" class="submlogin">Back</a>
+</div>
