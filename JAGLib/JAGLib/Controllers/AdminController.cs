@@ -108,19 +108,16 @@ namespace JAGLibrary.Controllers
             return View("AddBorrower", "_StandardLayout", model);
         }
 
-
         //[HttpGet]
         public ActionResult AddBorrowerForm(Common.Models.Borrower m) 
         {
             saveBorrower(m);
-            var model = new Borrower();
-            m = model;
 
-            ConfirmationAdmin(null, null, model);
+            var conf = new ConfirmationAdmin();
+            conf._firstName = m._firstname;
+            conf._lastName = m._lastname;
 
-            
-
-            return Redirect("AddBorrower");
+            return View("Confirmation", "_StandardLayout", conf);
         }
 
         public ActionResult EditBorrower(string bid)
@@ -180,33 +177,12 @@ namespace JAGLibrary.Controllers
         public ActionResult AddAuthorForm(Common.Models.Author m)
         {            
             Service.Services.AuthorServices.addAuthorToDb(m);
-            var model = new Author();
-            m = model;
-            ConfirmationAdmin(model, null,null);
 
-            return View("AddAuthor", "_StandardLayout", m);
-        }
-
-        public ActionResult ConfirmationAdmin(Common.Models.Author authorData, Common.Models.Book bookData, Common.Models.Borrower borrowerData)
-        {
             var conf = new ConfirmationAdmin();
+            conf._firstName = m._firstname;
+            conf._lastName = m._lastname;
 
-            if(authorData != null)
-            {
-                conf._firstName = authorData._firstname;
-                conf._lastName = authorData._lastname;
-            }
-            else if (bookData != null)
-            {
-                conf._title = bookData._title;
-            }
-            else
-            {
-                conf._firstName = borrowerData._firstname;
-                conf._lastName = borrowerData._lastname;
-            }
-            
-            return View("ConfirmationAdmin", "_StandardLayout", conf);
+            return View("Confirmation", "_StandardLayout", conf);
         }
 
         //[HttpGet]
@@ -219,11 +195,11 @@ namespace JAGLibrary.Controllers
         public ActionResult AddBookForm(Common.Models.Book m)
         {
             Service.Services.BookServices.addBookToDb(m);
-            var model = new Book();
-            m = model;
-            ConfirmationAdmin(null, model, null);
 
-            return View("AddBook", "_StandardLayout", m);
+            var conf = new ConfirmationAdmin();
+            conf._title = m._title;
+
+            return View("Confirmation", "_StandardLayout", conf);
         }
 
         public ActionResult RemoveThis(int cat, int aid, string isbn, string bid)

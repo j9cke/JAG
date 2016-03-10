@@ -8,7 +8,7 @@
     <h4>Admin Section</h4>
     <h5><b>Add Borrower</b></h5>
 
-    @using (Html.BeginForm("AddBorrowerForm", "Admin/ConfirmationAdmin"))
+    @using (Html.BeginForm("AddBorrowerForm", "Admin"))
     {
         <div style="float: left; margin-top: 10px; width: 100%;">
             <p>Personal ID:</p> @Html.TextBoxFor(m => m._pid, new { @class = "inpadmin" })
