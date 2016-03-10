@@ -60,13 +60,16 @@ namespace Service.Services
             return theBorrower;
         }
 
-
-
         static public void addBorrowerToDb(Borrower m)
         {
             BorrowerRepository.dbAddBorrower(deMapBorrower(m));
-        } 
+        }
 
+        // Editera author med värdena som kommer in
+        static public void EditBorrower(Borrower b)
+        {
+            BorrowerRepository.dbEditBorrower(deMapBorrower(b));
+        }
 
         /************************* GET BORROW FOR A PERSON   ***********************/
         static private Borrow MapBorrow(borrow brwObj)
@@ -95,7 +98,6 @@ namespace Service.Services
            return borrowList;
         }
 
-
         static private BorrowerDetails MapBorrowerDetails(borrowerdetails brwObj)
         {
             BorrowerDetails theBD = new BorrowerDetails();
@@ -113,14 +115,9 @@ namespace Service.Services
             return theBD;
         }
 
-
         static public BorrowerDetails getBorrowerDetails(string pid)
         {
             return MapBorrowerDetails(BorrowerRepository.dbGetBorrowerDetails(pid));
         }
-
-
-
-
     }
 }

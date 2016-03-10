@@ -108,18 +108,6 @@ namespace JAGLibrary.Controllers
             return View("AddBorrower", "_StandardLayout", model);
         }
 
-        //[HttpGet]
-        public ActionResult AddBorrowerForm(Common.Models.Borrower m) 
-        {
-            saveBorrower(m);
-
-            var conf = new ConfirmationAdmin();
-            conf._firstName = m._firstname;
-            conf._lastName = m._lastname;
-
-            return View("Confirmation", "_StandardLayout", conf);
-        }
-
         public ActionResult EditBorrower(string bid)
         {
             var model = Service.Services.BorrowerService.getBorrower(bid);
@@ -174,6 +162,30 @@ namespace JAGLibrary.Controllers
         }
 
         //[HttpGet]
+        public ActionResult AddBorrowerForm(Common.Models.Borrower m)
+        {
+            saveBorrower(m);
+
+            var conf = new ConfirmationAdmin();
+            conf._firstName = m._firstname;
+            conf._lastName = m._lastname;
+
+            return View("ConfirmationAdmin", "_StandardLayout", conf);
+        }
+
+        //[HttpGet]
+        public ActionResult EditBorrowerForm(Common.Models.Borrower m)
+        {
+            Service.Services.BorrowerService.EditBorrower(m);
+
+            var conf = new ConfirmationAdmin();
+            conf._firstName = m._firstname;
+            conf._lastName = m._lastname;
+
+            return View("Confirmation", "_StandardLayout", conf);
+        }
+
+        //[HttpGet]
         public ActionResult AddAuthorForm(Common.Models.Author m)
         {            
             Service.Services.AuthorServices.addAuthorToDb(m);
@@ -188,13 +200,30 @@ namespace JAGLibrary.Controllers
         //[HttpGet]
         public ActionResult EditAuthorForm(Common.Models.Author m)
         {
-            return View("AddAuthor", "_StandardLayout", m);
+            Service.Services.AuthorServices.EditAuthor(m);
+
+            var conf = new ConfirmationAdmin();
+            conf._firstName = m._firstname;
+            conf._lastName = m._lastname;
+
+            return View("Confirmation", "_StandardLayout", conf);
         }
 
         //[HttpGet]
         public ActionResult AddBookForm(Common.Models.Book m)
         {
             Service.Services.BookServices.addBookToDb(m);
+
+            var conf = new ConfirmationAdmin();
+            conf._title = m._title;
+
+            return View("Confirmation", "_StandardLayout", conf);
+        }
+
+        //[HttpGet]
+        public ActionResult EditBookForm(Common.Models.Book m)
+        {
+            Service.Services.BookServices.EditBook(m);
 
             var conf = new ConfirmationAdmin();
             conf._title = m._title;

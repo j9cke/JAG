@@ -90,6 +90,12 @@ namespace Service.Services
             return bookIsbnsToRemove;
         }
 
+        // Editera author med värdena som kommer in
+        static public void EditAuthor(Author a)
+        {
+            AuthorRepository.dbEditAuthor(deMapAuthor(a));
+        }
+
         static private Author MapAuthor(author authObj)
         {
             Author theAuthor = new Author();

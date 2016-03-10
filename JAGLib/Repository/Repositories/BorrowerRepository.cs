@@ -101,12 +101,21 @@ namespace Repository.Repositories
             finally { if (con != null) con.Close(); }
         }
 
+        static private void dbRemoveOrEdit(string query)
+        {
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
 
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
 
-        
-
-
-
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+        }
 
         static public List<borrower> dbGetAllBorrowerList()
         {
@@ -118,13 +127,10 @@ namespace Repository.Repositories
             return dbGetBorrowerList("SELECT * FROM borrower WHERE aid = " + Convert.ToString(catId) + ";");
         }
 
-
         static public void dbAddBorrower(borrower b)
         {
             dbInsert("INSERT INTO BORROWER VALUES ('" + b._pid + "', '" + b._firstname + "', '" + b._lastname + "', '" + b._address + "', '" + b._phoneno + "', '" + b._catId + "');");
         }
-
-
 
         /***************  GET BORROW FOR A BORROWER  ******************/
         static private List<borrow> dbGetBorrowListForPerson(string query)
@@ -233,12 +239,15 @@ namespace Repository.Repositories
             return brwd;
         }
 
-
         static public borrowerdetails dbGetBorrowerDetails(string pid)
         {
             return dbGetBorrowerDetailsforpid("SELECT * FROM BORROW INNER JOIN BORROWER ON BORROW.PersonId = BORROWER.PersonId INNER JOIN COPY ON BORROW.Barcode = COPY.Barcode INNER JOIN BOOK ON COPY.ISBN = BOOK.ISBN WHERE BORROWER.PersonId LIKE '" + pid + "';");
 
         }
 
+        static public void dbEditBorrower(borrower b)
+        {
+            dbRemoveOrEdit("UPDATE BORROWER SET FirstName='" + b._firstname + "', LastName='" + b._lastname + "', Address='" + b._address + "', Telno='" + b._phoneno + "', CategoryId='" + b._catId + "' WHERE PersonId='" + b._pid + "';");
+        }
    }
 }
