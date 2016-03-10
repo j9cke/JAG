@@ -206,7 +206,7 @@ namespace Repository.Repositories
                         //_brwObj.returnDate =  dar["ReturnDate"].ToString;
                         //_brwObj.borrowDate = dar["BorrowDate"] as string;
                         //_brwObj.toBeReturnedDate = dar["ToBeReturnedDate"] as string;
-                        //_brwObj.pid = dar["PersonId"] as string;
+                        _brwObj.pid = dar["PersonId"] as string;
 
                         _brwObj.book = new book();
                         _brwObj.book._isbn = dar["ISBN"] as string;
