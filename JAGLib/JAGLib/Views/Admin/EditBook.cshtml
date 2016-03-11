@@ -12,18 +12,23 @@
         @Html.HiddenFor(m => m._isbn)
         <div style="float: left; width: 100%;">
             <p>Title:</p> @Html.TextBoxFor(m => m._title, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._title)
         </div>
         <div style="float: left; width: 100%;">
             <p>Sign Id:</p> @Html.TextBoxFor(m => m._signId, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._signId)
         </div>
         <div style="float: left; width: 100%;">
             <p>Publication year:</p> @Html.TextBoxFor(m => m._publicationYear, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._publicationYear)
         </div>
         <div style="float: left; width: 100%;">
             <p>Publication Info:</p> @Html.TextBoxFor(m => m._publicationInfo, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._publicationInfo)
         </div>
         <div style="float: left; width: 100%;">
             <p>Pages:</p> @Html.TextBoxFor(m => m._pages, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._pages)
         </div>
         <div style="float: left; width: 100%">
             <p>Author ID:</p> @Html.TextBoxFor(m => m._authorid, new { @class = "inpadmin" })
