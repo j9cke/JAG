@@ -112,14 +112,17 @@ namespace JAGLibrary.Controllers
         //[HttpGet]
         public ActionResult AddBorrowerForm(Common.Models.Borrower m) 
         {
-            saveBorrower(m);
+           
             var model = new Borrower();
             m = model;
-
-            ConfirmationAdmin(null, null, model);
-
+            List<Borrower> borrowerList = Service.Services.BorrowerService.getBorrowerList();
             
-
+            if (!borrowerList.Exists(x => x._pid == m._pid))
+            {
+                saveBorrower(m);
+                ConfirmationAdmin(null, null, model);
+            }
+         
             return Redirect("AddBorrower");
         }
 

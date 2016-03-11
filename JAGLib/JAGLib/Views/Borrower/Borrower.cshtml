@@ -5,12 +5,45 @@
 
 <div id="Borrower">   
     <h3>@Model._firstname @Model._lastname</h3>
+    <h4>@Model._pid</h4>
+    <h4>@Model._phoneno</h4>
+    <h4>@Model._address</h4>
+    @{
+        switch (@Model._catId)
+        {
+            case 1:
+                <h4>External</h4>
+                break;
+            case 2:
+                <h4>Staff</h4>
+                break;
+            case 3:
+                <h4>Student</h4>
+                break;
+            case 4:
+                <h4>Children</h4>
+                break;
+            default:
+                break;
+        }
+    }
+
     <div id="borrowedBooks">
         <h4 style="float:left;">Borrowed Books</h4>   <h4 style="float:right;">Renew</h4>       
     </div>
     <div id="listbox">
         <ul>
-           
+            @{
+                for (int i = 0; i < @Model._borrowlist.Count(); ++i)
+                {
+                    <li>
+                        <h4>@Model._borrowlist[i]._book._title</h4>
+                        <h5>Borrow date: @Model._borrowlist[i]._borrowDate</h5>
+                        <h5>Return date: @Model._borrowlist[i]._toBeReturnedDate</h5>
+                        <a href="#">Renew loan</a>
+                    </li>
+                }
+            }
         </ul>
     </div>
     <a href="Borrower">Back</a>
