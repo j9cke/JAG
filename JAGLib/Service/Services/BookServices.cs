@@ -71,7 +71,7 @@ namespace Service.Services
         // Tar bort en Book på ISBN & bookens copies
         static public void Remove(string isbn)
         {
-            AuthorRepository.dbRemoveBookAuthor(isbn);       // Ta bort author ur book_author
+            AuthorRepository.dbRemoveBookAuthor(isbn);      // Ta bort author ur book_author
 
             BookRepository.dbRemoveCopies(isbn);            // Ta bort copies
             BookRepository.dbRemoveBook(isbn);              // Ta bort bok
