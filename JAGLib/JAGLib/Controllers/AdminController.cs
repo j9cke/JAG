@@ -179,7 +179,7 @@ namespace JAGLibrary.Controllers
             }
          
             //Errorvy - FIXA istället för denna nedan
-            conf._message = "Borrower not added, person ID already exist";
+            conf._message = "Borrower not added. A borrower with the same person-ID already exist.";
             return View("Confirmation", "_StandardLayout");
         }
 
@@ -256,9 +256,9 @@ namespace JAGLibrary.Controllers
             if (cat == 1) {
                 Service.Services.AuthorServices.Remove(aid);
             } else if (cat == 2) {
-                
+                Service.Services.BookServices.Remove(isbn);
             } else {
-                
+                Service.Services.BorrowerService.Remove(bid);
             }
 
             return View("Admin", "_StandardLayout");

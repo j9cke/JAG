@@ -68,6 +68,15 @@ namespace Service.Services
             BookRepository.dbEditBook(deMapBook(b));
         }
 
+        // Tar bort en Book på ISBN & bookens copies
+        static public void Remove(string isbn)
+        {
+            AuthorRepository.dbRemoveBookAuthor(isbn);      // Ta bort author ur book_author
+
+            BookRepository.dbRemoveCopies(isbn);            // Ta bort copies
+            BookRepository.dbRemoveBook(isbn);              // Ta bort bok
+        }
+
         static private Book MapBook(book bookObj)
         {
             Book theBook = new Book();
@@ -79,7 +88,6 @@ namespace Service.Services
             theBook._pages = bookObj._pages;
             return theBook;
         }
-
 
         static public Book MapBookPublic(book book)
         {

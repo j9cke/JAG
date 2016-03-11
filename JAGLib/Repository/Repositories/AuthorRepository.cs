@@ -232,6 +232,11 @@ namespace Repository.Repositories
             dbRemoveOrEdit("DELETE FROM BOOK_AUTHOR WHERE Aid LIKE '" + aid + "';");
         }
 
+        static public void dbRemoveBookAuthor(string isbn)
+        {
+            dbRemoveOrEdit("DELETE FROM BOOK_AUTHOR WHERE ISBN LIKE '" + isbn + "';");
+        }
+
         static public void dbEditAuthor(author a)
         {
             dbRemoveOrEdit("UPDATE AUTHOR SET FirstName='" + a._firstname + "', LastName='" + a._lastname + "', BirthYear='" + a._birthyear + "' WHERE Aid='" + a._id + "';");

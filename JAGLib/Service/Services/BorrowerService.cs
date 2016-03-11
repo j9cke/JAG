@@ -17,15 +17,13 @@ namespace Service.Services
 
         static public List<Borrower> getBorrowerList()
         {
-            if (_borrowerList == null)
+            _borrowerList = new List<Borrower>();
+            List<borrower> brwList = BorrowerRepository.dbGetAllBorrowerList();
+            foreach (borrower brwObj in brwList)
             {
-                _borrowerList = new List<Borrower>();
-                List<borrower> brwList = BorrowerRepository.dbGetAllBorrowerList();
-                foreach (borrower brwObj in brwList)
-                {
-                    _borrowerList.Add(MapBorrower(brwObj));
-                }
+                _borrowerList.Add(MapBorrower(brwObj));
             }
+    
             return _borrowerList;
         }
        
@@ -34,6 +32,13 @@ namespace Service.Services
             return MapBorrower(BorrowerRepository.dbGetBorrower(id));
         }
 
+        // Tar bort en Borrower på PersonId & borrowerns lån
+        static public void Remove(string pid)
+        {
+            BorrowerRepository.dbRemoveBorrows(pid);    // Ta bort lån
+            BorrowerRepository.dbRemoveLogin(pid);      // Ta bort logindata
+            BorrowerRepository.dbRemoveBorrower(pid);   // Ta bort borrowern
+        }
 
         static private Borrower MapBorrower(borrower brwObj)
         {

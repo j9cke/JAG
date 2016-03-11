@@ -1,46 +1,12 @@
 ﻿@model Common.Models.ConfirmationAdmin
 @{
     Layout = "Confirmation";
-    
 }
 
 <div id="confirmation">
 
     <h2>@Model._message</h2>
     <h2>@Model._title @Model._firstName  @Model._lastName</h2> 
-    @*@{
-        switch (@Model._Type)
-        {
-            case 0:
-                <h2>Succesfully added book:</h2>
-                <h2>@Model._title</h2>   
-                break;
-            case 1:
-                <h2>Succesfully added author:</h2>
-                <h2>@Model._firstName  @Model._lastName</h2>
-                break;
-            case 2:
-                 <h2>Succesfully added borrower:</h2>
-                 <h2>@Model._firstName  @Model._lastName</h2>
-                break;
-            default:
-                break;
-        }
-    }*@
-
-
-
-    @*@if (@Model._firstName != null)
-    { 
-    <h2>Succesfully added author:</h2>
-    <h2>@Model._firstName  @Model._lastName</h2>
-    }
-    
-    @if (@Model._title != null)
-    {
-    <h2>Succesfully added book:</h2>
-    <h2>@Model._title</h2>    
-    }*@
         
     <a href="/Admin/Admin" style="margin: 0 0 0 15px" class="submlogin">Back</a>
 </div>
