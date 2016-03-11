@@ -26,7 +26,15 @@ namespace JAGLib.Controllers
 
                 //List<Borrow> borrow = Service.Services.BorrowerService.getPersonsBorrowList(model);
                 BorrowerDetails model = Service.Services.BorrowerService.getBorrowerDetails(pId);
-
+                if(model._pid == null)
+                {
+                    model._firstname = b._firstname;
+                    model._lastname = b._lastname;
+                    model._pid = b._pid;
+                    model._phoneno = b._phoneno;
+                    model._address = b._address;
+                    model._catId = b._catId;
+                }
 
                     
                 return View("Borrower", "_StandardLayout", model);

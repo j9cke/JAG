@@ -162,14 +162,18 @@ namespace JAGLibrary.Controllers
         }
 
         //[HttpGet]
-        public ActionResult AddBorrowerForm(Common.Models.Borrower m)
+        public ActionResult AddBorrowerForm(Common.Models.Borrower m) 
         {
-            saveBorrower(m);
-
-            var conf = new ConfirmationAdmin();
-            conf._firstName = m._firstname;
-            conf._lastName = m._lastname;
-
+            List<Borrower> borrowerList = Service.Services.BorrowerService.getBorrowerList();
+            
+            if (!borrowerList.Exists(x => x._pid == m._pid))
+            {
+                saveBorrower(m);
+                var conf = new ConfirmationAdmin();
+                conf._firstName = m._firstname;
+                conf._lastName = m._lastname;
+            }
+         
             return View("ConfirmationAdmin", "_StandardLayout", conf);
         }
 
