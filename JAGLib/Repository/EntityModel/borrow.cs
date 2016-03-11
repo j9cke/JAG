@@ -12,6 +12,7 @@ namespace Repository.EntityModel
         public DateTime borrowDate { get; set; }
         public DateTime toBeReturnedDate { get; set; }
         public DateTime returnDate { get; set; }
+        public string penalty { get; set; }
 
         public book book { get; set; }
     }

@@ -11,6 +11,8 @@ namespace Common.Models
         public string _firstName { get; set; }
         public string _lastName { get; set; }
         public string _title { get; set; }
+        public int _Type { get; set; } // 0 = Book, 1= Author, 2 = Borrower
+        public string _message { get; set; }
 
         public Author _author { get; set; }
         public Book _book { get; set; }

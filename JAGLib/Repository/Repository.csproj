@@ -67,6 +67,7 @@
     <Compile Include="EntityModel\book.cs" />
     <Compile Include="EntityModel\borrow.cs" />
     <Compile Include="EntityModel\borrowerdetails.cs" />
+    <Compile Include="EntityModel\category.cs" />
     <Compile Include="EntityModel\logindata.cs" />
     <Compile Include="EntityModel\borrower.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

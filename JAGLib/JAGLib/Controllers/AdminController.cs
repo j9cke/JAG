@@ -165,19 +165,22 @@ namespace JAGLibrary.Controllers
         public ActionResult AddBorrowerForm(Common.Models.Borrower m) 
         {
             List<Borrower> borrowerList = Service.Services.BorrowerService.getBorrowerList();
-            
+            var conf = new ConfirmationAdmin();
             if (!borrowerList.Exists(x => x._pid == m._pid))
             {
                 saveBorrower(m);
-                var conf = new ConfirmationAdmin();
+                
+                conf._Type = 2;
+                conf._message = "Succesfully added borrower: ";
                 conf._firstName = m._firstname;
                 conf._lastName = m._lastname;
 
-                return View("ConfirmationAdmin", "_StandardLayout", conf);
+                return View("Confirmation", "_StandardLayout", conf);
             }
          
             //Errorvy - FIXA istället för denna nedan
-            return View("ConfirmationAdmin", "_StandardLayout");
+            conf._message = "Borrower not added, person ID already exist";
+            return View("Confirmation", "_StandardLayout");
         }
 
         //[HttpGet]
@@ -188,6 +191,8 @@ namespace JAGLibrary.Controllers
             var conf = new ConfirmationAdmin();
             conf._firstName = m._firstname;
             conf._lastName = m._lastname;
+            conf._Type = 2;
+            conf._message = "Succesfully edited borrower: ";
 
             return View("Confirmation", "_StandardLayout", conf);
         }
@@ -200,6 +205,8 @@ namespace JAGLibrary.Controllers
             var conf = new ConfirmationAdmin();
             conf._firstName = m._firstname;
             conf._lastName = m._lastname;
+            conf._Type = 1;
+            conf._message = "Succesfully added author: ";
 
             return View("Confirmation", "_StandardLayout", conf);
         }
@@ -212,6 +219,8 @@ namespace JAGLibrary.Controllers
             var conf = new ConfirmationAdmin();
             conf._firstName = m._firstname;
             conf._lastName = m._lastname;
+            conf._Type = 1;
+            conf._message = "Succesfully edited author: ";
 
             return View("Confirmation", "_StandardLayout", conf);
         }
@@ -223,6 +232,8 @@ namespace JAGLibrary.Controllers
 
             var conf = new ConfirmationAdmin();
             conf._title = m._title;
+            conf._Type = 0;
+            conf._message = "Succesfully added book: ";
 
             return View("Confirmation", "_StandardLayout", conf);
         }
@@ -234,6 +245,8 @@ namespace JAGLibrary.Controllers
 
             var conf = new ConfirmationAdmin();
             conf._title = m._title;
+            conf._Type = 0;
+            conf._message = "Succesfully edited book: ";
 
             return View("Confirmation", "_StandardLayout", conf);
         }

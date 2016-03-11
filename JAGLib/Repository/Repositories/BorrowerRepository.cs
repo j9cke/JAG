@@ -175,6 +175,39 @@ namespace Repository.Repositories
             return dbGetBorrowListForPerson("SELECT * FROM borrower WHERE PersonId = '" + pId + "';");
         }
 
+        static private category dbGetCategoryforCatId(string query)
+        {
+            category cat = new category();
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+            try
+            {
+                con.Open();
+                SqlDataReader dar = cmd.ExecuteReader();
+                if (dar.Read())
+                {
+                    cat.categoryId = (int)dar["CategoryId"]; // as string;
+                    cat.period = (int)dar["Period"]; //as string;
+                    cat.categoryt = dar["Category"] as string;
+                    cat.penaltyperday = (int)dar["Penaltyperday"];
+                }
+            }
+            catch (Exception eObj)
+            {
+                throw eObj;
+            }
+            finally
+            {
+                if (con != null)
+                    con.Close();
+            }
+
+
+
+            return cat;
+        }
+
 
 
         static private borrowerdetails dbGetBorrowerDetailsforpid(string query)
@@ -209,9 +242,14 @@ namespace Repository.Repositories
                         if (DateTime.TryParse(dar["ToBeReturnedDate"].ToString(), out temp))
                             _brwObj.toBeReturnedDate = temp;
 
-                        //_brwObj.returnDate =  dar["ReturnDate"].ToString;
-                        //_brwObj.borrowDate = dar["BorrowDate"] as string;
-                        //_brwObj.toBeReturnedDate = dar["ToBeReturnedDate"] as string;
+
+                        if (_brwObj.returnDate == null && _brwObj.toBeReturnedDate > DateTime.Now)
+                        {
+                            category cat = dbGetCategory(brwd._catId.ToString());
+                            _brwObj.penalty = ((DateTime.Today - _brwObj.toBeReturnedDate.Date).TotalDays * cat.penaltyperday).ToString();
+                        }
+
+
                         _brwObj.pid = dar["PersonId"] as string;
 
                         _brwObj.book = new book();
@@ -249,5 +287,12 @@ namespace Repository.Repositories
         {
             dbRemoveOrEdit("UPDATE BORROWER SET FirstName='" + b._firstname + "', LastName='" + b._lastname + "', Address='" + b._address + "', Telno='" + b._phoneno + "', CategoryId='" + b._catId + "' WHERE PersonId='" + b._pid + "';");
         }
+
+
+        static public category dbGetCategory(string catID)
+        {
+            return dbGetCategoryforCatId("SELECT * FROM CATEGORY WHERE CategoryId = '" + catID + "';");
+        }
+
    }
 }
