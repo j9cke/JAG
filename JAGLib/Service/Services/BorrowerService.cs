@@ -89,7 +89,6 @@ namespace Service.Services
             return theBorrow;
         }
 
-
         static public List<Borrow> getPersonsBorrowList(Borrower borrower)
         {
            List<Borrow> borrowList = new List<Borrow>();
@@ -101,6 +100,11 @@ namespace Service.Services
            }
             
            return borrowList;
+        }
+
+        static public bool haveBorrows(string pid)
+        {
+            return BorrowerRepository.dbDoesHeHaveBorrows(pid);
         }
 
         static private BorrowerDetails MapBorrowerDetails(borrowerdetails brwObj)

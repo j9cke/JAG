@@ -179,7 +179,6 @@ namespace JAGLibrary.Controllers
                 return View("Confirmation", "_StandardLayout", conf);
             }
          
-            //Errorvy - FIXA istället för denna nedan
             conf._message = "Borrower not added. A borrower with the same person-ID already exist.";
             return View("Confirmation", "_StandardLayout");
         }
@@ -276,15 +275,23 @@ namespace JAGLibrary.Controllers
 
         public ActionResult RemoveThis(int cat, int aid, string isbn, string bid)
         {
+            var conf = new ConfirmationAdmin();
+
             if (cat == 1) {
                 Service.Services.AuthorServices.Remove(aid);
             } else if (cat == 2) {
                 Service.Services.BookServices.Remove(isbn);
+                //Om någon copy är utlånad skall ej boken tas bort
             } else {
-                Service.Services.BorrowerService.Remove(bid);
+                if (!Service.Services.BorrowerService.haveBorrows(bid)) {
+                    conf._message = "Succesfully deleted borrower.";
+                    Service.Services.BorrowerService.Remove(bid);
+                }
+                else
+                    conf._message = "The borrower has not returned all of the borrowed books and can therefor not be deleted.";
             }
 
-            return View("Admin", "_StandardLayout");
+            return View("Confirmation", "_StandardLayout", conf);
         }
     }
 }
