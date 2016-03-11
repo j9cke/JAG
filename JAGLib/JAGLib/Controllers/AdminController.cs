@@ -131,6 +131,7 @@ namespace JAGLibrary.Controllers
         public ActionResult EditBook(string s)
         {
             var model = Service.Services.BookServices.getBookFromISBN(s);
+            model._authorid = Service.Services.AuthorServices.getBookAuthorOfBook(s);
 
             return View("EditBook", "_StandardLayout", model);
         }
@@ -255,12 +256,20 @@ namespace JAGLibrary.Controllers
         //[HttpGet]
         public ActionResult EditBookForm(Common.Models.Book m)
         {
-            Service.Services.BookServices.EditBook(m);
-
+            List<Author> authorList = Service.Services.AuthorServices.getAuthorList();
             var conf = new ConfirmationAdmin();
-            conf._title = m._title;
-            conf._Type = 0;
-            conf._message = "Succesfully edited book: ";
+            
+            if (!authorList.Exists(x => x._id == m._authorid)) {
+                conf._message += "No Author with the Author ID you entered.";
+            }
+
+            else {
+                Service.Services.BookServices.EditBook(m);
+
+                conf._title = m._title;
+                conf._Type = 0;
+                conf._message = "Succesfully edited book: ";
+            }
 
             return View("Confirmation", "_StandardLayout", conf);
         }

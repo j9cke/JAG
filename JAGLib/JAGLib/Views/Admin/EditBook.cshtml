@@ -9,9 +9,7 @@
     <h5><b>Edit Book</b></h5>
     @using (Html.BeginForm("EditBookForm", "Admin"))
     {
-        <div style="float: left; margin-top: 10px; width: 100%;">
-            <p>ISBN:</p> @Html.TextBoxFor(m => m._isbn, new { @class = "inpadmin" })
-        </div>
+        @Html.HiddenFor(m => m._isbn)
         <div style="float: left; width: 100%;">
             <p>Title:</p> @Html.TextBoxFor(m => m._title, new { @class = "inpadmin" })
         </div>
@@ -26,6 +24,10 @@
         </div>
         <div style="float: left; width: 100%;">
             <p>Pages:</p> @Html.TextBoxFor(m => m._pages, new { @class = "inpadmin" })
+        </div>
+        <div style="float: left; width: 100%">
+            <p>Author ID:</p> @Html.TextBoxFor(m => m._authorid, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._authorid)
         </div>
         <input class="submlogin" type="submit" value="Save" />
     }

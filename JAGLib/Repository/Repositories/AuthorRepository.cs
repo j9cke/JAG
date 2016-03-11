@@ -155,6 +155,31 @@ namespace Repository.Repositories
             return c;
         }
 
+        static private int dbBookAuthorFromFromIsbn(string query)
+        {
+            int i = 0;
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+
+            try
+            {
+                con.Open();
+                SqlDataReader dar = cmd.ExecuteReader();
+                if (dar != null)
+                {
+                    while (dar.Read())
+                    {
+                        i = (int)dar["Aid"];
+                    }
+                }
+            }
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+
+            return i;
+        }
+
         static private void dbInsert(string query) 
         {
             string _connectionString = DataSource.getConnectionString("projectmanager");
@@ -215,6 +240,11 @@ namespace Repository.Repositories
         static public int dbCountAuthorsForBook(string isbn)
         {
             return dbCountAuthorsOnIsbn("SELECT COUNT(*) AS NoOf FROM BOOK_AUTHOR WHERE ISBN LIKE '" + isbn + "';");
+        }
+
+        static public int dbGetBookAuthorOfBook(string isbn)
+        {
+            return dbBookAuthorFromFromIsbn("SELECT * FROM BOOK_AUTHOR WHERE ISBN LIKE '" + isbn + "';");
         }
 
         static public void dbAddAuthor(author a) 

@@ -96,6 +96,11 @@ namespace Service.Services
             AuthorRepository.dbEditAuthor(deMapAuthor(a));
         }
 
+        static public int getBookAuthorOfBook(string isbn)
+        {
+            return AuthorRepository.dbGetBookAuthorOfBook(isbn);
+        }
+
         static private Author MapAuthor(author authObj)
         {
             Author theAuthor = new Author();
