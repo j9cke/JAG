@@ -172,9 +172,12 @@ namespace JAGLibrary.Controllers
                 var conf = new ConfirmationAdmin();
                 conf._firstName = m._firstname;
                 conf._lastName = m._lastname;
+
+                return View("ConfirmationAdmin", "_StandardLayout", conf);
             }
          
-            return View("ConfirmationAdmin", "_StandardLayout", conf);
+            //Errorvy - FIXA istället för denna nedan
+            return View("ConfirmationAdmin", "_StandardLayout");
         }
 
         //[HttpGet]
