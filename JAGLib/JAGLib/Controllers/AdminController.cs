@@ -243,9 +243,9 @@ namespace JAGLibrary.Controllers
             if (cat == 1) {
                 Service.Services.AuthorServices.Remove(aid);
             } else if (cat == 2) {
-                
+                Service.Services.BookServices.Remove(isbn);
             } else {
-                
+                // ta bort borrower
             }
 
             return View("Admin", "_StandardLayout");
