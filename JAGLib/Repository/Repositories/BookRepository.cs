@@ -127,7 +127,7 @@ namespace Repository.Repositories
             finally { if (con != null) con.Close(); }
         }
 
-        static private void dbRemove(string query)
+        static private void dbRemoveOrEdit(string query)
         {
             string _connectionString = DataSource.getConnectionString("projectmanager");
             SqlConnection con = new SqlConnection(_connectionString);
@@ -170,12 +170,17 @@ namespace Repository.Repositories
 
         static public void dbRemoveBook(string isbn)
         {
-            dbRemove("DELETE FROM BOOK WHERE ISBN LIKE '" + isbn + "';");
+            dbRemoveOrEdit("DELETE FROM BOOK WHERE ISBN LIKE '" + isbn + "';");
         }
 
         static public void dbRemoveCopies(string isbn)
         {
-            dbRemove("DELETE FROM COPY WHERE ISBN LIKE '" + isbn + "';");
+            dbRemoveOrEdit("DELETE FROM COPY WHERE ISBN LIKE '" + isbn + "';");
+        }
+
+        static public void dbEditBook(book b)
+        {
+            dbRemoveOrEdit("UPDATE BOOK SET Title='" + b._title + "', SignId='" + b._signId + "', PublicationYear='" + b._publicationYear + "', publicationinfo='" + b._publicationInfo + "', pages='" + b._pages + "' WHERE ISBN='" + b._isbn + "';");
         }
     }
 }
