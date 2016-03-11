@@ -222,6 +222,11 @@ namespace Repository.Repositories
             dbInsert("INSERT INTO AUTHOR (FirstName, LastName, BirthYear) VALUES ('" + a._firstname + "', '" + a._lastname + "', '" + a._birthyear + "');");
         }
 
+        static public void dbAddBookAuthor(string isbn, int aid)
+        {
+            dbInsert("INSERT INTO BOOK_AUTHOR VALUES ('" + isbn + "', '" + aid + "');");
+        }
+
         static public void dbRemoveAuthor(int aid)
         {
             dbRemoveOrEdit("DELETE FROM AUTHOR WHERE Aid LIKE '" + aid + "';");

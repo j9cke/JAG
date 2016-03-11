@@ -17,7 +17,7 @@ namespace JAGLibrary.Controllers
         {
             if (Session["user"] == null)
                     return Redirect("/Home/Login/");
-            else 
+            else
             {
                 LoginData user = (LoginData)Session["user"];
                 if (user._level == "1")
@@ -228,13 +228,27 @@ namespace JAGLibrary.Controllers
         //[HttpGet]
         public ActionResult AddBookForm(Common.Models.Book m)
         {
-            Service.Services.BookServices.addBookToDb(m);
-
+            List<Author> authorList = Service.Services.AuthorServices.getAuthorList();
+            List<Book> bookList = Service.Services.BookServices.getBookList();
             var conf = new ConfirmationAdmin();
-            conf._title = m._title;
-            conf._Type = 0;
-            conf._message = "Succesfully added book: ";
+            conf._message = "";
 
+            if (bookList.Exists(x => x._isbn == m._isbn)) {
+                conf._message = "A book with the ISBN you entered already exist. ";
+            }
+
+            if (!authorList.Exists(x => x._id == m._authorid)) { 
+                conf._message += "No Author with the Author ID you entered.";
+            }
+            
+            else {
+                Service.Services.BookServices.addBookToDb(m);
+
+                conf._title = m._title;
+                conf._Type = 0;
+                conf._message = "Succesfully added book: ";
+            }
+            
             return View("Confirmation", "_StandardLayout", conf);
         }
 

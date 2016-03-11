@@ -60,6 +60,7 @@ namespace Service.Services
         static public void addBookToDb(Book m)
         {
             BookRepository.dbAddBook(deMapBook(m));
+            AuthorRepository.dbAddBookAuthor(m._isbn, m._authorid);
         }
 
         // Editera author med värdena som kommer in

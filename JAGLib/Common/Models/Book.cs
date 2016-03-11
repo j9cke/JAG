@@ -27,5 +27,8 @@ namespace Common.Models
 
         [Required(ErrorMessage = "Number of pages is required.")]
         public int _pages { get; set; }
+
+        [Required(ErrorMessage = "An author ID is required.")]
+        public int _authorid { get; set; }
     }
 }
