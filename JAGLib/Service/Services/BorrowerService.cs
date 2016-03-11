@@ -32,6 +32,13 @@ namespace Service.Services
             return MapBorrower(BorrowerRepository.dbGetBorrower(id));
         }
 
+        // Tar bort en Borrower på PersonId & borrowerns lån
+        static public void Remove(string pid)
+        {
+            BorrowerRepository.dbRemoveBorrows(pid);    // Ta bort lån
+            BorrowerRepository.dbRemoveLogin(pid);      // Ta bort logindata
+            BorrowerRepository.dbRemoveBorrower(pid);   // Ta bort borrowern
+        }
 
         static private Borrower MapBorrower(borrower brwObj)
         {

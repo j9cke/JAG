@@ -175,8 +175,6 @@ namespace Repository.Repositories
             return dbGetBorrowListForPerson("SELECT * FROM borrower WHERE PersonId = '" + pId + "';");
         }
 
-
-
         static private borrowerdetails dbGetBorrowerDetailsforpid(string query)
         {
             borrowerdetails brwd = new borrowerdetails();;
@@ -243,6 +241,21 @@ namespace Repository.Repositories
         {
             return dbGetBorrowerDetailsforpid("SELECT * FROM BORROW INNER JOIN BORROWER ON BORROW.PersonId = BORROWER.PersonId INNER JOIN COPY ON BORROW.Barcode = COPY.Barcode INNER JOIN BOOK ON COPY.ISBN = BOOK.ISBN WHERE BORROWER.PersonId LIKE '" + pid + "';");
 
+        }
+
+        static public void dbRemoveBorrower(string pid)
+        {
+            dbRemoveOrEdit("DELETE FROM BORROWER WHERE PersonId LIKE '" + pid + "';");
+        }
+
+        static public void dbRemoveBorrows(string pid)
+        {
+            dbRemoveOrEdit("DELETE FROM BORROW WHERE PersonId LIKE '" + pid + "';");
+        }
+
+        static public void dbRemoveLogin(string pid)
+        {
+            dbRemoveOrEdit("DELETE FROM LOGIN WHERE PersonId LIKE '" + pid + "';");
         }
 
         static public void dbEditBorrower(borrower b)
