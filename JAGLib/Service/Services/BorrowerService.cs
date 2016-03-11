@@ -17,15 +17,13 @@ namespace Service.Services
 
         static public List<Borrower> getBorrowerList()
         {
-            if (_borrowerList == null)
+            _borrowerList = new List<Borrower>();
+            List<borrower> brwList = BorrowerRepository.dbGetAllBorrowerList();
+            foreach (borrower brwObj in brwList)
             {
-                _borrowerList = new List<Borrower>();
-                List<borrower> brwList = BorrowerRepository.dbGetAllBorrowerList();
-                foreach (borrower brwObj in brwList)
-                {
-                    _borrowerList.Add(MapBorrower(brwObj));
-                }
+                _borrowerList.Add(MapBorrower(brwObj));
             }
+    
             return _borrowerList;
         }
        
