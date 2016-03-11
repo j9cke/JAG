@@ -31,15 +31,10 @@ namespace Repository.Repositories
                     _brwObj._catId = (int)dar["CategoryId"];
                 }
             }
-            catch (Exception eObj)
-            {
-                throw eObj;
-            }
-            finally
-            {
-                if (con != null)
-                    con.Close();
-            }
+
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+            
             return _brwObj;
         }
 
@@ -73,15 +68,9 @@ namespace Repository.Repositories
                     }
                 }
             }
-            catch (Exception eObj)
-            {
-                throw eObj;
-            }
-            finally
-            {
-                if (con != null)
-                    con.Close();
-            }
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+            
             return _brwList;
         }
 
@@ -117,21 +106,6 @@ namespace Repository.Repositories
             finally { if (con != null) con.Close(); }
         }
 
-        static public List<borrower> dbGetAllBorrowerList()
-        {
-            return dbGetBorrowerList("SELECT * FROM borrower;");
-        }
-
-        static public List<borrower> dbGetDepartmentEmployeeList(int catId)
-        {
-            return dbGetBorrowerList("SELECT * FROM borrower WHERE aid = " + Convert.ToString(catId) + ";");
-        }
-
-        static public void dbAddBorrower(borrower b)
-        {
-            dbInsert("INSERT INTO BORROWER VALUES ('" + b._pid + "', '" + b._firstname + "', '" + b._lastname + "', '" + b._address + "', '" + b._phoneno + "', '" + b._catId + "');");
-        }
-
         /***************  GET BORROW FOR A BORROWER  ******************/
         static private List<borrow> dbGetBorrowListForPerson(string query)
         {
@@ -159,20 +133,11 @@ namespace Repository.Repositories
                     }
                 }
             }
-            catch (Exception eObj)
-            {
-                throw eObj;
-            }
-            finally
-            {
-                if (con != null)
-                    con.Close();
-            }
+
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+            
             return _brwList;
-        }
-        static public List<borrow> dbGetAllBorrowList(string pId)
-        {
-            return dbGetBorrowListForPerson("SELECT * FROM borrower WHERE PersonId = '" + pId + "';");
         }
 
         static private borrowerdetails dbGetBorrowerDetailsforpid(string query)
@@ -219,28 +184,36 @@ namespace Repository.Repositories
                         _brwObj.book._publicationYear = dar["PublicationYear"] as string;
                         _brwObj.book._publicationInfo = dar["publicationinfo"] as string;
                         _brwObj.book._pages = (Int16)dar["pages"];
-
-                        
+  
                         brwd._borrowlist.Add(_brwObj);
                     }
                 }
             }
-            catch (Exception eObj)
-            {
-                throw eObj;
-            }
-            finally
-            {
-                if (con != null)
-                    con.Close();
-            }
+
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+            
             return brwd;
+        }
+
+        static public List<borrower> dbGetAllBorrowerList()
+        {
+            return dbGetBorrowerList("SELECT * FROM borrower;");
+        }
+
+        static public void dbAddBorrower(borrower b)
+        {
+            dbInsert("INSERT INTO BORROWER VALUES ('" + b._pid + "', '" + b._firstname + "', '" + b._lastname + "', '" + b._address + "', '" + b._phoneno + "', '" + b._catId + "');");
         }
 
         static public borrowerdetails dbGetBorrowerDetails(string pid)
         {
             return dbGetBorrowerDetailsforpid("SELECT * FROM BORROW INNER JOIN BORROWER ON BORROW.PersonId = BORROWER.PersonId INNER JOIN COPY ON BORROW.Barcode = COPY.Barcode INNER JOIN BOOK ON COPY.ISBN = BOOK.ISBN WHERE BORROWER.PersonId LIKE '" + pid + "';");
+        }
 
+        static public List<borrow> dbGetAllBorrowList(string pId)
+        {
+            return dbGetBorrowListForPerson("SELECT * FROM borrower WHERE PersonId = '" + pId + "';");
         }
 
         static public void dbRemoveBorrower(string pid)

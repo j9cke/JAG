@@ -73,8 +73,8 @@ namespace Service.Services
         {
             AuthorRepository.dbRemoveBookAuthor(isbn);       // Ta bort author ur book_author
 
-            BookRepository.dbRemoveCopies(isbn);    // Ta bort copies
-            BookRepository.dbRemoveBook(isbn);      // Ta bort böcker book
+            BookRepository.dbRemoveCopies(isbn);            // Ta bort copies
+            BookRepository.dbRemoveBook(isbn);              // Ta bort bok
         }
 
         static private Book MapBook(book bookObj)
