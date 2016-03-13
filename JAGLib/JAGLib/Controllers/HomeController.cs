@@ -85,7 +85,7 @@ namespace JAGLibrary.Controllers
         {
             List<BookDetails> bdList = Service.Services.BookServices.getBookDetailsFromIsbn(isbn);
             var model = new BookDetails();
-
+            
             bool fixString = false;
             foreach (BookDetails bd in bdList) {
                 if (fixString)
@@ -95,6 +95,22 @@ namespace JAGLibrary.Controllers
                     fixString = true;
                 }
             }
+           
+            foreach (Copy c in bdList[0]._copyList)
+            {            
+                switch (c._library)
+                {
+                    case "Stadsbiblioteket":
+                        model._stadsbiblioteket++;
+                        break;
+                    case "Taberg":
+                        model._taberg++;
+                        break;
+                    case "Huskvarna":
+                        model._huskvarna++;
+                        break;
+                }
+            }
 
             model.book_isbn = bdList[0].book_isbn;
             model.book_title = bdList[0].book_title;
@@ -102,7 +118,8 @@ namespace JAGLibrary.Controllers
             model.book_publicationYear = bdList[0].book_publicationYear;
             model.book_publicationInfo = bdList[0].book_publicationInfo;
             model.book_pages = bdList[0].book_pages;
-            
+            model._copyList = bdList[0]._copyList;
+
             return View("Book", "_StandardLayout", model);
         }
 

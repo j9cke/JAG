@@ -13,6 +13,7 @@ namespace Service.Services
     {
         static private List<Book> _bookList = null;
         static private List<BookDetails> _bkdtList = null;
+        
 
         // Hämtar alla böcker
         static public List<Book> getBookList()
@@ -42,12 +43,28 @@ namespace Service.Services
         {
             _bkdtList = new List<BookDetails>();
             List<bookdetails> bList = BookRepository.dbGetDetailsOfBook(isbn);
+           
 
             foreach (bookdetails item in bList)
+            {
                 _bkdtList.Add(MapBookDetails(item));
+            }
+
+            _bkdtList[0]._copyList = mapCopy(BookRepository.dbGetCopyFromISBN(isbn));
 
             return _bkdtList;
         }
+
+        /*static public List<BookDetails> getCopyFromISBN(string isbn)
+        {
+            _copyList = new List<BookDetails>();
+            List<Copy> cList = mapCopy(BookRepository.dbGetCopyFromISBN(isbn));
+                
+            foreach(Copy item in cList)
+                _copyList.Add(mapCopy(item));
+
+            return _copyList;
+        }*/
 
         static public Book getBookFromISBN(string isbn)
         {
@@ -89,13 +106,33 @@ namespace Service.Services
         static private book deMapBook(Book bookObj)
         {
             book theBook = new book();
+         
             theBook._isbn = bookObj._isbn;
             theBook._title = bookObj._title;
             theBook._signId = bookObj._signId;
             theBook._publicationYear = bookObj._publicationYear;
             theBook._publicationInfo = bookObj._publicationInfo;
             theBook._pages = bookObj._pages;
+
+            
+            
             return theBook;
+        }
+
+        static private List<Copy> mapCopy(List<copy> c)
+        {
+            List<Copy> theCopy = new List<Copy>();
+            foreach (copy copobj in c)
+            {
+                Copy cop = new Copy();
+                cop._isbn = copobj.copy_isbn;
+                cop._barcode = copobj.copy_barcode;
+                cop._library = copobj.copy_library;
+                cop._status = copobj.copy_status;
+                cop._location = copobj.copy_location;
+                theCopy.Add(cop);
+            }
+            return theCopy;
         }
 
         static private BookDetails MapBookDetails(bookdetails bkdtObj)
