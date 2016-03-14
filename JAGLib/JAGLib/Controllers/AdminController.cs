@@ -17,7 +17,7 @@ namespace JAGLibrary.Controllers
         {
             if (Session["user"] == null)
                     return Redirect("/Home/Login/");
-            else 
+            else
             {
                 LoginData user = (LoginData)Session["user"];
                 if (user._level == "1")
@@ -131,6 +131,7 @@ namespace JAGLibrary.Controllers
         public ActionResult EditBook(string s)
         {
             var model = Service.Services.BookServices.getBookFromISBN(s);
+            model._authorid = Service.Services.AuthorServices.getBookAuthorOfBook(s);
 
             return View("EditBook", "_StandardLayout", model);
         }
@@ -178,7 +179,6 @@ namespace JAGLibrary.Controllers
                 return View("Confirmation", "_StandardLayout", conf);
             }
          
-            //Errorvy - FIXA istället för denna nedan
             conf._message = "Borrower not added. A borrower with the same person-ID already exist.";
             return View("Confirmation", "_StandardLayout");
         }
@@ -186,12 +186,11 @@ namespace JAGLibrary.Controllers
         //[HttpGet]
         public ActionResult EditBorrowerForm(Common.Models.Borrower m)
         {
-            Service.Services.BorrowerService.EditBorrower(m);
-
             var conf = new ConfirmationAdmin();
             conf._firstName = m._firstname;
             conf._lastName = m._lastname;
-            conf._Type = 2;
+
+            Service.Services.BorrowerService.EditBorrower(m);
             conf._message = "Succesfully edited borrower: ";
 
             return View("Confirmation", "_StandardLayout", conf);
@@ -199,13 +198,12 @@ namespace JAGLibrary.Controllers
 
         //[HttpGet]
         public ActionResult AddAuthorForm(Common.Models.Author m)
-        {            
+        {
+            var conf = new ConfirmationAdmin();
             Service.Services.AuthorServices.addAuthorToDb(m);
 
-            var conf = new ConfirmationAdmin();
             conf._firstName = m._firstname;
             conf._lastName = m._lastname;
-            conf._Type = 1;
             conf._message = "Succesfully added author: ";
 
             return View("Confirmation", "_StandardLayout", conf);
@@ -219,7 +217,6 @@ namespace JAGLibrary.Controllers
             var conf = new ConfirmationAdmin();
             conf._firstName = m._firstname;
             conf._lastName = m._lastname;
-            conf._Type = 1;
             conf._message = "Succesfully edited author: ";
 
             return View("Confirmation", "_StandardLayout", conf);
@@ -228,40 +225,70 @@ namespace JAGLibrary.Controllers
         //[HttpGet]
         public ActionResult AddBookForm(Common.Models.Book m)
         {
-            Service.Services.BookServices.addBookToDb(m);
-
+            List<Author> authorList = Service.Services.AuthorServices.getAuthorList();
+            List<Book> bookList = Service.Services.BookServices.getBookList();
             var conf = new ConfirmationAdmin();
-            conf._title = m._title;
-            conf._Type = 0;
-            conf._message = "Succesfully added book: ";
+            conf._message = "";
 
+            if (bookList.Exists(x => x._isbn == m._isbn)) {
+                conf._message = "A book with the ISBN you entered already exist. ";
+            }
+
+            if (!authorList.Exists(x => x._id == m._authorid)) { 
+                conf._message += "No Author with the Author ID you entered.";
+            }
+            
+            else {
+                Service.Services.BookServices.addBookToDb(m);
+
+                conf._title = m._title;
+                conf._Type = 0;
+                conf._message = "Succesfully added book: ";
+            }
+            
             return View("Confirmation", "_StandardLayout", conf);
         }
 
         //[HttpGet]
         public ActionResult EditBookForm(Common.Models.Book m)
         {
-            Service.Services.BookServices.EditBook(m);
-
+            List<Author> authorList = Service.Services.AuthorServices.getAuthorList();
             var conf = new ConfirmationAdmin();
-            conf._title = m._title;
-            conf._Type = 0;
-            conf._message = "Succesfully edited book: ";
+            
+            if (!authorList.Exists(x => x._id == m._authorid)) {
+                conf._message += "No Author with the Author ID you entered.";
+            }
+
+            else {
+                Service.Services.BookServices.EditBook(m);
+
+                conf._title = m._title;
+                conf._Type = 0;
+                conf._message = "Succesfully edited book: ";
+            }
 
             return View("Confirmation", "_StandardLayout", conf);
         }
 
         public ActionResult RemoveThis(int cat, int aid, string isbn, string bid)
         {
+            var conf = new ConfirmationAdmin();
+
             if (cat == 1) {
                 Service.Services.AuthorServices.Remove(aid);
             } else if (cat == 2) {
                 Service.Services.BookServices.Remove(isbn);
+                //Om någon copy är utlånad skall ej boken tas bort
             } else {
-                Service.Services.BorrowerService.Remove(bid);
+                if (!Service.Services.BorrowerService.haveBorrows(bid)) {
+                    conf._message = "Succesfully deleted borrower.";
+                    Service.Services.BorrowerService.Remove(bid);
+                }
+                else
+                    conf._message = "The borrower has not returned all of the borrowed books and can therefor not be deleted.";
             }
 
-            return View("Admin", "_StandardLayout");
+            return View("Confirmation", "_StandardLayout", conf);
         }
     }
 }

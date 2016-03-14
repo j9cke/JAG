@@ -34,6 +34,10 @@
             <p>Pages:</p> @Html.TextBoxFor(m => m._pages, new { @class = "inpadmin" })
             @Html.ValidationMessageFor(m => m._pages)
         </div>
+        <div style="float: left; width: 100%">
+            <p>Author ID:</p> @Html.TextBoxFor(m => m._authorid, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._authorid)
+        </div>
         <input class="submlogin" type="submit" value="Add" />
     }
 </div>

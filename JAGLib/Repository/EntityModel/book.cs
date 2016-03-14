@@ -13,5 +13,6 @@ namespace Repository.EntityModel
         public string _publicationYear { get; set; }
         public string _publicationInfo { get; set; }
         public int _pages { get; set; }
+        public int _authorid { get; set; }
     }
 }

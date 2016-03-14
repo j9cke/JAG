@@ -155,6 +155,31 @@ namespace Repository.Repositories
             return c;
         }
 
+        static private int dbBookAuthorFromFromIsbn(string query)
+        {
+            int i = 0;
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+
+            try
+            {
+                con.Open();
+                SqlDataReader dar = cmd.ExecuteReader();
+                if (dar != null)
+                {
+                    while (dar.Read())
+                    {
+                        i = (int)dar["Aid"];
+                    }
+                }
+            }
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+
+            return i;
+        }
+
         static private void dbInsert(string query) 
         {
             string _connectionString = DataSource.getConnectionString("projectmanager");
@@ -194,7 +219,7 @@ namespace Repository.Repositories
 
         static public List<author> dbGetAuthorListFromFirstletter(string c)
         {
-            return dbGetAuthorList("SELECT * FROM author WHERE LastName LIKE '" + c + "%';");
+            return dbGetAuthorList("SELECT * FROM author WHERE LastName LIKE '" + c + "%' ORDER BY LastName;");
         }
 
         static public authordetails dbBooksFromAuthor(int aid)
@@ -217,9 +242,19 @@ namespace Repository.Repositories
             return dbCountAuthorsOnIsbn("SELECT COUNT(*) AS NoOf FROM BOOK_AUTHOR WHERE ISBN LIKE '" + isbn + "';");
         }
 
+        static public int dbGetBookAuthorOfBook(string isbn)
+        {
+            return dbBookAuthorFromFromIsbn("SELECT * FROM BOOK_AUTHOR WHERE ISBN LIKE '" + isbn + "';");
+        }
+
         static public void dbAddAuthor(author a) 
         {
             dbInsert("INSERT INTO AUTHOR (FirstName, LastName, BirthYear) VALUES ('" + a._firstname + "', '" + a._lastname + "', '" + a._birthyear + "');");
+        }
+
+        static public void dbAddBookAuthor(string isbn, int aid)
+        {
+            dbInsert("INSERT INTO BOOK_AUTHOR VALUES ('" + isbn + "', '" + aid + "');");
         }
 
         static public void dbRemoveAuthor(int aid)

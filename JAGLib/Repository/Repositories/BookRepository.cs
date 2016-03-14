@@ -150,7 +150,7 @@ namespace Repository.Repositories
 
         static public List<book> dbGetBookListOnFirstLetter(string c)
         {
-            return dbGetBookList("SELECT * FROM BOOK WHERE Title LIKE '" + c + "%';");
+            return dbGetBookList("SELECT * FROM BOOK WHERE Title LIKE '" + c + "%' ORDER BY Title;");
         }
 
         static public List<bookdetails> dbGetDetailsOfBook(string isbn)

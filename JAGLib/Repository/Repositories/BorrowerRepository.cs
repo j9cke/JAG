@@ -164,6 +164,30 @@ namespace Repository.Repositories
             return cat;
         }
 
+        static private bool dbHaveBorrows(string query)
+        {
+            int count = 0;
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+            try
+            {
+                con.Open();
+                SqlDataReader dar = cmd.ExecuteReader();
+                if (dar.Read())
+                {
+                    count = (int)dar["No"];
+                }
+            }
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+
+            if (count > 0)
+                return true;
+            else 
+                return false;
+        }
+
         static private borrowerdetails dbGetBorrowerDetailsforpid(string query)
         {
             borrowerdetails brwd = new borrowerdetails();;
@@ -245,6 +269,12 @@ namespace Repository.Repositories
             return dbGetBorrowListForPerson("SELECT * FROM borrower WHERE PersonId = '" + pId + "';");
         }
 
+        static public bool dbDoesHeHaveBorrows(string pid)
+        {
+            string b = DateTime.MinValue.ToString();
+            return dbHaveBorrows("SELECT COUNT(*) AS No FROM BORROWER INNER JOIN BORROW ON BORROWER.PersonId = BORROW.PersonId WHERE PersonId LIKE '" + pid + "' AND ReturnDate LIKE '" + b + "';");
+        }
+
         static public void dbRemoveBorrower(string pid)
         {
             dbRemoveOrEdit("DELETE FROM BORROWER WHERE PersonId LIKE '" + pid + "';");
@@ -270,6 +300,5 @@ namespace Repository.Repositories
         {
             return dbGetCategoryforCatId("SELECT * FROM CATEGORY WHERE CategoryId = '" + catID + "';");
         }
-
    }
 }
