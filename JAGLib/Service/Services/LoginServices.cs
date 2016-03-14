@@ -17,15 +17,12 @@ namespace Service.Services
 
         static public List<LoginData> getUserList()
         {
-            if (_userList == null)
-            {
-                _userList = new List<LoginData>();
-                List<logindata> usrList = UserRepository.dbGetAllUserList();
-                foreach (logindata userObj in usrList)
-                {
-                    _userList.Add(MapBorrower(userObj));
-                }
-            }
+
+            _userList = new List<LoginData>();
+            List<logindata> usrList = UserRepository.dbGetAllUserList();
+            foreach (logindata userObj in usrList)
+                _userList.Add(MapBorrower(userObj));
+
             return _userList;
         }
 
