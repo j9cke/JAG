@@ -68,6 +68,10 @@ namespace Service.Services
             if (removeThisBooks.Count() > 0) 
                 foreach (string isbn in removeThisBooks)
                 {
+                    List<copy> barcodsToRemove = BookRepository.dbGetCopyFromISBN(isbn);
+                    foreach (copy c in barcodsToRemove)
+                        BookRepository.dbRemoveBorrows(c.copy_barcode); // Ta bort copyn ur borrows
+
                     BookRepository.dbRemoveCopies(isbn);
                     BookRepository.dbRemoveBook(isbn);    // Ta bort böcker som skrivits av endast hen
                 }
