@@ -180,7 +180,7 @@ namespace JAGLibrary.Controllers
             }
          
             conf._message = "Borrower not added. A borrower with the same person-ID already exist.";
-            return View("Confirmation", "_StandardLayout");
+            return View("Confirmation", "_StandardLayout", conf);
         }
 
         //[HttpGet]

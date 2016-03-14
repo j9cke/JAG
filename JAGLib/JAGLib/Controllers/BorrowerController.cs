@@ -35,21 +35,17 @@ namespace JAGLib.Controllers
                     model._address = b._address;
                     model._catId = b._catId;
                 }
-
-                    
+          
                 return View("Borrower", "_StandardLayout", model);
             }
-
-            
         }
+
         public ActionResult RenewLoan(string bar, string pid)
         {
             BorrowerDetails bd = Service.Services.BorrowerService.getBorrowerDetails(pid); 
             Category cat = Service.Services.BorrowerService.getCategory(bd._catId.ToString());
             Borrow brw = new Borrow();
-
-            
-            
+    
             brw._barcode = bar;
             brw._pid = bd._pid;
             brw._borrowDate = DateTime.Now;
