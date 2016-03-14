@@ -53,7 +53,7 @@
     </nav>
 
     @{
-        if (@Session["user"] != null) // if (inloggad) funktionen finns inte ännu
+        if (@Session["user"] != null) 
         {
             <div id="wrapper">
                 <!-- Sidebar -->
@@ -62,14 +62,49 @@
                         <li class="sidebar-brand">
                             <span style="color: #fff;">@Session["name"]</span>
                         </li>
+                      
+                        @{
+                            if(@Session["name"] == "Admin")
+                            {
+                                <li>
+                                    <a href="~/Admin/Admin">Admin section</a>    
+                                </li>
+                                <li style="color: #fff;"> Author Admin </li>
+                                <li>
+                                    <a href="~/Admin/AddAuthor">Add author</a>    
+                                </li>
+                                <li>
+                                    <a href="~/Admin/ListAuthors">Update/remove author</a>
+                                </li>
+                                <li style="color: #fff;"> Borrower Admin </li>
+                                <li>
+                                    <a href="~/Admin/AddBorrower">Add borrower</a>
+                                </li>
+                                    
+                                <li>
+                                    <a href="~/Admin/ListBorrowers">Update/remove borrower</a>
+                                </li>
+                               <li style="color: #fff;"> Book Admin </li>
+                                <li>
+                                    <a href="~/Admin/AddBook">Add book</a>
+                                </li>
+                         
+                                <li>
+                                    <a href="~/Admin/ListBooks">Update/remove book</a>
+                                </li>
+                                    
+                                
+                            }
+                            else
+                            {
+                             <li>
+                                <a href="/Borrower/Borrower">My Books</a>
+                            </li>
+                            }
+                            
+                        }   
                         <li>
-                            <a href="/Borrower/Borrower">My Books</a>
-                        </li>
-                        <li>
-                            @*<a href="#">User information</a>*@
-                        </li>
-                        <li>
-                            <a href="/Home/Logout">Sign out</a>
+                            <a style ="color: #fff;" href="/Home/Logout">Sign out</a>
                         </li>
                     </ul>
                 </div>
