@@ -39,6 +39,30 @@ namespace JAGLib.Controllers
                     
                 return View("Borrower", "_StandardLayout", model);
             }
+
+            
+        }
+        public ActionResult RenewLoan(string bar, string pid)
+        {
+            BorrowerDetails bd = Service.Services.BorrowerService.getBorrowerDetails(pid); 
+            Category cat = Service.Services.BorrowerService.getCategory(bd._catId.ToString());
+            Borrow brw = new Borrow();
+
+            
+            
+            brw._barcode = bar;
+            brw._pid = bd._pid;
+            brw._borrowDate = DateTime.Now;
+            brw._toBeReturnedDate = DateTime.Now.AddDays(cat.period);
+            brw._returnDate = DateTime.MinValue;
+            brw._book = bd._borrowlist.Find(x => x._barcode == bar)._book;
+
+            bd._borrowlist.Find(x=> x._barcode == bar)._borrowDate = brw._borrowDate;
+            bd._borrowlist.Find(x => x._barcode == bar)._toBeReturnedDate = brw._toBeReturnedDate;
+            bd._borrowlist.Find(x => x._barcode == bar)._returnDate = brw._returnDate;
+
+            Service.Services.BorrowerService.uppdateBorrow(brw);
+            return View("Borrower", "_StandardLayout", bd);
         }
 	}
 }

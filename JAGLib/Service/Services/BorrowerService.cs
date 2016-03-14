@@ -40,6 +40,68 @@ namespace Service.Services
             BorrowerRepository.dbRemoveBorrower(pid);   // Ta bort borrowern
         }
 
+        static public void addBorrowerToDb(Borrower m)
+        {
+            BorrowerRepository.dbAddBorrower(deMapBorrower(m));
+        }
+
+        // Editera author med värdena som kommer in
+        static public void EditBorrower(Borrower b)
+        {
+            BorrowerRepository.dbEditBorrower(deMapBorrower(b));
+        }
+
+        /************************* GET BORROW FOR A PERSON   ***********************/
+        static public List<Borrow> getPersonsBorrowList(Borrower borrower)
+        {
+           List<Borrow> borrowList = new List<Borrow>();
+            
+           List<borrow> brwList = BorrowerRepository.dbGetAllBorrowList(borrower._pid);
+           foreach (borrow brwObj in brwList)
+           {
+               borrowList.Add(MapBorrow(brwObj));
+           }
+            
+           return borrowList;
+        }
+
+        static public bool haveBorrows(string pid)
+        {
+            return BorrowerRepository.dbDoesHeHaveBorrows(pid);
+        }
+
+        static public BorrowerDetails getBorrowerDetails(string pid)
+        {
+            return MapBorrowerDetails(BorrowerRepository.dbGetBorrowerDetails(pid));
+        }
+
+        static public void uppdateBorrow(Borrow brw)
+        {
+            BorrowerRepository.dbUppdateBorrow(deMapBorrow(brw));
+        }
+
+        static public Category getCategory(string cId)
+        {
+            return MapCategory(BorrowerRepository.dbGetCategory(cId));
+        }
+
+        static private BorrowerDetails MapBorrowerDetails(borrowerdetails brwObj)
+        {
+            BorrowerDetails theBD = new BorrowerDetails();
+            theBD._pid = brwObj._pid;
+            theBD._firstname = brwObj._firstname;
+            theBD._lastname = brwObj._lastname;
+            theBD._address = brwObj._address;
+            theBD._phoneno = brwObj._phoneno;
+            theBD._catId = brwObj._catId;
+            foreach (borrow borrow in brwObj._borrowlist)
+            {
+                theBD._borrowlist.Add(MapBorrow(borrow));
+            }
+
+            return theBD;
+        }
+
         static private Borrower MapBorrower(borrower brwObj)
         {
             Borrower theBorrower = new Borrower();
@@ -65,18 +127,6 @@ namespace Service.Services
             return theBorrower;
         }
 
-        static public void addBorrowerToDb(Borrower m)
-        {
-            BorrowerRepository.dbAddBorrower(deMapBorrower(m));
-        }
-
-        // Editera author med värdena som kommer in
-        static public void EditBorrower(Borrower b)
-        {
-            BorrowerRepository.dbEditBorrower(deMapBorrower(b));
-        }
-
-        /************************* GET BORROW FOR A PERSON   ***********************/
         static private Borrow MapBorrow(borrow brwObj)
         {
             Borrow theBorrow = new Borrow();
@@ -86,47 +136,30 @@ namespace Service.Services
             theBorrow._returnDate = brwObj.returnDate;
             theBorrow._toBeReturnedDate = brwObj.toBeReturnedDate;
             theBorrow._book = Service.Services.BookServices.MapBookPublic(brwObj.book);
+            theBorrow.penalty = brwObj.penalty;
             return theBorrow;
         }
 
-        static public List<Borrow> getPersonsBorrowList(Borrower borrower)
+        static private borrow deMapBorrow(Borrow brw)
         {
-           List<Borrow> borrowList = new List<Borrow>();
-            
-           List<borrow> brwList = BorrowerRepository.dbGetAllBorrowList(borrower._pid);
-           foreach (borrow brwObj in brwList)
-           {
-               borrowList.Add(MapBorrow(brwObj));
-           }
-            
-           return borrowList;
+            borrow b = new borrow();
+            b.barcode = brw._barcode;
+            b.pid = brw._pid;
+            b.returnDate = brw._returnDate;
+            b.toBeReturnedDate = brw._toBeReturnedDate;
+            b.borrowDate = brw._borrowDate;
+            return b;
         }
 
-        static public bool haveBorrows(string pid)
+        static private Category MapCategory(category ct)
         {
-            return BorrowerRepository.dbDoesHeHaveBorrows(pid);
+            Category cat = new Category();
+            cat.catId = ct.categoryId;
+            cat.categoryType = ct.categoryt;
+            cat.period = ct.period;
+            cat.penalty = ct.penaltyperday;
+            return cat;
         }
 
-        static private BorrowerDetails MapBorrowerDetails(borrowerdetails brwObj)
-        {
-            BorrowerDetails theBD = new BorrowerDetails();
-            theBD._pid = brwObj._pid;
-            theBD._firstname = brwObj._firstname;
-            theBD._lastname = brwObj._lastname;
-            theBD._address = brwObj._address;
-            theBD._phoneno = brwObj._phoneno;
-            theBD._catId = brwObj._catId;
-            foreach(borrow borrow in brwObj._borrowlist)
-            {
-                theBD._borrowlist.Add(MapBorrow(borrow));
-            }
-           
-            return theBD;
-        }
-
-        static public BorrowerDetails getBorrowerDetails(string pid)
-        {
-            return MapBorrowerDetails(BorrowerRepository.dbGetBorrowerDetails(pid));
-        }
     }
 }
