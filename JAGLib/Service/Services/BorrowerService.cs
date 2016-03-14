@@ -86,7 +86,19 @@ namespace Service.Services
             theBorrow._returnDate = brwObj.returnDate;
             theBorrow._toBeReturnedDate = brwObj.toBeReturnedDate;
             theBorrow._book = Service.Services.BookServices.MapBookPublic(brwObj.book);
+            theBorrow.penalty = brwObj.penalty;
             return theBorrow;
+        }
+
+        static private Category MapCategory(category ct)
+        {
+            Category cat = new Category();
+            cat.catId = ct.categoryId;
+            cat.categoryType = ct.categoryt;
+            cat.period = ct.period;
+            cat.penalty = ct.penaltyperday;
+            return cat;
+
         }
 
 
@@ -124,5 +136,28 @@ namespace Service.Services
         {
             return MapBorrowerDetails(BorrowerRepository.dbGetBorrowerDetails(pid));
         }
+
+        static public borrow deMapBorrow(Borrow brw)
+        {
+            borrow b = new borrow();
+            b.barcode = brw._barcode;
+            b.pid = brw._pid;
+            b.returnDate = brw._returnDate;
+            b.toBeReturnedDate = brw._toBeReturnedDate;
+            b.borrowDate = brw._borrowDate;
+            return b;
+        }
+
+        static public void uppdateBorrow(Borrow brw)
+        {
+            BorrowerRepository.dbUppdateBorrow(deMapBorrow(brw));
+        }
+
+        static public Category getCategory(string cId)
+        {
+            return MapCategory(BorrowerRepository.dbGetCategory(cId));
+        }
+
+
     }
 }

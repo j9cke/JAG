@@ -152,8 +152,8 @@ namespace Repository.Repositories
                 SqlDataReader dar = cmd.ExecuteReader();
                 if (dar.Read())
                 {
-                    cat.categoryId = (int)dar["CategoryId"]; // as string;
-                    cat.period = (int)dar["Period"]; //as string;
+                    cat.categoryId = (int)dar["CatergoryId"]; // as string;
+                    cat.period = Convert.ToInt32(dar["Period"]); //as string;
                     cat.categoryt = dar["Category"] as string;
                     cat.penaltyperday = (int)dar["Penaltyperday"];
                 }
@@ -197,14 +197,22 @@ namespace Repository.Repositories
                             _brwObj.toBeReturnedDate = temp;
 
 
-                        if (_brwObj.returnDate == null && _brwObj.toBeReturnedDate > DateTime.Now)
+                        if (_brwObj.returnDate == DateTime.MinValue && _brwObj.toBeReturnedDate < DateTime.Now)
                         {
                             category cat = dbGetCategory(brwd._catId.ToString());
                             _brwObj.penalty = ((DateTime.Today - _brwObj.toBeReturnedDate.Date).TotalDays * cat.penaltyperday).ToString();
                         }
+                        else if(_brwObj.returnDate >  _brwObj.toBeReturnedDate)
+                        {
+                            category cat = dbGetCategory(brwd._catId.ToString());
+                            _brwObj.penalty = ((_brwObj.returnDate - _brwObj.toBeReturnedDate.Date).TotalDays * cat.penaltyperday).ToString();
+                        }
+                       
+                        else
+                        _brwObj.penalty = "0";
 
 
-                        _brwObj.pid = dar["PersonId"] as string;
+                         _brwObj.pid = dar["PersonId"] as string;
 
                         _brwObj.book = new book();
                         _brwObj.book._isbn = dar["ISBN"] as string;
@@ -265,10 +273,15 @@ namespace Repository.Repositories
             dbRemoveOrEdit("UPDATE BORROWER SET FirstName='" + b._firstname + "', LastName='" + b._lastname + "', Address='" + b._address + "', Telno='" + b._phoneno + "', CategoryId='" + b._catId + "' WHERE PersonId='" + b._pid + "';");
         }
 
+        static public void dbUppdateBorrow(borrow b)
+        {
+            dbRemoveOrEdit("UPDATE BORROW SET BorrowDate='" + b.borrowDate + "', ToBeReturnedDate='" + b.toBeReturnedDate + "', ReturnDate" + b.returnDate  + "' WHERE Barcode='" + b.barcode + "';");
+        }
+        
 
         static public category dbGetCategory(string catID)
         {
-            return dbGetCategoryforCatId("SELECT * FROM CATEGORY WHERE CategoryId = '" + catID + "';");
+            return dbGetCategoryforCatId("SELECT * FROM CATEGORY WHERE CatergoryId = '" + catID + "';");
         }
 
    }
