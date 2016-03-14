@@ -248,8 +248,7 @@ namespace Repository.Repositories
         }
 
         static public bool dbHaveCopysOnLoan(string isbn) {
-            string b = DateTime.MinValue.ToString();
-            return dbHaveLoans("SELECT COUNT(*) AS No FROM COPY INNER JOIN BORROW ON COPY.Barcode = BORROW.Barcode WHERE ISBN LIKE '" + isbn + "' AND ReturnDate LIKE '" + b + "';");
+            return dbHaveLoans("SELECT COUNT(*) AS No FROM COPY INNER JOIN BORROW ON COPY.Barcode = BORROW.Barcode WHERE ISBN LIKE '" + isbn + "' AND ReturnDate IS NULL;");
         }
     }
 }
