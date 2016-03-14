@@ -186,12 +186,11 @@ namespace JAGLibrary.Controllers
         //[HttpGet]
         public ActionResult EditBorrowerForm(Common.Models.Borrower m)
         {
-            Service.Services.BorrowerService.EditBorrower(m);
-
             var conf = new ConfirmationAdmin();
             conf._firstName = m._firstname;
             conf._lastName = m._lastname;
-            conf._Type = 2;
+
+            Service.Services.BorrowerService.EditBorrower(m);
             conf._message = "Succesfully edited borrower: ";
 
             return View("Confirmation", "_StandardLayout", conf);
@@ -199,13 +198,12 @@ namespace JAGLibrary.Controllers
 
         //[HttpGet]
         public ActionResult AddAuthorForm(Common.Models.Author m)
-        {            
+        {
+            var conf = new ConfirmationAdmin();
             Service.Services.AuthorServices.addAuthorToDb(m);
 
-            var conf = new ConfirmationAdmin();
             conf._firstName = m._firstname;
             conf._lastName = m._lastname;
-            conf._Type = 1;
             conf._message = "Succesfully added author: ";
 
             return View("Confirmation", "_StandardLayout", conf);
@@ -219,7 +217,6 @@ namespace JAGLibrary.Controllers
             var conf = new ConfirmationAdmin();
             conf._firstName = m._firstname;
             conf._lastName = m._lastname;
-            conf._Type = 1;
             conf._message = "Succesfully edited author: ";
 
             return View("Confirmation", "_StandardLayout", conf);

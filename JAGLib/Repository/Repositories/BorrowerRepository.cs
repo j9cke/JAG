@@ -300,6 +300,5 @@ namespace Repository.Repositories
         {
             return dbGetCategoryforCatId("SELECT * FROM CATEGORY WHERE CategoryId = '" + catID + "';");
         }
-
    }
 }
