@@ -219,7 +219,7 @@ namespace Repository.Repositories
 
         static public List<author> dbGetAuthorListFromFirstletter(string c)
         {
-            return dbGetAuthorList("SELECT * FROM author WHERE LastName LIKE '" + c + "%';");
+            return dbGetAuthorList("SELECT * FROM author WHERE LastName LIKE '" + c + "%' ORDER BY LastName;");
         }
 
         static public authordetails dbBooksFromAuthor(int aid)
