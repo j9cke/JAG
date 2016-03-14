@@ -7,10 +7,10 @@ namespace Common.Models
 {
     public class Copy
     {
-        public bool _status { get; set; }
+        public int _status { get; set; }
         public string _barcode { get; set; }
         public string _location { get; set; }
-        public long _isbn { get; set; }
+        public string _isbn { get; set; }
         public string _library { get; set; }
         public int _available { get; set; }
     }

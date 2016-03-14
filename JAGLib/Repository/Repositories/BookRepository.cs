@@ -110,6 +110,36 @@ namespace Repository.Repositories
             return _book;
         }
 
+        static private List<copy> dbGetCopy(string query)
+        {
+            List<copy> _copy = new List<copy>();
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+            try
+            {
+                con.Open();
+                SqlDataReader dar = cmd.ExecuteReader();
+                if (dar != null)
+                {
+                    while (dar.Read())
+                    {
+                        copy copyObj = new copy();
+                        copyObj.copy_isbn = dar["ISBN"] as string;
+                        copyObj.copy_barcode = dar["Barcode"] as string;
+                        copyObj.copy_library = dar["library"] as string;
+                        copyObj.copy_status = (int)dar["StatusId"];
+                        copyObj.copy_location = dar["Location"] as string;
+                        _copy.Add(copyObj);
+                    }
+                }
+            }
+            catch (Exception cObj) { throw cObj; }
+            finally { if (con != null) con.Close(); }
+
+            return _copy;
+        }
+
         // Används för att skicka in saker i databasen
         static private void dbInsert(string query)
         {
@@ -161,6 +191,11 @@ namespace Repository.Repositories
         static public book dbGetBookFromISBN(string isbn)
         {
             return dbBookFromISBN("SELECT * FROM BOOK WHERE ISBN LIKE '" + isbn + "';");
+        }
+
+        static public List<copy> dbGetCopyFromISBN(string isbn)
+        {
+            return dbGetCopy("SELECT * FROM COPY WHERE ISBN LIKE '" + isbn + "';");
         }
 
         static public void dbAddBook(book b)

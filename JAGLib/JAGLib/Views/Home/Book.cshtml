@@ -15,5 +15,13 @@
         <p style="width: 100%;">ISBN: @Model.book_isbn</p>
     </div>
     <button style="margin: 0 0 0 15px" class="submlogin">Borrow this book</button>
-    @*<h5 style="float:right; margin-top: 21px; margin-right: 20px;">Copies available to borrow: @Model._copy._available</h5>*@
+    @if(Model._stadsbiblioteket > 0){
+    <h5 style="float:right; margin-top: 21px; margin-right: 20px;">Copies available to borrow at Stadsbiblioteket library:  @Model._stadsbiblioteket</h5>
+    }
+    @if (Model._taberg > 0){
+    <h5 style="float:right; margin-top: 21px; margin-right: 20px;">Copies available to borrow at Taberg library:  @Model._taberg</h5>
+    }
+    @if (Model._huskvarna > 0){
+        <h5 style="float:right; margin-top: 21px; margin-right: 20px;">Copies available to borrow at Huskvarna library: @Model._huskvarna</h5>
+    }
 </div>

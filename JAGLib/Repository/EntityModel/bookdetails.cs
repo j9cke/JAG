@@ -14,6 +14,8 @@ namespace Repository.EntityModel
         public string book_publicationInfo { get; set; }
         public int book_pages { get; set; }
 
+        public List<copy> _copylist = new List<copy>();
+
         public string author_firstname { get; set; }
         public string author_lastname { get; set; }
     }

@@ -12,12 +12,15 @@
     {
         <div style="float: left; margin-top: 10px; width: 100%;">
             <p>First Name:</p> @Html.TextBoxFor(m => m._firstname, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._firstname)
         </div>
         <div style="float: left; width: 100%;">
             <p>Last Name:</p> @Html.TextBoxFor(m => m._lastname, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._lastname)
         </div>
         <div style="float: left; width: 100%;">
             <p>Birth Year:</p> @Html.TextBoxFor(m => m._birthyear, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._birthyear)
         </div>
         <input class="submlogin" type="submit" value="Add" />
     }

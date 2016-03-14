@@ -26,7 +26,7 @@ namespace Common.Models
         public string _address { get; set; }
 
         [Required(ErrorMessage = "A phonenumber is required.")]
-        [RegularExpression(@"^[0]{1}[0-9]{6,15}", ErrorMessage = "Must start on a 0")]
+        [RegularExpression(@"^[0]{1}[0-9-]{6,15}", ErrorMessage = "Must start on a 0")]
         public string _phoneno { get; set; }
 
         public int _catId { get; set; }

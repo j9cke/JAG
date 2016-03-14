@@ -73,14 +73,6 @@ namespace Service.Mockup
         //    new Borrower { _pid = "040404", _catId = 2, _firstname = "Ahmed", _lastname = "Muhammed", _address = "Kenya 2B", _phoneno = "0706415978" }
         //};
 
-        public List<Copy> copyList = new List<Copy>
-        {
-           new Copy { _isbn = 9789137144238, _status = true, _barcode = "1001", _library = ".Lib", _location = "10" },
-           new Copy { _isbn = 9789137144238, _status = true, _barcode = "1002", _library = ".Lib", _location = "11" },
-           new Copy { _isbn = 9789137144238, _status = true, _barcode = "1003", _library = ".Lib", _location = "12" },
-           new Copy { _isbn = 9789137144238, _status = true, _barcode = "1004", _library = ".Lib", _location = "13" }
-        };
-
         //public List<Borrow> borrowList = new List<Borrow>
         //{
         //    new Borrow { _pid = "7504166548", _barcode = "1001", _borrowDate = "Maj", _returnDate = "Juni", _toBeReturnedDate = null },
