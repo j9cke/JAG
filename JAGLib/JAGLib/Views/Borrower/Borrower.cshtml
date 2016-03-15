@@ -53,11 +53,9 @@
                             }
                             if (@Model._borrowlist[i].penalty == "0" && @Model._borrowlist[i]._returnDate == DateTime.MinValue)
                             {
-                                //"BrowseLetterBy?s=A&by=@Model._browse._browseBy"
                                 <a href="~/Borrower/RenewLoan?bar=@Model._borrowlist[i]._barcode&pid=@Model._pid">Renew loan</a>
-
                             }
-}
+                        }
                         
                     </li>
                 }
