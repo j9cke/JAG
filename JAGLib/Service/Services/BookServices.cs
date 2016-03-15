@@ -104,6 +104,15 @@ namespace Service.Services
             return BookRepository.dbHaveCopysOnLoan(isbn);
         }
 
+        static public List<Book> searchBook(string s)
+        {
+            List<Book> bList = new List<Book>();
+            foreach (book b in BookRepository.dbSearchBook(s))
+                bList.Add(MapBook(b));
+
+            return bList;
+        }
+
         static private Book MapBook(book bookObj)
         {
             Book theBook = new Book();
@@ -130,9 +139,7 @@ namespace Service.Services
             theBook._signId = bookObj._signId;
             theBook._publicationYear = bookObj._publicationYear;
             theBook._publicationInfo = bookObj._publicationInfo;
-            theBook._pages = bookObj._pages;
-
-            
+            theBook._pages = bookObj._pages;    
             
             return theBook;
         }

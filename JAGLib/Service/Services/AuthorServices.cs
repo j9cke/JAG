@@ -105,6 +105,15 @@ namespace Service.Services
             return AuthorRepository.dbGetBookAuthorOfBook(isbn);
         }
 
+        static public List<Author> searchAuthor(string s)
+        {
+            List<Author> aList = new List<Author>();
+            foreach (author a in AuthorRepository.dbSearchAuthor(s))
+                aList.Add(MapAuthor(a));
+
+            return aList;
+        }
+
         static private Author MapAuthor(author authObj)
         {
             Author theAuthor = new Author();

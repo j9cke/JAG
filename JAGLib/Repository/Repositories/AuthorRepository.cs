@@ -276,5 +276,10 @@ namespace Repository.Repositories
         {
             dbRemoveOrEdit("UPDATE AUTHOR SET FirstName='" + a._firstname + "', LastName='" + a._lastname + "', BirthYear='" + a._birthyear + "' WHERE Aid='" + a._id + "';");
         }
+
+        static public List<author> dbSearchAuthor(string s)
+        {
+            return dbGetAuthorList("SELECT * FROM AUTHOR WHERE FirstName LIKE '%" + s + "%' OR LastName LIKE '%" + s + "%';");
+        }
     }
 }
