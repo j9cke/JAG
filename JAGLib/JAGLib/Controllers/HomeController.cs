@@ -142,6 +142,8 @@ namespace JAGLibrary.Controllers
         {
             //skicka in sökdata
             var sr = new SearchResult();
+            sr.bList = Service.Services.BookServices.searchBook(m._searchData._searchString);
+            sr.aList = Service.Services.AuthorServices.searchAuthor(m._searchData._searchString);
             m._searchResult = sr;
 
             return View("SearchResult", "_StandardLayout", m);

@@ -8,7 +8,5 @@ namespace Common.Models
     public class SearchData
     {
         public string _searchString { get; set; }
-        public bool _byAuthor { get; set; }
-        public bool _byTitle { get; set; }
     }
 }

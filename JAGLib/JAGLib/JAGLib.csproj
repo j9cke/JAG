@@ -150,7 +150,6 @@
     <Content Include="Views\Home\Author.cshtml" />
     <Content Include="Views\Admin\Remove.cshtml" />
     <Content Include="Views\Admin\Confirmation.cshtml" />
-    <Content Include="Views\Borrower\ConfirmationBorrower.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -250,5 +250,10 @@ namespace Repository.Repositories
         static public bool dbHaveCopysOnLoan(string isbn) {
             return dbHaveLoans("SELECT COUNT(*) AS No FROM COPY INNER JOIN BORROW ON COPY.Barcode = BORROW.Barcode WHERE ISBN LIKE '" + isbn + "' AND ReturnDate IS NULL;");
         }
+
+        static public List<book> dbSearchBook(string s)
+        {
+            return dbGetBookList("SELECT * FROM BOOK WHERE BOOK.Title LIKE '%" + s + "%';");
+        }
     }
 }

@@ -37,13 +37,6 @@
                     <li><a href="/Home/Index">Search</a></li>
                     <li><a href="/Home/Browse">Browse<span class="sr-only">(current)</span></a></li>
                 </ul>
-                @using (Html.BeginForm("SearchFunc", "Home", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
-                {
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m._browse._search._searchData._searchString, new { @class = "form-control" })
-                    </div>
-                    <input class="btn btn-default" type="submit" value="Search" />
-                }
                 <ul class="nav navbar-nav navbar-right">
                     @{
                         if(@Session["user"]== null)
