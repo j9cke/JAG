@@ -6,10 +6,14 @@
 <div id="form">
     @using (Html.BeginForm("LoginFunc", "Home"))
     {
-        <label class="signinlbl">Username:</label>
-        @Html.TextBoxFor(m => m._username, new { @class = "inplogin" })
-        <label class="signinlbl">Password:</label>
-        @Html.PasswordFor(m => m._password, new { @class = "inplogin" })
-        <input class="submlogin" type="submit" value="Login" />
+        <div style="float: left; margin-top: 10px; width: 100%;">
+            <p>Personal ID:</p>@Html.TextBoxFor(m => m._username, new { @class = "inplogin" })
+            @Html.ValidationMessageFor(m => m._username)
+        </div>
+        
+        <div style="float: left; margin-top: 10px; width: 100%;">
+            <p>Password:</p>@Html.PasswordFor(m => m._password, new { @class = "inplogin" })
+            <input class="submlogin" type="submit" value="Login" />
+        </div>
     }
 </div>
