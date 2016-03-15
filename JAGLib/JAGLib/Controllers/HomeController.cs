@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Service.Mockup;
 using Service;
+using System.Text.RegularExpressions;
 
 
 namespace JAGLibrary.Controllers
@@ -142,8 +143,10 @@ namespace JAGLibrary.Controllers
         {
             //skicka in sökdata
             var sr = new SearchResult();
-            sr.bList = Service.Services.BookServices.searchBook(m._searchData._searchString);
-            sr.aList = Service.Services.AuthorServices.searchAuthor(m._searchData._searchString);
+            string regExp = @"[^\w\d ?!.,-]";
+            string tmp = Regex.Replace(m._searchData._searchString, regExp, "");
+            sr.bList = Service.Services.BookServices.searchBook(tmp);
+            sr.aList = Service.Services.AuthorServices.searchAuthor(tmp);
             m._searchResult = sr;
 
             return View("SearchResult", "_StandardLayout", m);
