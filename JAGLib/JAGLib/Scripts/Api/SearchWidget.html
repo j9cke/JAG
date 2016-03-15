@@ -1,0 +1,38 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Widget</title>
+</head>
+<body ng-app="searchWidget">
+    <div ng-controller="searchController" style="text-align:center">
+        <p>Search for book:
+            <input type="text" ng-model="search" />
+        </p>
+        <button ng-click="getResult(search)">Calculate</button>
+        <table ng-repeat="item in result">
+            <tr>
+                <td>{{ item._title }}</td>
+            </tr>
+        </table>
+    </div>
+    <script src="../jquery-2.2.1.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script>
+        myAppModule = angular.module('searchWidget', []);
+        myAppModule.controller('searchController', function ($scope, $http) {
+            $scope.result = null;
+
+            $scope.getResult = function (search) {
+                $http({
+                    method: "GET",
+                    url: "http://localhost:51021/Api/Book/Search/" + search
+                }).success(function (results) {
+                    $scope.result = results;
+                }).error(function (response) {
+                    console.log(response);
+                });
+            };
+        });
+    </script>
+
+</body>
+</html>

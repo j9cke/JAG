@@ -16,7 +16,14 @@ namespace JAGLib
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "JAGLib.Controllers" }
+            );
+
+            routes.MapRoute(
+                name: "Api",
+                url: "Api/{controller}/{action}/{id}",
+                namespaces: new[] { "JAGLib.Controllers.Api" }
             );
         }
     }

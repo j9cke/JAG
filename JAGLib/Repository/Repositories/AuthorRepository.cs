@@ -224,7 +224,7 @@ namespace Repository.Repositories
 
         static public authordetails dbBooksFromAuthor(int aid)
         {
-            return dbGetBooksFromAuthor("SELECT BOOK.ISBN, BOOK.Title, AUTHOR.FirstName, AUTHOR.LastName, AUTHOR.BirthYear, BOOK_AUTHOR.Aid FROM BOOK_AUTHOR INNER JOIN BOOK ON BOOK_AUTHOR.ISBN = dbo.BOOK.ISBN INNER JOIN AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid WHERE BOOK_AUTHOR.Aid LIKE + '" + aid + "';");
+            return dbGetBooksFromAuthor("SELECT * FROM AUTHOR LEFT JOIN BOOK_AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid LEFT JOIN BOOK ON BOOK_AUTHOR.ISBN = BOOK.ISBN WHERE AUTHOR.Aid LIKE '" + aid + "';");
         }
 
         static public author dbGetAuthorFromAid(int aid)
