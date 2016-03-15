@@ -9,7 +9,7 @@ namespace Common.Models
     public class Borrower
     {
         [Required(ErrorMessage = "A swedish 'Personnummer' is required")]
-        [RegularExpression(@"\d{8}-\d{4}", ErrorMessage = "Must be on the form yyyymmdd-xxx")]
+        [RegularExpression(@"\d{8}-\d{4}", ErrorMessage = "Must be on the form yyyymmdd-xxxx")]
         public string _pid { get; set; }
 
         [Required(ErrorMessage = "A password is required.")]
