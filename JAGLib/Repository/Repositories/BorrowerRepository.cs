@@ -304,7 +304,11 @@ namespace Repository.Repositories
 
         static public void dbUppdateBorrow(borrow b)
         {
-            dbRemoveOrEdit("UPDATE BORROW SET BorrowDate='" + b.borrowDate + "', ToBeReturnedDate='" + b.toBeReturnedDate + "', ReturnDate" + b.returnDate  + "' WHERE Barcode='" + b.barcode + "';");
+            if (b.returnDate == DateTime.MinValue)
+                dbRemoveOrEdit("UPDATE BORROW SET BorrowDate='" + b.borrowDate + "', ToBeReturnedDate='" + b.toBeReturnedDate + "', ReturnDate = NULL WHERE Barcode='" + b.barcode + "';");
+        
+            else
+                dbRemoveOrEdit("UPDATE BORROW SET BorrowDate='" + b.borrowDate + "', ToBeReturnedDate='" + b.toBeReturnedDate + "', ReturnDate='" + b.returnDate  + "' WHERE Barcode='" + b.barcode + "';");
         }
         
 
