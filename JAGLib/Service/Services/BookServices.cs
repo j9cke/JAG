@@ -89,10 +89,19 @@ namespace Service.Services
         // Tar bort en Book på ISBN & bookens copies
         static public void Remove(string isbn)
         {
-            AuthorRepository.dbRemoveBookAuthor(isbn);      // Ta bort author ur book_author
+            AuthorRepository.dbRemoveBookAuthor(isbn);          // Ta bort author ur book_author
 
-            BookRepository.dbRemoveCopies(isbn);            // Ta bort copies
-            BookRepository.dbRemoveBook(isbn);              // Ta bort bok
+            List<copy> barcodsToRemove = BookRepository.dbGetCopyFromISBN(isbn);
+            foreach (copy c in barcodsToRemove)
+                BookRepository.dbRemoveBorrows(c.copy_barcode); // Ta bort copyn ur borrows
+            
+            BookRepository.dbRemoveCopies(isbn);                // Ta bort copies
+            BookRepository.dbRemoveBook(isbn);                  // Ta bort bok
+        }
+
+        static public bool haveCopysOnLoan(string isbn)
+        {
+            return BookRepository.dbHaveCopysOnLoan(isbn);
         }
 
         static private Book MapBook(book bookObj)

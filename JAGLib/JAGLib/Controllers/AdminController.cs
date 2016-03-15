@@ -180,7 +180,7 @@ namespace JAGLibrary.Controllers
             }
          
             conf._message = "Borrower not added. A borrower with the same person-ID already exist.";
-            return View("Confirmation", "_StandardLayout");
+            return View("Confirmation", "_StandardLayout", conf);
         }
 
         //[HttpGet]
@@ -273,12 +273,28 @@ namespace JAGLibrary.Controllers
         public ActionResult RemoveThis(int cat, int aid, string isbn, string bid)
         {
             var conf = new ConfirmationAdmin();
-
             if (cat == 1) {
-                Service.Services.AuthorServices.Remove(aid);
+                AuthorDetails ad = Service.Services.AuthorServices.getBooksFromAuthor(aid);
+                bool ok = true;
+                foreach (Book b in ad._bookList)
+                    if (Service.Services.BookServices.haveCopysOnLoan(b._isbn))
+                        ok = false;
+
+                if (ok)
+                {
+                    Service.Services.AuthorServices.Remove(aid);
+                    conf._message = "Succesfully deleted author.";
+                }
+                else
+                    conf._message = "Can not delete author. Some of the books written by this author is still on loan. They must be returned before deleting this author.";
             } else if (cat == 2) {
-                Service.Services.BookServices.Remove(isbn);
-                //Om någon copy är utlånad skall ej boken tas bort
+                if (!Service.Services.BookServices.haveCopysOnLoan(isbn))
+                {
+                    Service.Services.BookServices.Remove(isbn);
+                    conf._message = "Succesfully deleted book.";
+                }
+                else
+                    conf._message = "Can not remove this book. Some of the book copies are still on loan. They must be returned before deleting this book.";
             } else {
                 if (!Service.Services.BorrowerService.haveBorrows(bid)) {
                     conf._message = "Succesfully deleted borrower.";

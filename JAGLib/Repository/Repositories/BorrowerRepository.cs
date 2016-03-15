@@ -279,8 +279,7 @@ namespace Repository.Repositories
 
         static public bool dbDoesHeHaveBorrows(string pid)
         {
-            string b = DateTime.MinValue.ToString();
-            return dbHaveBorrows("SELECT COUNT(*) AS No FROM BORROWER INNER JOIN BORROW ON BORROWER.PersonId = BORROW.PersonId WHERE PersonId LIKE '" + pid + "' AND ReturnDate LIKE '" + b + "';");
+            return dbHaveBorrows("SELECT COUNT(*) AS No FROM BORROWER INNER JOIN BORROW ON BORROWER.PersonId = BORROW.PersonId WHERE BORROWER.PersonId LIKE '" + pid + "' AND ReturnDate IS NULL;");
         }
 
         static public void dbRemoveBorrower(string pid)

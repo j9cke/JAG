@@ -173,6 +173,30 @@ namespace Repository.Repositories
             finally { if (con != null) con.Close(); }
         }
 
+        static private bool dbHaveLoans(string query)
+        {
+            int count = 0;
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+            try
+            {
+                con.Open();
+                SqlDataReader dar = cmd.ExecuteReader();
+                if (dar.Read())
+                {
+                    count = (int)dar["No"];
+                }
+            }
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+
+            if (count > 0)
+                return true;
+            else
+                return false;
+        }
+
         static public List<book> dbGetAllBookList()
         {
             return dbGetBookList("SELECT * FROM BOOK;");
@@ -213,9 +237,18 @@ namespace Repository.Repositories
             dbRemoveOrEdit("DELETE FROM COPY WHERE ISBN LIKE '" + isbn + "';");
         }
 
+        static public void dbRemoveBorrows(string bc)
+        {
+            dbRemoveOrEdit("DELETE FROM BORROW WHERE BarCode LIKE '" + bc + "';");
+        }
+
         static public void dbEditBook(book b)
         {
             dbRemoveOrEdit("UPDATE BOOK SET Title='" + b._title + "', SignId='" + b._signId + "', PublicationYear='" + b._publicationYear + "', publicationinfo='" + b._publicationInfo + "', pages='" + b._pages + "' WHERE ISBN='" + b._isbn + "';");
+        }
+
+        static public bool dbHaveCopysOnLoan(string isbn) {
+            return dbHaveLoans("SELECT COUNT(*) AS No FROM COPY INNER JOIN BORROW ON COPY.Barcode = BORROW.Barcode WHERE ISBN LIKE '" + isbn + "' AND ReturnDate IS NULL;");
         }
     }
 }
