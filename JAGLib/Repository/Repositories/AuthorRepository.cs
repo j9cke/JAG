@@ -60,6 +60,7 @@ namespace Repository.Repositories
                         authObj.author_firstname = dar["FirstName"] as string;
                         authObj.author_lastname = dar["LastName"] as string;
                         authObj.author_birthyear = dar["BirthYear"] as string;
+                        
                         book b = new book();
                         b._isbn = dar["ISBN"] as string;
                         b._title = dar["Title"] as string;
@@ -224,7 +225,11 @@ namespace Repository.Repositories
 
         static public authordetails dbBooksFromAuthor(int aid)
         {
+<<<<<<< HEAD
             return dbGetBooksFromAuthor("SELECT * FROM AUTHOR LEFT JOIN BOOK_AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid LEFT JOIN BOOK ON BOOK_AUTHOR.ISBN = BOOK.ISBN WHERE AUTHOR.Aid LIKE '" + aid + "';");
+=======
+            return dbGetBooksFromAuthor("SELECT BOOK.ISBN, BOOK.Title, AUTHOR.FirstName, AUTHOR.LastName, AUTHOR.BirthYear, BOOK_AUTHOR.Aid FROM BOOK_AUTHOR INNER JOIN BOOK ON BOOK_AUTHOR.ISBN = dbo.BOOK.ISBN INNER JOIN AUTHOR ON AUTHOR.Aid = BOOK_AUTHOR.Aid WHERE BOOK_AUTHOR.Aid LIKE +'" + aid + "';");
+>>>>>>> refs/remotes/origin/use-adam-tisdag
         }
 
         static public author dbGetAuthorFromAid(int aid)

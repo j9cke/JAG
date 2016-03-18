@@ -140,6 +140,7 @@ namespace Service.Services
             theAuthorDetails.author_firstname = authObj.author_firstname;
             theAuthorDetails.author_lastname = authObj.author_lastname;
             theAuthorDetails.author_birthyear = authObj.author_birthyear;
+            
 
             foreach (book bObj in authObj._bookList)
             {

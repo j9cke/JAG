@@ -33,22 +33,41 @@ namespace JAGLibrary.Controllers
 
         public ActionResult AddAuthor()
         {
-            return View("AddAuthor", "_StandardLayout");
+            if ((string)Session["name"] == "Admin")
+                return View("AddAuthor", "_StandardLayout");
+            else if(Session["user"] != null)
+                return Redirect("/Borrower/Borrower/");
+            else
+                return Redirect("/Home/Login/");
         }
 
         public ActionResult ListAuthors()
         {
-            var model = new ListAuthor();
-            model._authList = Service.Services.AuthorServices.getAuthorList();
+            if (Session["name"] == "Admin")
+             {
+                 var model = new ListAuthor();
+                 model._authList = Service.Services.AuthorServices.getAuthorList();
 
-            return View("ListAuthors", "_StandardLayout", model);
+                 return View("ListAuthors", "_StandardLayout", model);
+             }
+             else if (Session["user"] != null)
+                 return Redirect("/Borrower/Borrower/");
+             else
+                 return Redirect("/Home/Login/");
+            
         }
 
         public ActionResult EditAuthor(int aid)
         {
-            var model = Service.Services.AuthorServices.getAuthorFromAid(aid);
-
-            return View("EditAuthor", "_StandardLayout", model);
+             if (Session["name"] == "Admin")
+             {
+                var model = Service.Services.AuthorServices.getAuthorFromAid(aid);
+                return View("EditAuthor", "_StandardLayout", model);
+             }
+             else if (Session["user"] != null)
+                 return Redirect("/Borrower/Borrower/");
+             else
+                 return Redirect("/Home/Login/");
         }
 
         private string getSalt(int maxLength)
@@ -97,69 +116,121 @@ namespace JAGLibrary.Controllers
         
         public ActionResult AddBorrower()
         {
-            List<SelectListItem> categoryId = new List<SelectListItem>();
-            categoryId.Add(new SelectListItem { Text = "Extern", Value = "1" });
-            categoryId.Add(new SelectListItem { Text = "Staff", Value = "2" });
-            categoryId.Add(new SelectListItem { Text = "Student", Value = "3" });
-            categoryId.Add(new SelectListItem { Text = "Child", Value = "4" });
-            ViewData["Select Category"] = categoryId;
+            if (Session["name"] == "Admin")
+            {
+                List<SelectListItem> categoryId = new List<SelectListItem>();
+                categoryId.Add(new SelectListItem { Text = "Extern", Value = "1" });
+                categoryId.Add(new SelectListItem { Text = "Staff", Value = "2" });
+                categoryId.Add(new SelectListItem { Text = "Student", Value = "3" });
+                categoryId.Add(new SelectListItem { Text = "Child", Value = "4" });
+                ViewData["Select Category"] = categoryId;
 
-            var model = new Borrower();
-            return View("AddBorrower", "_StandardLayout", model);
+                var model = new Borrower();
+                return View("AddBorrower", "_StandardLayout", model);
+            }
+            else if (Session["user"] != null)
+                return Redirect("/Borrower/Borrower/");
+            else
+                return Redirect("/Home/Login/");
         }
 
         public ActionResult EditBorrower(string bid)
         {
-            var model = Service.Services.BorrowerService.getBorrower(bid);
+            if (Session["name"] == "Admin")
+            {
+                var model = Service.Services.BorrowerService.getBorrower(bid);
 
-            return View("EditBorrower", "_StandardLayout", model);
+                return View("EditBorrower", "_StandardLayout", model);
+            }
+            else if(Session["user"] != null)
+                return Redirect("/Borrower/Borrower/");
+            else
+                return Redirect("/Home/Login/");
         }
 
         public ActionResult ListBorrowers()
         {
-            var model = new ListBorrower();
-            model._borrList = Service.Services.BorrowerService.getBorrowerList();
+            if (Session["name"] == "Admin")
+            {
+                var model = new ListBorrower();
+                model._borrList = Service.Services.BorrowerService.getBorrowerList();
 
-            return View("ListBorrowers", "_StandardLayout", model);
+                return View("ListBorrowers", "_StandardLayout", model);
+            }
+            else if (Session["user"] != null)
+                return Redirect("/Borrower/Borrower/");
+            else
+                return Redirect("/Home/Login/");
         }
 
         public ActionResult AddBook()
         {
-            return View("AddBook", "_StandardLayout");
+            if (Session["name"] == "Admin")
+              return View("AddBook", "_StandardLayout");
+            else if (Session["user"] != null)
+                return Redirect("/Borrower/Borrower/");
+            else
+                return Redirect("/Home/Login/");
         }
 
         public ActionResult EditBook(string s)
         {
-            var model = Service.Services.BookServices.getBookFromISBN(s);
-            model._authorid = Service.Services.AuthorServices.getBookAuthorOfBook(s);
+            if (Session["name"] == "Admin")
+            {
+                var model = Service.Services.BookServices.getBookFromISBN(s);
+                model._authorid = Service.Services.AuthorServices.getBookAuthorOfBook(s);
 
-            return View("EditBook", "_StandardLayout", model);
+                return View("EditBook", "_StandardLayout", model);
+            }
+            else if (Session["user"] != null)
+                return Redirect("/Borrower/Borrower/");
+            else
+                return Redirect("/Home/Login/");
         }
 
         public ActionResult ListBooks()
         {
-            var model = new ListBook();
-            model._bookList = Service.Services.BookServices.getBookList();
+            if (Session["name"] == "Admin")
+            {
+                var model = new ListBook();
+                model._bookList = Service.Services.BookServices.getBookList();
 
-            return View("ListBooks", "_StandardLayout", model);
+                return View("ListBooks", "_StandardLayout", model);
+            }
+            else if (Session["user"] != null)
+                return Redirect("/Borrower/Borrower/");
+            else
+                return Redirect("/Home/Login/");
         }
 
         public ActionResult Remove(int aid, string isbn, string bid)
         {
-            var model = new Remove();
-            if (aid != 0) {
-                model._cat = 1;
-                model._author = Service.Services.AuthorServices.getAuthorFromAid(aid);
-                return View("Remove", "_StandardLayout", model);
-            } else if (isbn != "0") {
-                model._cat = 2;
-                model._book = Service.Services.BookServices.getBookFromISBN(isbn);
-                return View("Remove", "_StandardLayout", model);
-            } else {
-                model._cat = 3;
-                model._borrower = Service.Services.BorrowerService.getBorrower(bid);
-                return View("Remove", "_StandardLayout", model);
-            } 
+            if (Session["name"] == "Admin")
+            {
+                var model = new Remove();
+                if (aid != 0)
+                {
+                    model._cat = 1;
+                    model._author = Service.Services.AuthorServices.getAuthorFromAid(aid);
+                    return View("Remove", "_StandardLayout", model);
+                }
+                else if (isbn != "0")
+                {
+                    model._cat = 2;
+                    model._book = Service.Services.BookServices.getBookFromISBN(isbn);
+                    return View("Remove", "_StandardLayout", model);
+                }
+                else
+                {
+                    model._cat = 3;
+                    model._borrower = Service.Services.BorrowerService.getBorrower(bid);
+                    return View("Remove", "_StandardLayout", model);
+                }
+            }
+            else if (Session["user"] != null)
+                return Redirect("/Borrower/Borrower/");
+            else
+                return Redirect("/Home/Login/");
         }
 
         //[HttpGet]
