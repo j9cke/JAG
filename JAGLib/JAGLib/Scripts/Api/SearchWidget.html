@@ -24,7 +24,7 @@
             $scope.getResult = function (search) {
                 $http({
                     method: "GET",
-                    url: "http://localhost:51021/Api/Book/Search/" + search
+                    url: "http://jaglib-env.eu-west-1.elasticbeanstalk.com/Api/Book/Search/" + search
                 }).success(function (results) {
                     $scope.result = results;
                 }).error(function (response) {
