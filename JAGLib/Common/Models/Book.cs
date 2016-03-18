@@ -9,7 +9,7 @@ namespace Common.Models
     public class Book
     {
         [Required(ErrorMessage = "A ISBN is required.")]
-        [RegularExpression(@"^[0-9xX]{4-12}",ErrorMessage="The ISBN need to be between 4 and 12 characters long and can contain numbers and X.")]
+        [RegularExpression(@"^[0-9xX]{4-12}",ErrorMessage="The ISBN need to be between 4 and 12 characters long and can contain numbers.")]
         public string _isbn { get; set; }
 
         [Required(ErrorMessage = "A title is required.")]
