@@ -15,14 +15,17 @@ namespace Common.Models
         [Required(ErrorMessage = "A password is required.")]
         [RegularExpression(@"^[A-ZÅÖÄa-zåäö0-9!#¤%&=?@£,;*-_<>]{7,50}", ErrorMessage = "Must be atleast 7 characters")]
         public string _password { get; set; }
-
+        ///^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u
         [Required(ErrorMessage = "A name is required.")]
+        [RegularExpression(@"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+", ErrorMessage = "Can only conatins normal name characters")]
         public string _firstname { get; set; }
        
         [Required(ErrorMessage = "A name is required.")]
+        [RegularExpression(@"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+", ErrorMessage = "Can only conatins normal name characters")]
         public string _lastname { get; set; }
 
         [Required(ErrorMessage = "An address is required.")]
+        [RegularExpression(@"^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð0-9 ,.'-]+", ErrorMessage = "Can only conatins normal characters and numbers")]
         public string _address { get; set; }
 
         [Required(ErrorMessage = "A phonenumber is required.")]
