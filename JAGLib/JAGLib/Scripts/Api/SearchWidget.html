@@ -1,16 +1,16 @@
 ﻿<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Widget</title>
+    <title>JAGLIB Widget</title>
 </head>
 <body ng-app="searchWidget">
-    <div ng-controller="searchController" style="text-align:center">
+    <div ng-controller="searchController" style="text-align:center;width: 50%;">
         <p>Search for book:
             <input type="text" ng-model="search" />
         </p>
-        <button ng-click="getResult(search)">Search</button>
+        <button style="margin-bottom:20px;" ng-click="getResult(search)">Search</button>
         <table ng-repeat="item in result">
             <tr>
-                <td>{{ item._title }}</td>
+                <td style="padding: 5px;">{{ item._title }}</td>
             </tr>
         </table>
     </div>
@@ -33,6 +33,5 @@
             };
         });
     </script>
-
 </body>
 </html>
