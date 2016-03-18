@@ -78,5 +78,27 @@ namespace JAGLib.Controllers
             Service.Services.BorrowerService.uppdateBorrow(brw);
             return View("Borrower", "_StandardLayout", bd);
         }
+        public ActionResult RemovePenalty(string bar, string pid)
+        {
+            BorrowerDetails bd = Service.Services.BorrowerService.getBorrowerDetails(pid);
+            if (Session["name"] == "Admin")
+            {
+                Borrow brw = new Borrow();
+
+                brw._barcode = bar;
+                brw._pid = bd._pid;
+                brw._borrowDate = bd._borrowlist.Find(x => x._barcode == bar)._borrowDate;
+                brw._toBeReturnedDate = DateTime.Now;
+                brw._returnDate = DateTime.Now;
+                brw._book = bd._borrowlist.Find(x => x._barcode == bar)._book;
+
+                bd._borrowlist.Find(x => x._barcode == bar)._borrowDate = brw._borrowDate;
+                bd._borrowlist.Find(x => x._barcode == bar)._toBeReturnedDate = brw._toBeReturnedDate;
+                bd._borrowlist.Find(x => x._barcode == bar)._returnDate = brw._returnDate;
+                Service.Services.BorrowerService.uppdateBorrow(brw);
+            }
+            return View("Borrower", "_StandardLayout", bd);
+        }
+
 	}
 }
