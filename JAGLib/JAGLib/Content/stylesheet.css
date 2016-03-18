@@ -188,8 +188,7 @@ h2 {
 	float: left;
 	min-height: 10px;
 	background-color: #eee;
-	margin: 5px;
-	padding: 50px;
+	padding: 3%;
 }
 
 #book h4 {
@@ -255,6 +254,29 @@ h2 {
     margin-bottom: 5px;
 }
 
+#Borrower {
+	width: 100%;
+	float: left;
+	min-height: 10px;
+	background-color: #eee;
+	margin: 5px;
+	padding: 20px 50px 50px 50px;
+}
+
+#Borrower a {
+    top: auto;
+    float: right
+}
+
+#Borrower h2 {
+    
+    font-weight: bold;
+}
+
+#borrowedBooks h4 {
+    margin: 30px 5px 0 5px;
+}
+
 #listbox {
     float: left;
     margin: 20px 20px 20px 0;
@@ -293,4 +315,12 @@ h2 {
     margin-left: 10px;
     margin-bottom: 0;
     padding: 0;
+}
+
+#confirmation {
+	width: 100%;
+	float: left;
+	min-height: 10px;
+	background-color: #eee;
+	padding: 3%;
 }

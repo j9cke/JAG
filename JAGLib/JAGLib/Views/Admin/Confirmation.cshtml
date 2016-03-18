@@ -1,0 +1,12 @@
+﻿@model Common.Models.ConfirmationAdmin
+@{
+    Layout = "Confirmation";
+}
+
+<div id="confirmation">
+
+    <p>@Model._message</p>
+    <p>@Model._title @Model._firstName  @Model._lastName</p> 
+        
+    <a href="/Admin/Admin" style="margin: 0 0 0 15px" class="submlogin">Continue</a>
+</div>

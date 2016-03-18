@@ -4,32 +4,38 @@
 }
 
 <div id="admin">
-    <a href="Admin">Back</a>
+    <a onclick="history.back()">Back</a>
     <h4>Admin Section</h4>
     <h5><b>Add Borrower</b></h5>
 
-    @using (Html.BeginForm("", "Admin"))
+    @using (Html.BeginForm("AddBorrowerForm", "Admin"))
     {
         <div style="float: left; margin-top: 10px; width: 100%;">
             <p>Personal ID:</p> @Html.TextBoxFor(m => m._pid, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._pid)
         </div>
         <div style="float: left; margin-top: 10px; width: 100%;">
             <p>Password:</p> @Html.PasswordFor(m => m._password, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._password)
         </div>
         <div style="float: left; width: 100%;">
             <p>First Name:</p> @Html.TextBoxFor(m => m._firstname, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._firstname)
         </div>
         <div style="float: left; width: 100%;">
             <p>Last Name:</p> @Html.TextBoxFor(m => m._lastname, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._lastname)
         </div>
         <div style="float: left; width: 100%;">
             <p>Address:</p> @Html.TextBoxFor(m => m._address, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._address)
         </div>
         <div style="float: left; width: 100%;">
             <p>Phone number:</p> @Html.TextBoxFor(m => m._phoneno, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._phoneno)
         </div>
-        <div style="float: left; width: 100%;">
-            <p>Category:</p> @Html.TextBoxFor(m => m._catId, new { @class = "inpadmin" })
+        <div style="float: left; width: 100%;">         
+           <p>Category:</p> @Html.DropDownListFor(m => m._catId, ViewData["Select Category"] as List<SelectListItem>)
         </div>
         <input class="submlogin" type="submit" value="Add" />
     }

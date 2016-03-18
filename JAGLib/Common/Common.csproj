@@ -60,6 +60,21 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AuthorDetails.cs" />
+    <Compile Include="Models\BookDetails.cs" />
+    <Compile Include="Models\Borrow.cs" />
+    <Compile Include="Models\BorrowerDetails.cs" />
+    <Compile Include="Models\BrowseResult.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Classification.cs" />
+    <Compile Include="Models\ConfirmationAdmin.cs" />
+    <Compile Include="Models\ConfirmationBorrower.cs" />
+    <Compile Include="Models\Copy.cs" />
+    <Compile Include="Models\ListBorrower.cs" />
+    <Compile Include="Models\ListBook.cs" />
+    <Compile Include="Models\ListAuthor.cs" />
+    <Compile Include="Models\Remove.cs" />
+    <Compile Include="Models\ListBorrow.cs" />
     <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Models\SearchData.cs" />
     <Compile Include="Models\Search.cs" />

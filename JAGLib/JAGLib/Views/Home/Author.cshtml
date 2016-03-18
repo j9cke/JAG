@@ -1,0 +1,23 @@
+﻿@model Common.Models.AuthorDetails
+@{
+    ViewBag.Title = "Author";
+}
+
+<div id="book">
+    <a onclick="history.back()">Back</a>
+    <h4>@Model.author_firstname @Model.author_lastname</h4>
+    <h5>Author ID: @Model.author_aid  Birthyear: @Model.author_birthyear</h5>
+
+    
+    <h5>Books by author</h5>
+    <div id="listbox">
+        <ul>
+            @{
+                for (int i = 0; i < @Model._bookList.Count(); i++)
+                {
+                    <li><a style="float:left;" href="Book?isbn=@Model._bookList[i]._isbn">@Model._bookList[i]._title</a></li>
+                }
+            }
+        </ul>
+    </div>
+</div>

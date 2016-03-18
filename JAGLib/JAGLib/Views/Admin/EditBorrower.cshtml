@@ -4,25 +4,31 @@
 }
 
 <div id="admin">
-    <a href="Admin">Back</a>
+    <a onclick="history.back()">Back</a>
     <h4>Admin Section</h4>
     <h5><b>Edit Author</b></h5>
-    @using (Html.BeginForm("", "Admin"))
+    @using (Html.BeginForm("EditBorrowerForm", "Admin"))
     {
+        @Html.HiddenFor(m => m._pid)
         <div style="float: left; width: 100%;">
             <p>First Name:</p> @Html.TextBoxFor(m => m._firstname, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._firstname)
         </div>
         <div style="float: left; width: 100%;">
             <p>Last Name:</p> @Html.TextBoxFor(m => m._lastname, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._lastname)
         </div>
         <div style="float: left; width: 100%;">
             <p>Address:</p> @Html.TextBoxFor(m => m._address, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._address)
         </div>
         <div style="float: left; width: 100%;">
             <p>Phone number:</p> @Html.TextBoxFor(m => m._phoneno, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._phoneno)
         </div>
         <div style="float: left; width: 100%;">
             <p>Category:</p> @Html.TextBoxFor(m => m._catId, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._catId)
         </div>
         <input class="submlogin" type="submit" value="Save" />
     }

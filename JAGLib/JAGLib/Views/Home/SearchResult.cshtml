@@ -13,16 +13,27 @@
 
 
 <div id="searchres">
-    <p>Search result for: @Model._searchData._searchString </p>
-    <ul>
-        <li>
-            asdas
-        </li>
-        <li>
-            asdas
-        </li>
-        <li>
-            asdas
-        </li>
-    </ul>
+    <p>Book result for: @Model._searchData._searchString</p>
+    <div id="listbox">
+        <ul>
+            @{
+                for (int i = 0; i < @Model._searchResult.bList.Count(); i++)
+                {
+                    <li><a style="float:left;" href="Book?isbn=@Model._searchResult.bList[i]._isbn">@Model._searchResult.bList[i]._title</a></li>
+                }
+            }
+        </ul>
+    </div>
+    
+    <p>Author result for: @Model._searchData._searchString</p>
+    <div id="listbox">
+        <ul>
+            @{
+                for (int i = 0; i < @Model._searchResult.aList.Count(); i++)
+                {
+                    <li><a style="float:left;" href="Author?aid=@Model._searchResult.aList[i]._id">@Model._searchResult.aList[i]._firstname @Model._searchResult.aList[i]._lastname</a></li>
+                }
+            }
+        </ul>
+    </div>
 </div>

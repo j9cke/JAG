@@ -1,0 +1,24 @@
+﻿@model Common.Models.ListBook
+@{
+    ViewBag.Title = "List Books";
+}
+
+<div id="admin">
+    <a onclick="history.back()">Back</a>
+    <h4>Admin Section</h4>
+    <h5><b>Books</b></h5>
+    <div id="listbox">
+        <ul>
+            @{
+                for (int i = 0; i < @Model._bookList.Count(); i++)
+                {
+                    <li>
+                        <p>@Model._bookList[i]._title</p>
+                        <a href="EditBook?s=@Model._bookList[i]._isbn">Edit</a>
+                        <a href="Remove?aid=0&isbn=@Model._bookList[i]._isbn&bid=0">Remove</a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>

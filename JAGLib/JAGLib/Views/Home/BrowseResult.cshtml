@@ -1,0 +1,60 @@
+﻿@model Common.Models.BrowseResult
+@{
+    ViewBag.Title = "Browse";
+}
+
+<div id="browse">
+    <h4>Browse by @Model._browse._browseBy</h4>
+
+    <a href="BrowseLetterBy?s=A&by=@Model._browse._browseBy">A</a>
+    <a href="BrowseLetterBy?s=B&by=@Model._browse._browseBy">B</a>
+    <a href="BrowseLetterBy?s=C&by=@Model._browse._browseBy">C</a>
+    <a href="BrowseLetterBy?s=D&by=@Model._browse._browseBy">D</a>
+    <a href="BrowseLetterBy?s=E&by=@Model._browse._browseBy">E</a>
+    <a href="BrowseLetterBy?s=F&by=@Model._browse._browseBy">F</a>
+    <a href="BrowseLetterBy?s=G&by=@Model._browse._browseBy">G</a>
+    <a href="BrowseLetterBy?s=H&by=@Model._browse._browseBy">H</a>
+    <a href="BrowseLetterBy?s=I&by=@Model._browse._browseBy">I</a>
+    <a href="BrowseLetterBy?s=J&by=@Model._browse._browseBy">J</a>
+    <a href="BrowseLetterBy?s=K&by=@Model._browse._browseBy">K</a>
+    <a href="BrowseLetterBy?s=L&by=@Model._browse._browseBy">L</a>
+    <a href="BrowseLetterBy?s=M&by=@Model._browse._browseBy">M</a>
+    <a href="BrowseLetterBy?s=N&by=@Model._browse._browseBy">N</a>
+    <a href="BrowseLetterBy?s=O&by=@Model._browse._browseBy">O</a>
+    <a href="BrowseLetterBy?s=P&by=@Model._browse._browseBy">P</a>
+    <a href="BrowseLetterBy?s=Q&by=@Model._browse._browseBy">Q</a>
+    <a href="BrowseLetterBy?s=R&by=@Model._browse._browseBy">R</a>
+    <a href="BrowseLetterBy?s=S&by=@Model._browse._browseBy">S</a>
+    <a href="BrowseLetterBy?s=T&by=@Model._browse._browseBy">T</a>
+    <a href="BrowseLetterBy?s=U&by=@Model._browse._browseBy">U</a>
+    <a href="BrowseLetterBy?s=V&by=@Model._browse._browseBy">V</a>
+    <a href="BrowseLetterBy?s=W&by=@Model._browse._browseBy">W</a>
+    <a href="BrowseLetterBy?s=X&by=@Model._browse._browseBy">X</a>
+    <a href="BrowseLetterBy?s=Y&by=@Model._browse._browseBy">Y</a>
+    <a href="BrowseLetterBy?s=Z&by=@Model._browse._browseBy">Z</a>
+</div>
+
+<div id="searchres">
+    <h5><b>Browsed @Model._browse._browseBy on letter @Model._letter</b></h5>
+    <div id="listbox">
+        <ul>
+            @{
+                if (@Model._browse._browseBy == "Author")
+                {
+                    for (int i = 0; i < @Model._aList.Count(); i++) 
+                    {
+                        <li><a style="float:left;" href="Author?aid=@Model._aList[i]._id">@Model._aList[i]._firstname @Model._aList[i]._lastname</a></li>
+                    }
+                }
+                
+                if (@Model._browse._browseBy == "Book")
+                {
+                    for (int i = 0; i < @Model._bList.Count(); i++) 
+                    {
+                        <li><a style="float:left;" href="Book?isbn=@Model._bList[i]._isbn">@Model._bList[i]._title</a></li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+</div>

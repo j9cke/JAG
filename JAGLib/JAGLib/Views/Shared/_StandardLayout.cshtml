@@ -8,7 +8,14 @@
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/theme-min.css" rel="stylesheet" />
-    <link href="~/Content/simple-sidebar.css" rel="stylesheet" />
+    <link href="~/Content/simple-sidebar.css" rel="stylesheet" />    
+    <script src="~/Scripts/jquery-2.2.1.js"></script>
+    <script src="~/Scripts/jquery-2.2.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -29,30 +36,75 @@
                     <li><a href="/Home/Browse">Browse</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/Home/Login">Sign In</a></li>
+                    @{
+                        if (@Session["user"] == null)
+                        {
+                            <li><a href="/Home/Login">Sign In</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="/Home/Logout">Sign out</a></li>
+                        }
+                    }
+
                 </ul>
             </div>
         </div>
     </nav>
 
     @{
-        if (true) // if (inloggad) funktionen finns inte ännu
+        if (@Session["user"] != null) 
         {
             <div id="wrapper">
                 <!-- Sidebar -->
                 <div id="sidebar-wrapper">
                     <ul class="sidebar-nav">
                         <li class="sidebar-brand">
-                            <span style="color: #fff;">Tom Hancock</span>
+                            <span style="color: #fff;">@Session["name"]</span>
                         </li>
+                      
+                        @{
+                            if(@Session["name"] == "Admin")
+                            {
+                                <li>
+                                    <a href="~/Admin/Admin">Admin section</a>    
+                                </li>
+                                <li style="color: #fff;"> Author Admin </li>
+                                <li>
+                                    <a href="~/Admin/AddAuthor">Add author</a>    
+                                </li>
+                                <li>
+                                    <a href="~/Admin/ListAuthors">Update/remove author</a>
+                                </li>
+                                <li style="color: #fff;"> Borrower Admin </li>
+                                <li>
+                                    <a href="~/Admin/AddBorrower">Add borrower</a>
+                                </li>
+                                    
+                                <li>
+                                    <a href="~/Admin/ListBorrowers">Update/remove borrower</a>
+                                </li>
+                               <li style="color: #fff;"> Book Admin </li>
+                                <li>
+                                    <a href="~/Admin/AddBook">Add book</a>
+                                </li>
+                         
+                                <li>
+                                    <a href="~/Admin/ListBooks">Update/remove book</a>
+                                </li>
+                                    
+                                
+                            }
+                            else
+                            {
+                             <li>
+                                <a href="/Borrower/Borrower">My Books</a>
+                            </li>
+                            }
+                            
+                        }   
                         <li>
-                            <a href="#">Borrowed books</a>
-                        </li>
-                        <li>
-                            <a href="#">User information</a>
-                        </li>
-                        <li>
-                            <a href="#">Sign out</a>
+                            <a style ="color: #fff;" href="/Home/Logout">Sign out</a>
                         </li>
                     </ul>
                 </div>

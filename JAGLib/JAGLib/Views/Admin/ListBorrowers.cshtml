@@ -1,37 +1,25 @@
-﻿@{
+﻿@model Common.Models.ListBorrower
+@{
     ViewBag.Title = "List Borrowers";
 }
 
 <div id="admin">
-    <a href="Admin">Back</a>
+    <a onclick="history.back()">Back</a>
     <h4>Admin Section</h4>
     <h5><b>Borrowers</b></h5>
     <div id="listbox">
         <ul>
-            <li>
-                <p>Gustav Carlsson</p>
-                <a href="#">Edit</a>
-                <a href="#">Remove</a>
-                <a href="#">View loans</a>
-            </li>
-            <li>
-                <p>Johanna Carlsson</p>
-                <a href="#">Edit</a>
-                <a href="#">Remove</a>
-                <a href="#">View loans</a>
-            </li>
-            <li>
-                <p>Erik Carlsson</p>
-                <a href="#">Edit</a>
-                <a href="#">Remove</a>
-                <a href="#">View loans</a>
-            </li>
-            <li>
-                <p>Lena Carlsson</p>
-                <a href="#">Edit</a>
-                <a href="#">Remove</a>
-                <a href="#">View loans</a>
-            </li>
+            @{
+                for (int i = 0; i < @Model._borrList.Count(); i++)
+                {
+                    <li>
+                        <p>@Model._borrList[i]._firstname @Model._borrList[i]._lastname</p>
+                        <a href="EditBorrower?bid=@Model._borrList[i]._pid">Edit</a>
+                        <a href="Remove?aid=0&isbn=0&bid=@Model._borrList[i]._pid">Remove</a>
+                        <a href="ViewBorrower?id=@Model._borrList[i]._pid">View</a>
+                    </li>
+                }
+            }
         </ul>
     </div>
 </div>

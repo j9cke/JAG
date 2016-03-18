@@ -9,11 +9,5 @@ namespace Common.Models
     {
         public SearchData _searchData { get; set; }
         public SearchResult _searchResult { get; set; }
-
-        public Search()
-        {
-            _searchData = new SearchData();
-            _searchResult = new SearchResult();
-        }
     }
 }

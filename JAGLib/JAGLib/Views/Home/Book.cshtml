@@ -1,12 +1,26 @@
-﻿@{
+﻿@model Common.Models.BookDetails
+@{
     ViewBag.Title = "Book";
 }
 
 <div id="book">
-    <a href="#">Back</a>
-    <h4>Book title</h4>
-    <h5>Author, Year</h5>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget vulputate lorem, a rhoncus nunc. Proin elementum cursus nisl quis consectetur. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
-    <p>Lroin elementum cursus nisl quis consectetur. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
-    <button style="margin-top:30px;" class="submlogin">Borrow this book</button>
+    <a onclick="history.back()">Back</a>
+    <h4>@Model.book_title</h4>
+    <h5>@Model.authorstring</h5>
+    <p></p>
+    <div id="listbox">
+        <p style="width: 100%;">Publisher: @Model.book_publicationInfo</p>
+        <p style="width: 100%;">Year: @Model.book_publicationYear</p>
+        <p style="width: 100%;">Pages: @Model.book_pages</p>
+        <p style="width: 100%;">ISBN: @Model.book_isbn</p>
+    </div>
+    @if(Model._stadsbiblioteket > 0){
+    <h5 style="float:right; margin-top: 21px; margin-right: 20px;">Copies available to borrow at Stadsbiblioteket library:  @Model._stadsbiblioteket</h5>
+    }
+    @if (Model._taberg > 0){
+    <h5 style="float:right; margin-top: 21px; margin-right: 20px;">Copies available to borrow at Taberg library:  @Model._taberg</h5>
+    }
+    @if (Model._huskvarna > 0){
+        <h5 style="float:right; margin-top: 21px; margin-right: 20px;">Copies available to borrow at Huskvarna library: @Model._huskvarna</h5>
+    }
 </div>
