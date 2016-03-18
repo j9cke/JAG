@@ -25,7 +25,7 @@ namespace JAGLibrary.Controllers
         public ActionResult Author(int aid)
         {
             var model = Service.Services.AuthorServices.getBooksFromAuthor(aid);
-
+            model.author_aid = aid.ToString();
             return View("Author", "_StandardLayout", model);
         }
 
