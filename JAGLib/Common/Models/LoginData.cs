@@ -9,7 +9,7 @@ namespace Common.Models
     public class LoginData
     {
         [Required(ErrorMessage = "A swedish 'Personnummer' is required")]
-        [RegularExpression(@"\d{8}-\d{4}", ErrorMessage = "Must be on the form yyyymmdd-xxxx")]
+        [RegularExpression(@"\d{8}-\d{4}|admin", ErrorMessage = "Must be on the form yyyymmdd-xxxx")]
         public string _username { get; set; }
 
         public string _password { get; set; }
