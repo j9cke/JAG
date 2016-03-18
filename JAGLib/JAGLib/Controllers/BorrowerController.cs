@@ -40,6 +40,24 @@ namespace JAGLib.Controllers
             }
         }
 
+        public ActionResult AdminBorrower(string id)
+        {
+            Borrower b = Service.Services.BorrowerService.getBorrower(id);
+
+            BorrowerDetails model = Service.Services.BorrowerService.getBorrowerDetails(id);
+            if (model._pid == null)
+            {
+                model._firstname = b._firstname;
+                model._lastname = b._lastname;
+                model._pid = b._pid;
+                model._phoneno = b._phoneno;
+                model._address = b._address;
+                model._catId = b._catId;
+            }
+
+            return View("Borrower", "_StandardLayout", model);
+        }
+
         public ActionResult RenewLoan(string bar, string pid)
         {
             BorrowerDetails bd = Service.Services.BorrowerService.getBorrowerDetails(pid); 

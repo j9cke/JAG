@@ -148,6 +148,11 @@ namespace JAGLibrary.Controllers
                 return Redirect("/Home/Login/");
         }
 
+        public ActionResult ViewBorrower(string id)
+        {
+            return Redirect("~/Borrower/AdminBorrower?id=" + id);
+        }
+
         public ActionResult ListBorrowers()
         {
             if (Session["name"] == "Admin")
