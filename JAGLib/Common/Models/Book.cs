@@ -17,7 +17,7 @@ namespace Common.Models
         public string _title { get; set; }
 
         [Required(ErrorMessage = "A Sign ID is required.")]
-        [RegularExpression(@"^([1-5]?[0-9]|6[0-5])$)", ErrorMessage = "The Sign ID need to be between 1 and 70.")]
+        [RegularExpression(@"^([1-5]?[0-9]|6[0-5])$", ErrorMessage = "The Sign ID need to be between 1 and 65.")]
         public int _signId { get; set; }
         
         [Required(ErrorMessage = "A publication year is required.")]
@@ -25,7 +25,6 @@ namespace Common.Models
         public string _publicationYear { get; set; }
 
         [Required(ErrorMessage = "Publication info is required.")]
-        [RegularExpression(@"^[A-ZÅÄÖa-zåäö0-9\s-]+", ErrorMessage="Publication info can only contain normal characters.")]
         public string _publicationInfo { get; set; }
 
         [Required(ErrorMessage = "Number of pages is required.")]
