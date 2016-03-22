@@ -171,7 +171,14 @@ namespace JAGLibrary.Controllers
         public ActionResult AddBook()
         {
             if (Session["name"] == "Admin")
-              return View("AddBook", "_StandardLayout");
+            {
+                List<SelectListItem> libraryId = new List<SelectListItem>();
+                libraryId.Add(new SelectListItem { Text = "Stadsbibloteket", Value = "Stadsbibloteket" });
+                libraryId.Add(new SelectListItem { Text = "Huskvarna", Value = "Huskvarna" });
+                libraryId.Add(new SelectListItem { Text = "Taberg", Value = "Taberg" });
+                ViewData["Select Library"] = libraryId;
+                return View("AddBook", "_StandardLayout");
+            }
             else if (Session["user"] != null)
                 return Redirect("/Borrower/Borrower/");
             else
@@ -310,7 +317,7 @@ namespace JAGLibrary.Controllers
                 conf._message = "A book with the ISBN you entered already exist. ";
             }
 
-            if (!authorList.Exists(x => x._id == m._authorid)) { 
+            else if (!authorList.Exists(x => x._id == m._authorid)) { 
                 conf._message += "No Author with the Author ID you entered.";
             }
             

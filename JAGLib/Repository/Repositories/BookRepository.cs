@@ -197,6 +197,27 @@ namespace Repository.Repositories
                 return false;
         }
 
+        static private string dbLastBarcode(string query)
+        {
+            string bc = "";
+            string _connectionString = DataSource.getConnectionString("projectmanager");
+            SqlConnection con = new SqlConnection(_connectionString);
+            SqlCommand cmd = new SqlCommand(query, con);
+            try
+            {
+                con.Open();
+                SqlDataReader dar = cmd.ExecuteReader();
+                if (dar.Read())
+                {
+                    bc = dar["bc"] as string;
+                }
+            }
+            catch (Exception eObj) { throw eObj; }
+            finally { if (con != null) con.Close(); }
+
+            return bc;
+        }
+
         static public List<book> dbGetAllBookList()
         {
             return dbGetBookList("SELECT * FROM BOOK;");
@@ -249,6 +270,15 @@ namespace Repository.Repositories
 
         static public bool dbHaveCopysOnLoan(string isbn) {
             return dbHaveLoans("SELECT COUNT(*) AS No FROM COPY INNER JOIN BORROW ON COPY.Barcode = BORROW.Barcode WHERE ISBN LIKE '" + isbn + "' AND ReturnDate IS NULL;");
+        }
+
+        static public string dbGetLastBarcode() {
+            return dbLastBarcode("SELECT MAX(BARCODE) AS bc FROM COPY;");
+        }
+
+        static public void dbAddCopy(copy c)
+        {
+            dbInsert("INSERT INTO COPY VALUES('" + c.copy_barcode + "', '" + c.copy_location + "', '" + c.copy_status + "', '" + c.copy_isbn + "', '" + c.copy_library + "');");
         }
 
         static public List<book> dbSearchBook(string s)

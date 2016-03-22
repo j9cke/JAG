@@ -13,8 +13,6 @@ namespace JAGLibrary.Controllers
 {
     public class HomeController : Controller
     {
-        Mockup mup = new Mockup();
-
         public ActionResult Index()
         {
             var model = new Search();

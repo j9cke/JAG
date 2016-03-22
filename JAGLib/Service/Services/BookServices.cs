@@ -73,10 +73,28 @@ namespace Service.Services
             return MapBook(bookObj);
         }
 
-        // Lägger till angiven Author till databasen
+        // Lägger till angiven Book till databasen
         static public void addBookToDb(Book m)
         {
             BookRepository.dbAddBook(deMapBook(m));
+
+            //Add Copies
+            List<Copy> cList = new List<Copy>();
+            long bc = long.Parse(BookRepository.dbGetLastBarcode());
+            for (int i = 1; i <= m._noOfCopies; i++)
+            {
+                Copy c = new Copy();
+                c._barcode = (bc + i).ToString();
+                c._location = m._copylocation;
+                c._library = m._copylibrary;
+                c._isbn = m._isbn;
+                c._status = 1;
+                cList.Add(c);
+            }
+
+            foreach (Copy item in cList)
+                BookRepository.dbAddCopy(demapCopy(item));
+
             AuthorRepository.dbAddBookAuthor(m._isbn, m._authorid);
         }
 
@@ -158,6 +176,17 @@ namespace Service.Services
                 theCopy.Add(cop);
             }
             return theCopy;
+        }
+
+        static private copy demapCopy(Copy copobj)
+        {
+            copy cop = new copy();
+            cop.copy_isbn = copobj._isbn;
+            cop.copy_barcode = copobj._barcode;
+            cop.copy_library = copobj._library;
+            cop.copy_status = copobj._status;
+            cop.copy_location = copobj._location;
+            return cop;
         }
 
         static private BookDetails MapBookDetails(bookdetails bkdtObj)
