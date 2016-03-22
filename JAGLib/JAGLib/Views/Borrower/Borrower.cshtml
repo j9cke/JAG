@@ -44,15 +44,15 @@
                         @{
                             if (@Model._borrowlist[i]._returnDate != DateTime.MinValue)
                             {
-                            <h5 >Returned: @Model._borrowlist[i]._returnDate.Date.ToString("d")</h5>
+                                <h5 >Returned: @Model._borrowlist[i]._returnDate.Date.ToString("d")</h5>
                             }
                             if(@Model._borrowlist[i].penalty != "0")
                             {
-                            <h5 style="color:red"> Penalty: @Model._borrowlist[i].penalty Kronor</h5>
-                             if(@Session["name"] == "Admin")
-                             {
-                                 <a href="~/Borrower/RemovePenalty?bar=@Model._borrowlist[i]._barcode&pid=@Model._pid">Remove Penalty</a>
-                             }
+                                <h5 style="color:red"> Penalty: @Model._borrowlist[i].penalty Kronor</h5>
+                            if(@Session["name"] == "Admin")
+                            {
+                                <a href="~/Borrower/RemovePenalty?bar=@Model._borrowlist[i]._barcode&pid=@Model._pid">Remove Penalty</a>
+                            }
                             }
                             if (@Model._borrowlist[i].penalty == "0" && @Model._borrowlist[i]._returnDate == DateTime.MinValue)
                             {

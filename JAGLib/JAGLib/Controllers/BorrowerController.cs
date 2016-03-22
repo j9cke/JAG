@@ -10,21 +10,16 @@ namespace JAGLib.Controllers
 {
     public class BorrowerController : Controller
     {
-        Mockup mup = new Mockup();
-
         public ActionResult Borrower()
         {
             if (Session["user"] == null)
                 return Redirect("/Home/Login/");
             else {
-                //hämta borrower från SQL
-                
                 LoginData user = (LoginData)Session["user"];
                 string pId = user._username;
                 Borrower b = Service.Services.BorrowerService.getBorrower(pId);
                 Session["name"] = b._firstname + " " + b._lastname;
 
-                //List<Borrow> borrow = Service.Services.BorrowerService.getPersonsBorrowList(model);
                 BorrowerDetails model = Service.Services.BorrowerService.getBorrowerDetails(pId);
                 if(model._pid == null)
                 {
@@ -43,7 +38,6 @@ namespace JAGLib.Controllers
         public ActionResult AdminBorrower(string id)
         {
             Borrower b = Service.Services.BorrowerService.getBorrower(id);
-
             BorrowerDetails model = Service.Services.BorrowerService.getBorrowerDetails(id);
             if (model._pid == null)
             {
@@ -78,6 +72,7 @@ namespace JAGLib.Controllers
             Service.Services.BorrowerService.uppdateBorrow(brw);
             return View("Borrower", "_StandardLayout", bd);
         }
+
         public ActionResult RemovePenalty(string bar, string pid)
         {
             BorrowerDetails bd = Service.Services.BorrowerService.getBorrowerDetails(pid);
@@ -99,6 +94,5 @@ namespace JAGLib.Controllers
             }
             return View("Borrower", "_StandardLayout", bd);
         }
-
 	}
 }

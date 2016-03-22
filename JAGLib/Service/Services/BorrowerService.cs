@@ -51,20 +51,6 @@ namespace Service.Services
             BorrowerRepository.dbEditBorrower(deMapBorrower(b));
         }
 
-        /************************* GET BORROW FOR A PERSON   ***********************/
-        static public List<Borrow> getPersonsBorrowList(Borrower borrower)
-        {
-           List<Borrow> borrowList = new List<Borrow>();
-            
-           List<borrow> brwList = BorrowerRepository.dbGetAllBorrowList(borrower._pid);
-           foreach (borrow brwObj in brwList)
-           {
-               borrowList.Add(MapBorrow(brwObj));
-           }
-            
-           return borrowList;
-        }
-
         static public bool haveBorrows(string pid)
         {
             return BorrowerRepository.dbDoesHeHaveBorrows(pid);

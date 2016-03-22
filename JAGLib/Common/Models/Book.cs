@@ -31,6 +31,15 @@ namespace Common.Models
         [RegularExpression(@"\d+", ErrorMessage="Can only contain digits")]
         public int _pages { get; set; }
 
+        [Required(ErrorMessage = "Number of copies is required.")]
+        [RegularExpression(@"\d+", ErrorMessage = "Can only contain digits")]
+        public int _noOfCopies { get; set; }
+
+        [Required(ErrorMessage = "A location is required.")]
+        public string _copylocation { get; set; }
+
+        public string _copylibrary { get; set; }
+
         [Required(ErrorMessage = "An author ID is required.")]
         [RegularExpression(@"\d{3,6}", ErrorMessage="An author ID must be between 3-6 digits.")]
         public int _authorid { get; set; }

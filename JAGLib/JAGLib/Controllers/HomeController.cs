@@ -13,12 +13,9 @@ namespace JAGLibrary.Controllers
 {
     public class HomeController : Controller
     {
-        Mockup mup = new Mockup();
-
         public ActionResult Index()
         {
             var model = new Search();
-
             return View("Index", "_StandardLayout", model);
         }
 
@@ -127,7 +124,6 @@ namespace JAGLibrary.Controllers
         public ActionResult Login()
         {
             var model = new LoginData();
-
             return View("Login", "_StandardLayout", model);
         }
 
@@ -141,7 +137,6 @@ namespace JAGLibrary.Controllers
         //[HttpGet]
         public ActionResult SearchFunc(Common.Models.Search m)
         {
-            //skicka in sökdata
             var sr = new SearchResult();
             string regExp = @"[^\w\d ?!.,-]";
             string tmp = Regex.Replace(m._searchData._searchString, regExp, "");
@@ -167,8 +162,7 @@ namespace JAGLibrary.Controllers
             List<LoginData> userList = Service.Services.LoginService.getUserList();
             
             if (userList.Exists(x => x._username == m._username))
-            {
-                
+            { 
                 if (userList.Find(x => x._username == m._username)._password == getHash(m._password, userList.Find(x => x._username == m._username)._salt))
                 {
                     switch (userList.Find(x => x._username == m._username)._level)
@@ -178,24 +172,15 @@ namespace JAGLibrary.Controllers
                             return Redirect("/Borrower/Borrower/");
         
                         case "2":
-                            //Session["level"] = "Admin";
-                            //Session["pId"] = "Admin";
                             Session["user"] = userList.Find(x => x._username == m._username);
-                            //return View("../Admin/Admin", "_StandardLayout");
                             return Redirect("/Admin/Admin/");
-
-                            
+  
                         default:
                             break;
                     }
                 }
             }
             
-            else
-            {
-
-            }
-
             return View("Login", "_StandardLayout");
         }
     }

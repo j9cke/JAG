@@ -14,13 +14,13 @@
         <p style="width: 100%;">Pages: @Model.book_pages</p>
         <p style="width: 100%;">ISBN: @Model.book_isbn</p>
     </div>
-    @if(Model._stadsbiblioteket > 0){
-    <h5 style="float:right; margin-top: 21px; margin-right: 20px;">Copies available to borrow at Stadsbiblioteket library:  @Model._stadsbiblioteket</h5>
+    @if(Model._stadsbiblioteket > 0) {
+        <h5 style="float:right; margin-top: 21px; margin-right: 20px;">Copies available to borrow at Stadsbiblioteket library:  @Model._stadsbiblioteket</h5>
     }
-    @if (Model._taberg > 0){
-    <h5 style="float:right; margin-top: 21px; margin-right: 20px;">Copies available to borrow at Taberg library:  @Model._taberg</h5>
+    @if (Model._taberg > 0) {
+        <h5 style="float:right; margin-top: 21px; margin-right: 20px;">Copies available to borrow at Taberg library:  @Model._taberg</h5>
     }
-    @if (Model._huskvarna > 0){
+    @if (Model._huskvarna > 0) {
         <h5 style="float:right; margin-top: 21px; margin-right: 20px;">Copies available to borrow at Huskvarna library: @Model._huskvarna</h5>
     }
 </div>

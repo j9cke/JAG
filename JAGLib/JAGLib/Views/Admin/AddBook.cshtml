@@ -34,7 +34,18 @@
             <p>Pages:</p> @Html.TextBoxFor(m => m._pages, new { @class = "inpadmin" })
             @Html.ValidationMessageFor(m => m._pages)
         </div>
-        <div style="float: left; width: 100%">
+        <div style="float: left; width: 100%;">
+            <p>Number of copies:</p> @Html.TextBoxFor(m => m._noOfCopies, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._noOfCopies)
+        </div>
+        <div style="float: left; width: 100%;">
+            <p>Location:</p> @Html.TextBoxFor(m => m._copylocation, new { @class = "inpadmin" })
+            @Html.ValidationMessageFor(m => m._copylocation)
+        </div>
+        <div style="float: left; width: 100%;">
+            <p>Library:</p> @Html.DropDownListFor(m => m._copylibrary, ViewData["Select Library"] as List<SelectListItem>)
+        </div>
+        <div style="float: left; width: 100%; margin-top: 17px;">
             <p>Author ID:</p> @Html.TextBoxFor(m => m._authorid, new { @class = "inpadmin" })
             @Html.ValidationMessageFor(m => m._authorid)
         </div>
