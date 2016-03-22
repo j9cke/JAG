@@ -106,40 +106,6 @@ namespace Repository.Repositories
             finally { if (con != null) con.Close(); }
         }
 
-        /***************  GET BORROW FOR A BORROWER  ******************/
-        static private List<borrow> dbGetBorrowListForPerson(string query)
-        {
-            List<borrow> _brwList = null;
-            string _connectionString = DataSource.getConnectionString("projectmanager");
-            SqlConnection con = new SqlConnection(_connectionString);
-            SqlCommand cmd = new SqlCommand(query, con);
-            try
-            {
-                con.Open();
-                SqlDataReader dar = cmd.ExecuteReader();
-                if (dar != null)
-                {
-                    _brwList = new List<borrow>();
-                    while (dar.Read())
-                    {
-                        //borrow _brwObj = new borrow();
-                        //_brwObj.pid = dar["PersonId"] as string;
-                        //_brwObj.barcode = dar["Barcode"] as string;
-                        //_brwObj.returnDate = dar["ReturnDate"] as string;
-                        //_brwObj.borrowDate = dar["BorrowDate"] as string;
-                        //_brwObj.toBeReturnedDate = dar["ToBeReturnedDate"] as string;
-                       
-                        //_brwList.Add(_brwObj);
-                    }
-                }
-            }
-
-            catch (Exception eObj) { throw eObj; }
-            finally { if (con != null) con.Close(); }
-            
-            return _brwList;
-        }
-
         static private category dbGetCategoryforCatId(string query)
         {
             category cat = new category();
@@ -270,11 +236,6 @@ namespace Repository.Repositories
         static public borrowerdetails dbGetBorrowerDetails(string pid)
         {
             return dbGetBorrowerDetailsforpid("SELECT * FROM BORROW INNER JOIN BORROWER ON BORROW.PersonId = BORROWER.PersonId INNER JOIN COPY ON BORROW.Barcode = COPY.Barcode INNER JOIN BOOK ON COPY.ISBN = BOOK.ISBN WHERE BORROWER.PersonId LIKE '" + pid + "';");
-        }
-
-        static public List<borrow> dbGetAllBorrowList(string pId)
-        {
-            return dbGetBorrowListForPerson("SELECT * FROM borrower WHERE PersonId = '" + pId + "';");
         }
 
         static public bool dbDoesHeHaveBorrows(string pid)

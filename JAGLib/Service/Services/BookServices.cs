@@ -55,17 +55,6 @@ namespace Service.Services
             return _bkdtList;
         }
 
-        /*static public List<BookDetails> getCopyFromISBN(string isbn)
-        {
-            _copyList = new List<BookDetails>();
-            List<Copy> cList = mapCopy(BookRepository.dbGetCopyFromISBN(isbn));
-                
-            foreach(Copy item in cList)
-                _copyList.Add(mapCopy(item));
-
-            return _copyList;
-        }*/
-
         static public Book getBookFromISBN(string isbn)
         {
             book bookObj = BookRepository.dbGetBookFromISBN(isbn);

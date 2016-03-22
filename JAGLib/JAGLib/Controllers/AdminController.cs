@@ -10,9 +10,6 @@ namespace JAGLibrary.Controllers
 {
     public class AdminController : Controller
     {
-        //
-        // GET: /Admin/
-
         public ActionResult Admin()
         {
             if (Session["user"] == null)
@@ -54,7 +51,6 @@ namespace JAGLibrary.Controllers
                  return Redirect("/Borrower/Borrower/");
              else
                  return Redirect("/Home/Login/");
-            
         }
 
         public ActionResult EditAuthor(int aid)
@@ -97,9 +93,7 @@ namespace JAGLibrary.Controllers
             ld._password = getHash(m._password, ld._salt); ;
             ld._username = m._pid;
             ld._level = "1";
-            //ld._hash = getHash(m._password, ld._salt);
 
-            //Add to database.
             Borrower person = new Borrower();
             person._pid = m._pid;
             person._firstname = m._firstname;
@@ -108,7 +102,6 @@ namespace JAGLibrary.Controllers
             person._phoneno = m._phoneno;
             person._catId = m._catId;
 
-            //add person to database
             Service.Services.BorrowerService.addBorrowerToDb(person);
             Service.Services.LoginService.addUserToDb(ld);
         } 
@@ -139,7 +132,6 @@ namespace JAGLibrary.Controllers
             if (Session["name"] == "Admin")
             {
                 var model = Service.Services.BorrowerService.getBorrower(bid);
-
                 return View("EditBorrower", "_StandardLayout", model);
             }
             else if(Session["user"] != null)
@@ -313,13 +305,11 @@ namespace JAGLibrary.Controllers
             var conf = new ConfirmationAdmin();
             conf._message = "";
 
-            if (bookList.Exists(x => x._isbn == m._isbn)) {
+            if (bookList.Exists(x => x._isbn == m._isbn))
                 conf._message = "A book with the ISBN you entered already exist. ";
-            }
 
-            else if (!authorList.Exists(x => x._id == m._authorid)) { 
+            else if (!authorList.Exists(x => x._id == m._authorid))
                 conf._message += "No Author with the Author ID you entered.";
-            }
             
             else {
                 Service.Services.BookServices.addBookToDb(m);
@@ -338,9 +328,8 @@ namespace JAGLibrary.Controllers
             List<Author> authorList = Service.Services.AuthorServices.getAuthorList();
             var conf = new ConfirmationAdmin();
             
-            if (!authorList.Exists(x => x._id == m._authorid)) {
+            if (!authorList.Exists(x => x._id == m._authorid))
                 conf._message += "No Author with the Author ID you entered.";
-            }
 
             else {
                 Service.Services.BookServices.EditBook(m);
