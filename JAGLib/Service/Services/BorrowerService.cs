@@ -29,7 +29,7 @@ namespace Service.Services
        
         static public Borrower getBorrower(string id)
         {
-            return MapBorrower(BorrowerRepository.dbGetBorrower(id));
+            return MapBorrower(BorrowerRepository.getBorrower(id));
         }
 
         // Tar bort en Borrower på PersonId & borrowerns lån

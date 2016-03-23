@@ -10,12 +10,16 @@ namespace Repository.Repositories
 {
     public class BorrowerRepository
     {
-        static public borrower dbGetBorrower(string id)
+        static private borrower dbGetBorrower(string query, SqlParameter[] sp)
         {
             borrower _brwObj = null;
             string _connectionString = DataSource.getConnectionString("projectmanager");
             SqlConnection con = new SqlConnection(_connectionString);
-            SqlCommand cmd = new SqlCommand("SELECT * FROM borrower WHERE PersonId = '" + id + "';", con);
+            SqlCommand cmd = new SqlCommand(query, con);
+
+            if (sp != null && sp.Length > 0)
+                cmd.Parameters.AddRange(sp);
+
             try
             {
                 con.Open();
@@ -38,12 +42,16 @@ namespace Repository.Repositories
             return _brwObj;
         }
 
-        static private List<borrower> dbGetBorrowerList(string query)
+        static private List<borrower> dbGetBorrowerList(string query, SqlParameter[] sp)
         {
             List<borrower> _brwList = null;
             string _connectionString = DataSource.getConnectionString("projectmanager");
             SqlConnection con = new SqlConnection(_connectionString);
             SqlCommand cmd = new SqlCommand(query, con);
+
+            if (sp != null && sp.Length > 0)
+                cmd.Parameters.AddRange(sp);
+
             try
             {
                 con.Open();
@@ -74,11 +82,14 @@ namespace Repository.Repositories
             return _brwList;
         }
 
-        static private void dbInsert(string query)
+        static private void dbInsert(string query, SqlParameter[] sp)
         {
             string _connectionString = DataSource.getConnectionString("projectmanager");
             SqlConnection con = new SqlConnection(_connectionString);
             SqlCommand cmd = new SqlCommand(query, con);
+
+            if (sp != null && sp.Length > 0)
+                cmd.Parameters.AddRange(sp);
 
             try
             {
@@ -90,11 +101,14 @@ namespace Repository.Repositories
             finally { if (con != null) con.Close(); }
         }
 
-        static private void dbRemoveOrEdit(string query)
+        static private void dbRemoveOrEdit(string query, SqlParameter[] sp)
         {
             string _connectionString = DataSource.getConnectionString("projectmanager");
             SqlConnection con = new SqlConnection(_connectionString);
             SqlCommand cmd = new SqlCommand(query, con);
+
+            if (sp != null && sp.Length > 0)
+                cmd.Parameters.AddRange(sp);
 
             try
             {
@@ -106,12 +120,16 @@ namespace Repository.Repositories
             finally { if (con != null) con.Close(); }
         }
 
-        static private category dbGetCategoryforCatId(string query)
+        static private category dbGetCategoryforCatId(string query, SqlParameter[] sp)
         {
             category cat = new category();
             string _connectionString = DataSource.getConnectionString("projectmanager");
             SqlConnection con = new SqlConnection(_connectionString);
             SqlCommand cmd = new SqlCommand(query, con);
+
+            if (sp != null && sp.Length > 0)
+                cmd.Parameters.AddRange(sp);
+
             try
             {
                 con.Open();
@@ -130,12 +148,16 @@ namespace Repository.Repositories
             return cat;
         }
 
-        static private bool dbHaveBorrows(string query)
+        static private bool dbHaveBorrows(string query, SqlParameter[] sp)
         {
             int count = 0;
             string _connectionString = DataSource.getConnectionString("projectmanager");
             SqlConnection con = new SqlConnection(_connectionString);
             SqlCommand cmd = new SqlCommand(query, con);
+
+            if (sp != null && sp.Length > 0)
+                cmd.Parameters.AddRange(sp);
+
             try
             {
                 con.Open();
@@ -154,12 +176,16 @@ namespace Repository.Repositories
                 return false;
         }
 
-        static private borrowerdetails dbGetBorrowerDetailsforpid(string query)
+        static private borrowerdetails dbGetBorrowerDetailsforpid(string query, SqlParameter[] sp)
         {
             borrowerdetails brwd = new borrowerdetails();;
             string _connectionString = DataSource.getConnectionString("projectmanager");
             SqlConnection con = new SqlConnection(_connectionString);
             SqlCommand cmd = new SqlCommand(query, con);
+
+            if (sp != null && sp.Length > 0)
+                cmd.Parameters.AddRange(sp);
+
             try
             {
                 con.Open();
@@ -225,57 +251,202 @@ namespace Repository.Repositories
 
         static public List<borrower> dbGetAllBorrowerList()
         {
-            return dbGetBorrowerList("SELECT * FROM borrower;");
+            return dbGetBorrowerList("SELECT * FROM borrower;", null);
         }
 
         static public void dbAddBorrower(borrower b)
         {
-            dbInsert("INSERT INTO BORROWER VALUES ('" + b._pid + "', '" + b._firstname + "', '" + b._lastname + "', '" + b._address + "', '" + b._phoneno + "', '" + b._catId + "');");
+            dbInsert("INSERT INTO BORROWER VALUES (@ID, @FIRST, @LAST, @ADDRESS, @PHONE, @CATID);", new SqlParameter[] {
+                new SqlParameter() {
+                    ParameterName = "@ID",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = b._pid
+                },
+                new SqlParameter() {
+                    ParameterName = "@FIRST",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = b._firstname
+                },
+                new SqlParameter() {
+                    ParameterName = "@LAST",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = b._lastname
+                },
+                new SqlParameter() {
+                    ParameterName = "@ADDRESS",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = b._address
+                },
+                new SqlParameter() {
+                    ParameterName = "@PHONE",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = b._phoneno
+                },
+                new SqlParameter() {
+                    ParameterName = "@CATID",
+                    SqlDbType = System.Data.SqlDbType.Int,
+                    Value = b._catId
+                }
+            });
         }
 
         static public borrowerdetails dbGetBorrowerDetails(string pid)
         {
-            return dbGetBorrowerDetailsforpid("SELECT * FROM BORROW INNER JOIN BORROWER ON BORROW.PersonId = BORROWER.PersonId INNER JOIN COPY ON BORROW.Barcode = COPY.Barcode INNER JOIN BOOK ON COPY.ISBN = BOOK.ISBN WHERE BORROWER.PersonId LIKE '" + pid + "';");
+            return dbGetBorrowerDetailsforpid("SELECT * FROM BORROW INNER JOIN BORROWER ON BORROW.PersonId = BORROWER.PersonId INNER JOIN COPY ON BORROW.Barcode = COPY.Barcode INNER JOIN BOOK ON COPY.ISBN = BOOK.ISBN WHERE BORROWER.PersonId = @ID;", new SqlParameter[] {
+                new SqlParameter() {
+                    ParameterName = "@ID",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = pid
+                }
+            });
+        }
+
+        static public borrower getBorrower(string pid)
+        {
+            return dbGetBorrower("SELECT * FROM borrower WHERE PersonId = @ID;", new SqlParameter[] {
+                new SqlParameter() {
+                    ParameterName = "@ID",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = pid
+                }
+            });
         }
 
         static public bool dbDoesHeHaveBorrows(string pid)
         {
-            return dbHaveBorrows("SELECT COUNT(*) AS No FROM BORROWER INNER JOIN BORROW ON BORROWER.PersonId = BORROW.PersonId WHERE BORROWER.PersonId LIKE '" + pid + "' AND ReturnDate IS NULL;");
+            return dbHaveBorrows("SELECT COUNT(*) AS No FROM BORROWER INNER JOIN BORROW ON BORROWER.PersonId = BORROW.PersonId WHERE BORROWER.PersonId = @ID AND ReturnDate IS NULL;", new SqlParameter[] {
+                new SqlParameter() {
+                    ParameterName = "@ID",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = pid
+                }
+            });
         }
 
         static public void dbRemoveBorrower(string pid)
         {
-            dbRemoveOrEdit("DELETE FROM BORROWER WHERE PersonId LIKE '" + pid + "';");
+            dbRemoveOrEdit("DELETE FROM BORROWER WHERE PersonId = @ID;", new SqlParameter[] {
+                new SqlParameter() {
+                    ParameterName = "@ID",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = pid
+                }
+            });
         }
 
         static public void dbRemoveBorrows(string pid)
         {
-            dbRemoveOrEdit("DELETE FROM BORROW WHERE PersonId LIKE '" + pid + "';");
+            dbRemoveOrEdit("DELETE FROM BORROW WHERE PersonId = @ID;", new SqlParameter[] {
+                new SqlParameter() {
+                    ParameterName = "@ID",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = pid
+                }
+            });
         }
 
         static public void dbRemoveLogin(string pid)
         {
-            dbRemoveOrEdit("DELETE FROM LOGIN WHERE PersonId LIKE '" + pid + "';");
+            dbRemoveOrEdit("DELETE FROM LOGIN WHERE PersonId = @ID;", new SqlParameter[] {
+                new SqlParameter() {
+                    ParameterName = "@ID",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = pid
+                }
+            });
         }
 
         static public void dbEditBorrower(borrower b)
         {
-            dbRemoveOrEdit("UPDATE BORROWER SET FirstName='" + b._firstname + "', LastName='" + b._lastname + "', Address='" + b._address + "', Telno='" + b._phoneno + "', CategoryId='" + b._catId + "' WHERE PersonId='" + b._pid + "';");
+            dbRemoveOrEdit("UPDATE BORROWER SET FirstName=@FIRST, LastName=@LAST, Address=@ADDRESS, Telno=@PHONE, CategoryId=@CATID WHERE PersonId=@ID;", new SqlParameter[] {
+                new SqlParameter() {
+                    ParameterName = "@ID",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = b._pid
+                },
+                new SqlParameter() {
+                    ParameterName = "@FIRST",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = b._firstname
+                },
+                new SqlParameter() {
+                    ParameterName = "@LAST",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = b._lastname
+                },
+                new SqlParameter() {
+                    ParameterName = "@ADDRESS",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = b._address
+                },
+                new SqlParameter() {
+                    ParameterName = "@PHONE",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = b._phoneno
+                },
+                new SqlParameter() {
+                    ParameterName = "@CATID",
+                    SqlDbType = System.Data.SqlDbType.Int,
+                    Value = b._catId
+                }
+            });
         }
 
         static public void dbUppdateBorrow(borrow b)
         {
             if (b.returnDate == DateTime.MinValue)
-                dbRemoveOrEdit("UPDATE BORROW SET BorrowDate='" + b.borrowDate + "', ToBeReturnedDate='" + b.toBeReturnedDate + "', ReturnDate = NULL WHERE Barcode='" + b.barcode + "';");
+                dbRemoveOrEdit("UPDATE BORROW SET BorrowDate=@BD, ToBeReturnedDate=@TBRD, ReturnDate = NULL WHERE Barcode=@BC;", new SqlParameter[] {
+                new SqlParameter() {
+                    ParameterName = "@BD",
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                    Value = b.borrowDate
+                },
+                new SqlParameter() {
+                    ParameterName = "@TBRD",
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                    Value = b.toBeReturnedDate
+                },
+                new SqlParameter() {
+                    ParameterName = "@BC",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = b.barcode
+                }
+            });
         
             else
-                dbRemoveOrEdit("UPDATE BORROW SET BorrowDate='" + b.borrowDate + "', ToBeReturnedDate='" + b.toBeReturnedDate + "', ReturnDate='" + b.returnDate  + "' WHERE Barcode='" + b.barcode + "';");
+                dbRemoveOrEdit("UPDATE BORROW SET BorrowDate=@BD, ToBeReturnedDate=@TBRD, ReturnDate=@RD WHERE Barcode=@BC;", new SqlParameter[] {
+                new SqlParameter() {
+                    ParameterName = "@BD",
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                    Value = b.borrowDate
+                },
+                new SqlParameter() {
+                    ParameterName = "@TBRD",
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                    Value = b.toBeReturnedDate
+                },
+                new SqlParameter() {
+                    ParameterName = "@RD",
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                    Value = b.returnDate
+                },
+                new SqlParameter() {
+                    ParameterName = "@BC",
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                    Value = b.barcode
+                }
+            });
         }
         
-
         static public category dbGetCategory(string catID)
         {
-            return dbGetCategoryforCatId("SELECT * FROM CATEGORY WHERE CatergoryId = '" + catID + "';");
+            return dbGetCategoryforCatId("SELECT * FROM CATEGORY WHERE CatergoryId = @CATID;", new SqlParameter[] {
+                new SqlParameter() {
+                    ParameterName = "@CATID",
+                    SqlDbType = System.Data.SqlDbType.Int,
+                    Value = catID
+                }
+            });
         }
    }
 }
