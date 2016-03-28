@@ -157,7 +157,7 @@ namespace JAGLibrary.Controllers
         public ActionResult LoginFunc(Common.Models.LoginData m)
         {
             if (m._username == "admin")
-                m._username = "00000000-0000";
+                m._username = "99999999-9999";
          
             List<LoginData> userList = Service.Services.LoginService.getUserList();
             
